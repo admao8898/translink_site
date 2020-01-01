@@ -1,0 +1,6 @@
+[merge]
+	tool = kdiff3
+[diff]
+	guitool = kdiff3
+[core]
+	editor = \"C:/Program Files (x86)/GitExtensions/GitExtensions.exe\" fileeditor
