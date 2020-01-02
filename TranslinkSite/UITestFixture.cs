@@ -13,9 +13,6 @@ namespace TranslinkSite.TestCases
         public string url = "https://new.translink.ca/";
                
         public IWebDriver driver;
-        public readonly DateTime today = DateTime.Today; //current date 
-        public readonly DateTime today_10add = DateTime.Today.AddDays(10); //current date plus 10 days ahead 
-        public readonly DateTime today_7subtract = DateTime.Today.AddDays(-7); //current date subtract 7 days earlier 
 
         [SetUp]
         public void BeforeTest()
@@ -30,7 +27,6 @@ namespace TranslinkSite.TestCases
             IWebElement body = driver.FindElement(By.TagName("body"));
             
             Assert.IsTrue(body.Text.Contains("Metro Vancouver's transportation network, serving residents and visitors with public transit, major roads, bridges and Trip Planning."));
-            //Assert.IsTrue(body.Text.Contains("Select your school"), "Select your School Section is Missing");
 
         }
 
