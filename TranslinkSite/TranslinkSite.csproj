@@ -17,4 +17,8 @@
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="79.0.3945.3600" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="HelperFunctions\" />
+  </ItemGroup>
+
 </Project>

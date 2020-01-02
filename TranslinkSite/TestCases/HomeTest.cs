@@ -14,6 +14,7 @@ namespace TranslinkSite.TestCases
         {
             HomePageElements HomePageNav = new HomePageElements(driver); 
             HomePageNav.CompassCard();
+            HomePageNav.TransitAlerts(); 
         }
     }
 }
