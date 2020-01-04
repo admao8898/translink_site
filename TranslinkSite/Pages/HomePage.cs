@@ -17,7 +17,12 @@ namespace TranslinkSite.Pages
         //compass card elements
         private static readonly By CompassCardButton = By.LinkText("Visit compasscard.ca");
         // transit alerts
-        private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts"); 
+        private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts");
+        // transit general info: Fares, Rider Info, Contact Us, Schedules 
+        private static readonly By TransitFareCard = By.LinkText("Transit Fares"); 
+        private static readonly By RiderInfoCard = By.LinkText("Rider Info");
+        private static readonly By ContactUsCard = By.LinkText("Contact Us");
+        private static readonly By SchedulesCard = By.LinkText("Schedules");
 
         public HomePageElements(IWebDriver drv)
         {
@@ -60,6 +65,35 @@ namespace TranslinkSite.Pages
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             Assert.IsTrue(driver.Url.Contains("Profile/Register"));
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Sign Up For Transit Alerts")), "Alerts SignUp Title Is Incorrect");
+            driver.Navigate().Back(); 
+
+        }
+
+        public void TransitGenInfo()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
+            IWebElement Fares = driver.FindElement(HomePageElements.TransitFareCard);
+            jse.ExecuteScript("arguments[0].click()", Fares);
+            Assert.IsTrue(driver.Url.Contains("transit-fares"));
+            driver.Navigate().Back();
+
+            IWebElement RiderInfo = driver.FindElement(HomePageElements.RiderInfoCard);
+            jse.ExecuteScript("arguments[0].click()", RiderInfo);
+            Assert.IsTrue(driver.Url.Contains("rider-guide"));
+            driver.Navigate().Back();
+
+            IWebElement ContactUs = driver.FindElement(HomePageElements.ContactUsCard);
+            jse.ExecuteScript("arguments[0].click()", ContactUs);
+            Assert.IsTrue(driver.Url.Contains("more-information/contact-information"));
+            driver.Navigate().Back();
+
+            IWebElement Schedule = driver.FindElement(HomePageElements.SchedulesCard);
+            jse.ExecuteScript("arguments[0].click()", Schedule);
+            Assert.IsTrue(driver.Url.Contains("schedules-and-maps")); 
+            driver.Navigate().Back();
 
         }
     }
