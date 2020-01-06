@@ -12,9 +12,9 @@ namespace TranslinkSite.TestCases
 
         public void VerifyPageContents()
         {
-            HomePageElements HomePageNav = new HomePageElements(driver); 
-            //HomePageNav.CompassCard();
-            //HomePageNav.TransitAlerts();
+            HomePageElements HomePageNav = new HomePageElements(driver);
+            HomePageNav.CompassCard();
+            HomePageNav.TransitAlerts();
             HomePageNav.TransitGenInfo(); 
 
         }

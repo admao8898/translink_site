@@ -14,5 +14,13 @@ namespace TranslinkSite.TestCases
             TransitAlertPageElements TransAlerts = new TransitAlertPageElements(driver);
             TransAlerts.SignUpEmpty(); 
         }
+
+        [TestCase("John"), Order(2)]
+        public void SignUpNameOnly(string name_value)
+        {
+            TransitAlertPageElements TransAlerts = new TransitAlertPageElements(driver);
+            TransAlerts.SignUpPartialFilled(name_value); 
+
+        }
     }
 }

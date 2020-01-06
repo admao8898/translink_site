@@ -75,23 +75,19 @@ namespace TranslinkSite.Pages
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-            IWebElement Fares = driver.FindElement(HomePageElements.TransitFareCard);
-            jse.ExecuteScript("arguments[0].click()", Fares);
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(HomePageElements.TransitFareCard));
             Assert.IsTrue(driver.Url.Contains("transit-fares"));
             driver.Navigate().Back();
 
-            IWebElement RiderInfo = driver.FindElement(HomePageElements.RiderInfoCard);
-            jse.ExecuteScript("arguments[0].click()", RiderInfo);
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(HomePageElements.RiderInfoCard));
             Assert.IsTrue(driver.Url.Contains("rider-guide"));
             driver.Navigate().Back();
 
-            IWebElement ContactUs = driver.FindElement(HomePageElements.ContactUsCard);
-            jse.ExecuteScript("arguments[0].click()", ContactUs);
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(HomePageElements.ContactUsCard));
             Assert.IsTrue(driver.Url.Contains("more-information/contact-information"));
             driver.Navigate().Back();
 
-            IWebElement Schedule = driver.FindElement(HomePageElements.SchedulesCard);
-            jse.ExecuteScript("arguments[0].click()", Schedule);
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(HomePageElements.SchedulesCard));
             Assert.IsTrue(driver.Url.Contains("schedules-and-maps")); 
             driver.Navigate().Back();
 
