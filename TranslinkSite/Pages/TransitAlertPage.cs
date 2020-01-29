@@ -51,7 +51,6 @@ namespace TranslinkSite.Pages
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
 
-            //RandomCharGenerator randomCharGenerator = new RandomCharGenerator(); 
             string namevalue = RandomWordGenerator(3, "random" ); 
             driver.FindElement(NameField).SendKeys(namevalue);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
