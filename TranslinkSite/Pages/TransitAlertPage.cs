@@ -5,11 +5,12 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
 using System.Threading;
-using TranslinkSite.TestCases;
+using TranslinkSite.Pages;
+using static TranslinkSite.HelperFunctions.RandomCharGenerator; 
 
 namespace TranslinkSite.Pages
 {
-    public class TransitAlertPageElements
+    public class TransitAlertPage
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
@@ -19,7 +20,7 @@ namespace TranslinkSite.Pages
         private static readonly By EmailField = By.Id("pagecolumnsrows_0_txtEmail1");
         private static readonly By SubmitButton = By.Id("pagecolumnsrows_0_btnSubmit"); 
 
-        public TransitAlertPageElements(IWebDriver drv)
+        public TransitAlertPage(IWebDriver drv)
         {
             driver = drv;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
@@ -31,11 +32,11 @@ namespace TranslinkSite.Pages
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
            
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertPageElements.TransitAlertsButton));
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertPageElements.SubmitButton));
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
 
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a first name")), "Empty First Name Message Missing");
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a valid email address")), "Empty Email Field Message Missing");
@@ -44,14 +45,16 @@ namespace TranslinkSite.Pages
 
         }
 
-        public void SignUpPartialFilled(string name)
+        public void SignUpPartialFilled()
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertPageElements.TransitAlertsButton));
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
 
-            driver.FindElement(TransitAlertPageElements.NameField).SendKeys(name);
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertPageElements.SubmitButton));
+            //RandomCharGenerator randomCharGenerator = new RandomCharGenerator(); 
+            string namevalue = RandomWordGenerator(3, "random" ); 
+            driver.FindElement(NameField).SendKeys(namevalue);
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
 
             //Verify all other Fields contain validation messages other than first name field 
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a valid email address")), "Empty Email Field Message Missing");
@@ -65,7 +68,7 @@ namespace TranslinkSite.Pages
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
 
-            driver.FindElement(TransitAlertPageElements.EmailField).SendKeys(email);
+            driver.FindElement(EmailField).SendKeys(email);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
 
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a valid email address")), "Empty Email Field Message Missing");

@@ -5,11 +5,12 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
 using System.Threading;
-using TranslinkSite.TestCases;
+using TranslinkSite.Pages;
+
 
 namespace TranslinkSite.Pages
 {
-    public class HomePageElements
+    public class HomePage
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
@@ -24,18 +25,18 @@ namespace TranslinkSite.Pages
         private static readonly By ContactUsCard = By.LinkText("Contact Us");
         private static readonly By SchedulesCard = By.LinkText("Schedules");
 
-        public HomePageElements(IWebDriver drv)
+        public HomePage(IWebDriver drv)
         {
             driver = drv;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); 
         }
-
+        
         public void CompassCard()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Compass is your key!")), "Compass Article Title is Incorrect");
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("TransLink's reloadable fare card that works everywhere on transit.")), "Compass Article Body is Incorrect"); 
-            IWebElement CompassCardLink = driver.FindElement(HomePageElements.CompassCardButton);
+            IWebElement CompassCardLink = driver.FindElement(CompassCardButton);
             //user exception of element not clickable at point (x,y), tried Actions method doesn't work. 
             //Use the below method instead with reference to 
             //https://stackoverflow.com/questions/38923356/element-is-not-clickable-at-point-other-element-would-receive-the-click
@@ -58,7 +59,7 @@ namespace TranslinkSite.Pages
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Know before you go!")), "Alerts Article Title is Incorrect");
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Create notifications for the transit services that matter most to you. Sign up to receive transit alerts via SMS or email.")), "Alerts Article Body is Incorrect");
 
-            IWebElement SignUpForAlerts = driver.FindElement(HomePageElements.TransitAlertsButton);
+            IWebElement SignUpForAlerts = driver.FindElement(TransitAlertsButton);
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click()", SignUpForAlerts);
 
@@ -75,19 +76,19 @@ namespace TranslinkSite.Pages
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(HomePageElements.TransitFareCard));
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitFareCard));
             Assert.IsTrue(driver.Url.Contains("transit-fares"));
             driver.Navigate().Back();
 
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(HomePageElements.RiderInfoCard));
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RiderInfoCard));
             Assert.IsTrue(driver.Url.Contains("rider-guide"));
             driver.Navigate().Back();
 
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(HomePageElements.ContactUsCard));
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
             Assert.IsTrue(driver.Url.Contains("more-information/contact-information"));
             driver.Navigate().Back();
 
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(HomePageElements.SchedulesCard));
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SchedulesCard));
             Assert.IsTrue(driver.Url.Contains("schedules-and-maps")); 
             driver.Navigate().Back();
 

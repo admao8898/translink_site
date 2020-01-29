@@ -5,11 +5,12 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
 using System.Threading;
-using TranslinkSite.TestCases;
+using TranslinkSite.Pages;
+
 
 namespace TranslinkSite.Pages
 {
-    public class NextBusPageElements
+    public class NextBusPage
     {
         //Next Bus ~ "NB"
         private readonly IWebDriver driver;
@@ -29,7 +30,7 @@ namespace TranslinkSite.Pages
         private static readonly By R5RapidBusBurrardSt = By.XPath("//a[.='Burrard Stn Bay 7']");
         private static readonly By TryNewNBLink = By.LinkText("Try the new Next Bus");
         
-        public NextBusPageElements(IWebDriver drv)
+        public NextBusPage(IWebDriver drv)
         {
             driver = drv;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));

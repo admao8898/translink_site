@@ -12,8 +12,8 @@ namespace TranslinkSite.TestCases
         [TestCase("R5"), Order(1)]
         public void TextViewNB(string busroute)
         {
-            NextBusPageElements NextBus = new NextBusPageElements(driver);
-            NextBus.TextViewNB(busroute);
+            NextBusPage nextBus = new NextBusPage(driver);
+            nextBus.TextViewNB(busroute);
         }
     }
 }
