@@ -18,7 +18,18 @@ namespace TranslinkSite.Pages
         private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts");
         private static readonly By NameField = By.Id("pagecolumnsrows_0_txtFirstName");
         private static readonly By EmailField = By.Id("pagecolumnsrows_0_txtEmail1");
-        private static readonly By SubmitButton = By.Id("pagecolumnsrows_0_btnSubmit"); 
+        private static readonly By SubmitButton = By.Id("pagecolumnsrows_0_btnSubmit");
+
+        // Field Validation Error Messages 
+        public readonly string ExpectedNameErrorMsg = "Please enter a first name";
+        public readonly string ExpectedEmailErrorMsg = "Please enter a valid email address";
+        public readonly string ExpectedPasswordErrorMsg = "Your password must be at least 8 characters";
+        public readonly string ExpectedTermsErrorMsg = "You must agree to the terms in order to use this service";
+
+        public readonly string NameErrorMsgMissing = "Empty First Name Message Missing";
+        public readonly string EmailErrorMsgMissing = "Empty Email Field Message Missing";
+        public readonly string PasswordErrorMsgMissing = "Password Field Message Missing";
+        public readonly string TermsErrorMsgMissing = "Terms & Conditions Empty Message Missing";
 
         public TransitAlertPage(IWebDriver drv)
         {
@@ -36,12 +47,7 @@ namespace TranslinkSite.Pages
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
-
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a first name")), "Empty First Name Message Missing");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a valid email address")), "Empty Email Field Message Missing");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Your password must be at least 8 characters")), "Password Field Message Missing");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("You must agree to the terms in order to use this service")), "Terms & Conditions Empty Message Missing");
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));          
 
         }
 
@@ -54,11 +60,7 @@ namespace TranslinkSite.Pages
             string namevalue = RandomWordGenerator(3, "random" ); 
             driver.FindElement(NameField).SendKeys(namevalue);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
-
-            //Verify all other Fields contain validation messages other than first name field 
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a valid email address")), "Empty Email Field Message Missing");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Your password must be at least 8 characters")), "Password Field Message Missing");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("You must agree to the terms in order to use this service")), "Terms & Conditions Empty Message Missing");
+            
         }
 
         public void EmailInvalidValue(string email)
@@ -70,10 +72,7 @@ namespace TranslinkSite.Pages
             driver.FindElement(EmailField).SendKeys(email);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
 
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a valid email address")), "Empty Email Field Message Missing");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Your password must be at least 8 characters")), "Password Field Message Missing");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("You must agree to the terms in order to use this service")), "Terms & Conditions Empty Message Missing");
-
+           
         }
 
         public void Email_NameValid(string email, string name)
@@ -86,11 +85,8 @@ namespace TranslinkSite.Pages
             driver.FindElement(EmailField).SendKeys(email);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
             
-            Assert.IsFalse((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a valid email address")), "Empty Email Field Message Missing");
-            Assert.IsFalse((driver.FindElement(By.TagName("body")).Text.Contains("Please enter a first name")), "Empty First Name Message Missing");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Your password must be at least 8 characters")), "Password Field Message Missing");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("You must agree to the terms in order to use this service")), "Terms & Conditions Empty Message Missing");
-
         }
+
+
     }
 }
