@@ -40,13 +40,10 @@ namespace TranslinkSite.Pages
         public void SignUpEmpty()
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-           
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);           
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));          
 
         }
