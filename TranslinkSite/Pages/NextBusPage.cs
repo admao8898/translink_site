@@ -44,7 +44,9 @@ namespace TranslinkSite.Pages
             //apply a switch case for couple of other routes 
 
             driver.FindElement(NextBusMenuLink).Click();
-            driver.FindElement(NextBusField).SendKeys(busroute);
+            //driver.FindElement(NextBusField).SendKeys(busroute);
+            jse.ExecuteScript("arguments[0].value='R5';", driver.FindElement(NextBusField));
+
             //driver.FindElement(FindNB_Button).Click();
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(FindNB_Button));
 
