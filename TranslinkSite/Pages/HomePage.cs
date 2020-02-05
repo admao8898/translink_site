@@ -15,10 +15,20 @@ namespace TranslinkSite.Pages
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
 
-        //compass card elements
-        private static readonly By CompassCardButton = By.LinkText("Visit compasscard.ca");
+        //compass card 
+        private static readonly By CompassCardButton = By.XPath("//a[.='Visit compasscard.ca']");
+        public readonly string CompassCardTitle = "Compass is your key!";
+        public readonly string CompassCardTitleErrorMsg = "Compass Article Title is Incorrect";
+        public readonly string CompassCardDescription = "TransLink's reloadable fare card that works everywhere on transit.";
+        public readonly string CompassCardDescriptionErrorMsg = "Compass Article Body is Incorrect";
+
         // transit alerts
         private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts");
+        public readonly string TransitAlertsCardTitle = "Know before you go!";
+        public readonly string TransitAlertsCardTitleErrorMsg = "Alerts Article Title is Incorrect";
+        public readonly string TransitAlertsCardDescription = "Create notifications for the transit services that matter most to you. Sign up to receive transit alerts via SMS or email.";
+        public readonly string TransitAlertsCardDescriptionErrorMsg = "Alerts Article Body is Incorrect";
+
         // transit general info: Fares, Rider Info, Contact Us, Schedules 
         private static readonly By TransitFareCard = By.LinkText("Transit Fares"); 
         private static readonly By RiderInfoCard = By.LinkText("Rider Info");
@@ -30,68 +40,65 @@ namespace TranslinkSite.Pages
             driver = drv;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); 
         }
-        
-        public void CompassCard()
+
+        public void DriverSwitchBackToHomePage()
         {
+            driver.SwitchTo().Window(driver.WindowHandles.First());
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Compass is your key!")), "Compass Article Title is Incorrect");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("TransLink's reloadable fare card that works everywhere on transit.")), "Compass Article Body is Incorrect"); 
-            IWebElement CompassCardLink = driver.FindElement(CompassCardButton);
+        }
+
+        public void GoBackToHomePage()
+        {
+            driver.Navigate().Back();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+        }
+
+        public void GoToCompassCardCard()
+        {
             //user exception of element not clickable at point (x,y), tried Actions method doesn't work. 
             //Use the below method instead with reference to 
             //https://stackoverflow.com/questions/38923356/element-is-not-clickable-at-point-other-element-would-receive-the-click
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;  
-            jse.ExecuteScript("arguments[0].click()", CompassCardLink);
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(CompassCardButton));
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);                        
             
             //Because clicking on link opens new tab, driver must switch windows
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
-            Assert.IsTrue(driver.Url.Contains("compasscard"), "Compass Card is Not Displayed");
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
-            driver.SwitchTo().Window(driver.WindowHandles.First());
-            
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);                
         }
 
-        public void TransitAlerts()
+        public void GoToTransitAlerts()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Know before you go!")), "Alerts Article Title is Incorrect");
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Create notifications for the transit services that matter most to you. Sign up to receive transit alerts via SMS or email.")), "Alerts Article Body is Incorrect");
-
             IWebElement SignUpForAlerts = driver.FindElement(TransitAlertsButton);
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click()", SignUpForAlerts);
-
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            Assert.IsTrue(driver.Url.Contains("Profile/Register"));
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Sign Up For Transit Alerts")), "Alerts SignUp Title Is Incorrect");
-            driver.Navigate().Back(); 
-
         }
 
-        public void TransitGenInfo()
+        public void GoToFares()
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitFareCard));
-            Assert.IsTrue(driver.Url.Contains("transit-fares"));
-            driver.Navigate().Back();
+        }
 
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RiderInfoCard));
-            Assert.IsTrue(driver.Url.Contains("rider-guide"));
-            driver.Navigate().Back();
-
+        public void GoToContactUs()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
-            Assert.IsTrue(driver.Url.Contains("more-information/contact-information"));
-            driver.Navigate().Back();
+        }
 
+        public void GoToRiderInfo()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RiderInfoCard));
+        }
+
+        public void GoToSchedules()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SchedulesCard));
-            Assert.IsTrue(driver.Url.Contains("schedules-and-maps")); 
-            driver.Navigate().Back();
-
         }
     }
 }
