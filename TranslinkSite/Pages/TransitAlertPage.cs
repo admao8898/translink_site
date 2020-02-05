@@ -31,59 +31,53 @@ namespace TranslinkSite.Pages
         public readonly string PasswordErrorMsgMissing = "Password Field Message Missing";
         public readonly string TermsErrorMsgMissing = "Terms & Conditions Empty Message Missing";
 
+
         public TransitAlertPage(IWebDriver drv)
         {
             driver = drv;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
-        public void SignUpEmpty()
+        public void GoToSignUpForTransAlert()
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);           
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
-
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));          
-
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
         }
 
-        public void SignUpPartialFilled()
+        public void EnterFirstName(string FirstName, string Random)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
 
-            string namevalue = RandomWordGenerator(3, "random" ); 
-            driver.FindElement(NameField).SendKeys(namevalue);
+            if (FirstName == null && Random == "no") // Empty Name Field 
+            {
+                return; 
+            }
+
+            if (FirstName == null && Random == "yes") // Random Name 
+            {
+                string namevalue = RandomWordGenerator(5, "random");
+                driver.FindElement(NameField).SendKeys(namevalue);
+                jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
+            }
+
+            else // All other cases 
+            {
+                driver.FindElement(NameField).SendKeys(FirstName); 
+            }
+        }
+
+        public void EnterEmail(string Email)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            driver.FindElement(EmailField).SendKeys(Email);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
-            
         }
 
-        public void EmailInvalidValue(string email)
+        public void SubmitForm()
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
-
-            driver.FindElement(EmailField).SendKeys(email);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
-
-           
         }
-
-        public void Email_NameValid(string email, string name)
-        {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
-
-            driver.FindElement(NameField).SendKeys(name); 
-            driver.FindElement(EmailField).SendKeys(email);
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
-            
-        }
-
-
     }
 }
