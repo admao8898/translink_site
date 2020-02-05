@@ -15,68 +15,101 @@ namespace TranslinkSite.Pages
         //Next Bus ~ "NB"
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
+        private readonly string NextBusURL = "https://nb.translink.ca";
 
         private static readonly By NextBusTab = By.Id("next-bus");
         private static readonly By NextBusMenuLink = By.XPath("//a[.='Next Bus']");
         private static readonly By NextBusField = By.Name("nextBusQuery");
+        private static readonly By NextBusTextField = By.Id("MainContent_textStop");
         private static readonly By FindNB_Button = By.Id("carouselNextBus");
+        private static readonly By SubmitNextBusButton = By.Id("MainContent_linkSearch");
         private static readonly By Settings = By.Id("myPreferenceUrl");
-        private static readonly By ClockTime = By.Id("hhmm"); 
+        private static readonly By ClockTime = By.Id("hhmm");
+        private static readonly By CountDown = By.Id("countdown");
 
         private static readonly By MapView = By.Id("mapview_tab");
-        private static readonly By RefreshPage = By.Id("refresh_tab"); 
+        private static readonly By RefreshPage = By.Id("refresh_tab");
 
-        private static readonly By RouteTopDestination = By.XPath("//a[contains(@href,'direction/EAST')]");
-        private static readonly By RouteBottomDestination = By.XPath("//a[contains(@href,'direction/WEST')]");
-        private static readonly By R5RapidBusStop = By.XPath("//a[.='Kootenay Loop Bay 8']");
+        private static readonly By RouteTopDestination = By.XPath("//*[@id='MainContent_PanelStops']/*/section[3]/article");
+        private static readonly By RouteBottomDestination = By.XPath("//*[@id='MainContent_PanelStops']/*/article");
+        private static readonly By SecondStop = By.XPath("//*[@id='MainContent_PanelStops']//*/article[2]");
         private static readonly By TryNewNBLink = By.LinkText("Try the new Next Bus");
-        
+
+        public readonly string NextBusPageTitle = "Next bus departures in real-time";
+        public readonly string NextBusPageTitleErrorMsg = "Next bus Page Title Missing";
+
+
         public NextBusPage(IWebDriver drv)
         {
             driver = drv;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            
         }
 
-        public void TextViewNB (string busroute)
+        public void GoToNextBus()
+        {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.Navigate().GoToUrl(NextBusURL);
+        }
+
+        public void EnterBusRoute(string busroute)
+        {
+            driver.FindElement(NextBusTextField).SendKeys(busroute);
+        }
+
+        public void ClickFindBusRoute()
+        {
+            driver.FindElement(SubmitNextBusButton).Click();
+        }
+
+        public void ChangeSettings(string timedisplay)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            //apply a switch case for couple of other routes 
-
-            driver.FindElement(NextBusMenuLink).Click();
-            //driver.FindElement(NextBusField).SendKeys(busroute);
-            jse.ExecuteScript("arguments[0].value='R5';", driver.FindElement(NextBusField));
-
-            //driver.FindElement(FindNB_Button).Click();
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(FindNB_Button));
-
-
-            //Set Real Time Display to Clock Time instead default of Countdown 
             driver.FindElement(Settings).Click();
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains("Time display")), "Setting Table: Time Display is Missing");
 
-            //driver.FindElement(ClockTime).Click();
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(ClockTime));
+            if (timedisplay == "ClockTime")
+            {
+                jse.ExecuteScript("arguments[0].click()", driver.FindElement(ClockTime));
+                driver.Navigate().Back();
+                return;
+            }
 
-            driver.Navigate().Back(); 
-        
-            Assert.IsTrue(driver.Url.Contains(busroute), "Incorrect Bus Route is Displayed");
-            driver.FindElement(RouteTopDestination).Click(); 
-            //driver.FindElement(R5RapidBusStop).Click();
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(R5RapidBusStop));
+            if (timedisplay == "CountDown")
+            {
+                jse.ExecuteScript("arguments[0].click()", driver.FindElement(CountDown));
+                driver.Navigate().Back();
+                return;
+            }
 
-
-            //View In Map View 
-            driver.FindElement(MapView).Click();
-            Thread.Sleep(2000);
-
-            //Refresh Button used to be in list of tabs and now is hidden
-            //B/c of this must use JS to click it 
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RefreshPage));
-            Thread.Sleep(2000); 
-        
+            else
+            {
+                throw new Exception("Error: Please Include Desired Setting Value of either: ClockTime or Countdown");
+            }
         }
-     
 
+        public void ClickTopDestination()
+        {
+            driver.FindElement(RouteTopDestination).Click();
+        }
+
+        public void ClickBottomDestination()
+        {
+            driver.FindElement(RouteBottomDestination).Click();
+        }
+
+        public void Click2ndBusStop()
+        {
+            driver.FindElement(SecondStop).Click();
+        }
+
+        public void MapViewOption()
+        {
+            driver.FindElement(MapView).Click();
+        }
+
+        public void ClickHiddenRefreshButton()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RefreshPage));
+        } 
     }
 }
