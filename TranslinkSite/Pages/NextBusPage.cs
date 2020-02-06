@@ -60,7 +60,7 @@ namespace TranslinkSite.Pages
         {
             driver.FindElement(SubmitNextBusButton).Click();
         }
-
+        // Two options for Time Display 
         public void ChangeSettings(string timedisplay)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
