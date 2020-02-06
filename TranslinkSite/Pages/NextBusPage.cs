@@ -15,7 +15,7 @@ namespace TranslinkSite.Pages
         //Next Bus ~ "NB"
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
-        private readonly string NextBusURL = "https://nb.translink.ca";
+        private readonly string nextBusURL = "https://nb.translink.ca";
 
         private static readonly By NextBusTab = By.Id("next-bus");
         private static readonly By NextBusMenuLink = By.XPath("//a[.='Next Bus']");
@@ -35,8 +35,8 @@ namespace TranslinkSite.Pages
         private static readonly By SecondStop = By.XPath("//*[@id='MainContent_PanelStops']//*/article[2]");
         private static readonly By TryNewNBLink = By.LinkText("Try the new Next Bus");
 
-        public readonly string NextBusPageTitle = "Next bus departures in real-time";
-        public readonly string NextBusPageTitleErrorMsg = "Next bus Page Title Missing";
+        public readonly string nextBusPageTitle = "Next bus departures in real-time";
+        public readonly string nextBusPageTitleErrorMsg = "Next bus Page Title Missing";
 
 
         public NextBusPage(IWebDriver drv)
@@ -48,12 +48,12 @@ namespace TranslinkSite.Pages
         public void GoToNextBus()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Navigate().GoToUrl(NextBusURL);
+            driver.Navigate().GoToUrl(nextBusURL);
         }
 
-        public void EnterBusRoute(string busroute)
+        public void EnterBusRoute(string busRoute)
         {
-            driver.FindElement(NextBusTextField).SendKeys(busroute);
+            driver.FindElement(NextBusTextField).SendKeys(busRoute);
         }
 
         public void ClickFindBusRoute()
@@ -61,19 +61,19 @@ namespace TranslinkSite.Pages
             driver.FindElement(SubmitNextBusButton).Click();
         }
         // Two options for Time Display 
-        public void ChangeSettings(string timedisplay)
+        public void ChangeSettings(string timedDisplay)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             driver.FindElement(Settings).Click();
 
-            if (timedisplay == "ClockTime")
+            if (timedDisplay == "ClockTime")
             {
                 jse.ExecuteScript("arguments[0].click()", driver.FindElement(ClockTime));
                 driver.Navigate().Back();
                 return;
             }
 
-            if (timedisplay == "CountDown")
+            if (timedDisplay == "CountDown")
             {
                 jse.ExecuteScript("arguments[0].click()", driver.FindElement(CountDown));
                 driver.Navigate().Back();

@@ -15,17 +15,17 @@ namespace TranslinkSite.TestCases
         [TestCase("R5"), Order(1)]
         [TestCase("99")]
         [TestCase("145")]
-        public void NextBusRoute(string busroute)
+        public void NextBusRoute(string busRoute)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
             nextBusPage.GoToNextBus();
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.NextBusPageTitle)), nextBusPage.NextBusPageTitleErrorMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.nextBusPageTitle)), nextBusPage.nextBusPageTitleErrorMsg);
 
-            nextBusPage.EnterBusRoute(busroute);
+            nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.ClickFindBusRoute();
 
             nextBusPage.ChangeSettings("ClockTime");
-            Assert.IsTrue(driver.Url.Contains(busroute), "Incorrect Bus Route is Displayed");
+            Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
 
             //nextBusPage.ClickTopDestination();
             nextBusPage.ClickBottomDestination();

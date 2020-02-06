@@ -45,32 +45,32 @@ namespace TranslinkSite.Pages
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
         }
 
-        public void EnterFirstName(string FirstName, string Random)
+        public void EnterFirstName(string firstName, string random)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
 
-            if (FirstName == null && Random == "no") // Empty Name Field 
+            if (firstName == null && random == "no") // Empty Name Field 
             {
                 return; 
             }
 
-            if (FirstName == null && Random == "yes") // Random Name 
+            if (firstName == null && random == "yes") // Random Name 
             {
-                string namevalue = RandomWordGenerator(5, "random");
-                driver.FindElement(NameField).SendKeys(namevalue);
+                string nameValue = RandomWordGenerator(5, "random");
+                driver.FindElement(NameField).SendKeys(nameValue);
                 jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
             }
 
             else // All other cases 
             {
-                driver.FindElement(NameField).SendKeys(FirstName); 
+                driver.FindElement(NameField).SendKeys(firstName); 
             }
         }
 
-        public void EnterEmail(string Email)
+        public void EnterEmail(string email)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            driver.FindElement(EmailField).SendKeys(Email);
+            driver.FindElement(EmailField).SendKeys(email);
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
         }
 
