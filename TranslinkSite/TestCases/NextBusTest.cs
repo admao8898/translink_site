@@ -17,24 +17,24 @@ namespace TranslinkSite.TestCases
         [TestCase("145")]
         public void NextBusRoute(string busroute)
         {
-            NextBusPage nextBus = new NextBusPage(driver);
-            nextBus.GoToNextBus();
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBus.NextBusPageTitle)), nextBus.NextBusPageTitleErrorMsg);
+            NextBusPage nextBusPage = new NextBusPage(driver);
+            nextBusPage.GoToNextBus();
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.NextBusPageTitle)), nextBusPage.NextBusPageTitleErrorMsg);
 
-            nextBus.EnterBusRoute(busroute);
-            nextBus.ClickFindBusRoute();
+            nextBusPage.EnterBusRoute(busroute);
+            nextBusPage.ClickFindBusRoute();
 
-            nextBus.ChangeSettings("ClockTime");
+            nextBusPage.ChangeSettings("ClockTime");
             Assert.IsTrue(driver.Url.Contains(busroute), "Incorrect Bus Route is Displayed");
 
-            //nextBus.ClickTopDestination();
-            nextBus.ClickBottomDestination();
-            nextBus.Click2ndBusStop();
+            //nextBusPage.ClickTopDestination();
+            nextBusPage.ClickBottomDestination();
+            nextBusPage.Click2ndBusStop();
 
-            nextBus.MapViewOption();
+            nextBusPage.MapViewOption();
             Thread.Sleep(2000);
 
-            nextBus.ClickHiddenRefreshButton();
+            nextBusPage.ClickHiddenRefreshButton();
             Thread.Sleep(2000); 
         }
     }

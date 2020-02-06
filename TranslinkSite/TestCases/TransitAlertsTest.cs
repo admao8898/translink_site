@@ -13,81 +13,80 @@ namespace TranslinkSite.TestCases
         [TestCase(null, "no"), Order(1)]
         public void SignUpEmptyForm(string NameValue, string Randomize)
         {
-            TransitAlertPage transit_alertPage = new TransitAlertPage(driver);
-            transit_alertPage.GoToSignUpForTransAlert();
-            transit_alertPage.EnterFirstName(NameValue, Randomize);
-            transit_alertPage.SubmitForm(); 
+            TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
+            transitAlertPage.GoToSignUpForTransAlert();
+            transitAlertPage.EnterFirstName(NameValue, Randomize);
+            transitAlertPage.SubmitForm(); 
 
             //Verify Field Validation and correction message  
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedNameErrorMsg), transit_alertPage.NameErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedEmailErrorMsg), transit_alertPage.EmailErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedPasswordErrorMsg), transit_alertPage.PasswordErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedTermsErrorMsg), transit_alertPage.TermsErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedNameErrorMsg), transitAlertPage.NameErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedEmailErrorMsg), transitAlertPage.EmailErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedPasswordErrorMsg), transitAlertPage.PasswordErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedTermsErrorMsg), transitAlertPage.TermsErrorMsgMissing);
         }
         
         [TestCase(null, "yes"), Order(2)]
         public void SignUpRandomNameOnly(string NameValue, string Randomize)
         {
-            TransitAlertPage transit_alertPage = new TransitAlertPage(driver);
-            transit_alertPage.GoToSignUpForTransAlert();
-            transit_alertPage.EnterFirstName(NameValue, Randomize);
-            transit_alertPage.SubmitForm();
+            TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
+            transitAlertPage.GoToSignUpForTransAlert();
+            transitAlertPage.EnterFirstName(NameValue, Randomize);
+            transitAlertPage.SubmitForm();
 
             //Verify Field Validation and correction message  
-            Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedNameErrorMsg), transit_alertPage.NameErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedEmailErrorMsg), transit_alertPage.EmailErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedPasswordErrorMsg), transit_alertPage.PasswordErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedTermsErrorMsg), transit_alertPage.TermsErrorMsgMissing);
+            Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedNameErrorMsg), transitAlertPage.NameErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedEmailErrorMsg), transitAlertPage.EmailErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedPasswordErrorMsg), transitAlertPage.PasswordErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedTermsErrorMsg), transitAlertPage.TermsErrorMsgMissing);
         }
 
         [TestCase("Jake", "no"), Order(3)]
         public void SignUpNonRandomNameOnly(string NameValue, string Randomize)
         {
-            TransitAlertPage transit_alertPage = new TransitAlertPage(driver);
-            transit_alertPage.GoToSignUpForTransAlert();
-            transit_alertPage.EnterFirstName(NameValue, Randomize);
-            transit_alertPage.SubmitForm();
+            TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
+            transitAlertPage.GoToSignUpForTransAlert();
+            transitAlertPage.EnterFirstName(NameValue, Randomize);
+            transitAlertPage.SubmitForm();
 
             //Verify Field Validation and correction message 
-            Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedNameErrorMsg), transit_alertPage.NameErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedEmailErrorMsg), transit_alertPage.EmailErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedPasswordErrorMsg), transit_alertPage.PasswordErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedTermsErrorMsg), transit_alertPage.TermsErrorMsgMissing);
+            Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedNameErrorMsg), transitAlertPage.NameErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedEmailErrorMsg), transitAlertPage.EmailErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedPasswordErrorMsg), transitAlertPage.PasswordErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedTermsErrorMsg), transitAlertPage.TermsErrorMsgMissing);
         }
-
-
+        
         [TestCase("special_character@$%!.com"), Order(4)]
         [TestCase("special~#$@sample.com")]
         [TestCase("234@#$@email3.com")]
         public void InvalidEmailOnly(string EmailValue)
         {
-            TransitAlertPage transit_alertPage = new TransitAlertPage(driver);
-            transit_alertPage.GoToSignUpForTransAlert();
-            transit_alertPage.EnterEmail(EmailValue);
-            transit_alertPage.SubmitForm();
+            TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
+            transitAlertPage.GoToSignUpForTransAlert();
+            transitAlertPage.EnterEmail(EmailValue);
+            transitAlertPage.SubmitForm();
 
             //Verify Field Validation and correction message  
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedNameErrorMsg), transit_alertPage.NameErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedEmailErrorMsg), transit_alertPage.EmailErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedPasswordErrorMsg), transit_alertPage.PasswordErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedTermsErrorMsg), transit_alertPage.TermsErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedNameErrorMsg), transitAlertPage.NameErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedEmailErrorMsg), transitAlertPage.EmailErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedPasswordErrorMsg), transitAlertPage.PasswordErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedTermsErrorMsg), transitAlertPage.TermsErrorMsgMissing);
 
         }
 
         [TestCase("sample88_123@nonameemail.com", "Mitch", "no"), Order(5)]
         public void Valid_Email_Name(string EmailValue, string NameValue, string Randomize)
         {
-            TransitAlertPage transit_alertPage = new TransitAlertPage(driver);
-            transit_alertPage.GoToSignUpForTransAlert();
-            transit_alertPage.EnterFirstName(NameValue, Randomize);
-            transit_alertPage.EnterEmail(EmailValue);
-            transit_alertPage.SubmitForm();
+            TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
+            transitAlertPage.GoToSignUpForTransAlert();
+            transitAlertPage.EnterFirstName(NameValue, Randomize);
+            transitAlertPage.EnterEmail(EmailValue);
+            transitAlertPage.SubmitForm();
 
             //Verify Field Validation and correction message  
-            Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedNameErrorMsg), transit_alertPage.NameErrorMsgMissing);
-            Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedEmailErrorMsg), transit_alertPage.EmailErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedPasswordErrorMsg), transit_alertPage.PasswordErrorMsgMissing);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transit_alertPage.ExpectedTermsErrorMsg), transit_alertPage.TermsErrorMsgMissing);
+            Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedNameErrorMsg), transitAlertPage.NameErrorMsgMissing);
+            Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedEmailErrorMsg), transitAlertPage.EmailErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedPasswordErrorMsg), transitAlertPage.PasswordErrorMsgMissing);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.ExpectedTermsErrorMsg), transitAlertPage.TermsErrorMsgMissing);
         }
     }
 }
