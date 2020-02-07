@@ -15,6 +15,7 @@ namespace TranslinkSite.TestCases
         [TestCase("R5"), Order(1)]
         [TestCase("99")]
         [TestCase("145")]
+        [TestCase("129")]
         public void NextBusRoute(string busRoute)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
