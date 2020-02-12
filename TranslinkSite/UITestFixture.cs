@@ -24,7 +24,7 @@ namespace TranslinkSite.TestCases
 
             driver.Navigate().GoToUrl(url);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);                    
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(TranslinkTitle));
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(TranslinkTitle), "Translink Page Title is Incorrect");
         }
 
         [TearDown]

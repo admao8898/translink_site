@@ -74,7 +74,7 @@ namespace TranslinkSite.TestCases
         }
 
         [TestCase("sample88_123@nonameemail.com", "Mitch", "no"), Order(5)]
-        public void Valid_Email_Name(string EmailValue, string NameValue, string Randomize)
+        public void ValidEmailAndName(string EmailValue, string NameValue, string Randomize)
         {
             TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
             transitAlertPage.GoToSignUpForTransAlert();

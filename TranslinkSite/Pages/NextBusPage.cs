@@ -46,9 +46,9 @@ namespace TranslinkSite.Pages
         }
 
         public void GoToNextBus()
-        {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+        {            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Navigate().GoToUrl(nextBusURL);
+
         }
 
         public void EnterBusRoute(string busRoute)
