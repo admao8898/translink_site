@@ -21,15 +21,15 @@ namespace TranslinkSite.Pages
         private static readonly By SubmitButton = By.Id("pagecolumnsrows_0_btnSubmit");
 
         // Field Validation Error Messages 
-        public readonly string ExpectedNameFailMsg = "Please enter a first name";
-        public readonly string ExpectedEmailFailMsg = "Please enter a valid email address";
-        public readonly string ExpectedPasswordFailMsg = "Your password must be at least 8 characters";
-        public readonly string ExpectedTermsFailMsg = "You must agree to the terms in order to use this service";
+        public readonly string expectedNameFailMsg = "Please enter a first name";
+        public readonly string expectedEmailFailMsg = "Please enter a valid email address";
+        public readonly string expectedPasswordFailMsg = "Your password must be at least 8 characters";
+        public readonly string expectedTermsFailMsg = "You must agree to the terms in order to use this service";
 
-        public readonly string NameFailMsgMissing = "Empty First Name Message Missing";
-        public readonly string EmailFailMsgMissing = "Empty Email Field Message Missing";
-        public readonly string PasswordFailMsgMissing = "Password Field Message Missing";
-        public readonly string TermsFailMsgMissing = "Terms & Conditions Empty Message Missing";
+        public readonly string nameFailMsgMissing = "Empty First Name Message Missing";
+        public readonly string emailFailMsgMissing = "Empty Email Field Message Missing";
+        public readonly string passwordFailMsgMissing = "Password Field Message Missing";
+        public readonly string termsFailMsgMissing = "Terms & Conditions Empty Message Missing";
 
 
         public TransitAlertPage(IWebDriver drv)
@@ -69,13 +69,12 @@ namespace TranslinkSite.Pages
 
         public void EnterEmail(string email)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             driver.FindElement(EmailField).SendKeys(email);
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
         }
 
         public void SubmitForm()
         {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
         }

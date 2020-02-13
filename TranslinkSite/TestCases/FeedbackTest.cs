@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
@@ -9,7 +10,6 @@ namespace TranslinkSite.TestCases
 {
     public class FeedbackTest : UITestFixture
     {
-
         [TestCase(), Order(1), Category("Smoke")]
         public void FeedbackLink()
         {
@@ -69,11 +69,36 @@ namespace TranslinkSite.TestCases
                     break;
 
                 default:
-                    return; 
-                                 
+                    return;                                  
             }
-
         }
 
+        [TestCase("Bus", "Bob", "R5", "today-7days","12:12", "6041234567"), Order(5), Category("Smoke")]
+        public void FeedbackPartialFilled(string feedbackType, string name, string routeNumber, string day, string time, string phoneNumber)
+        {
+            FeedbackPage feedbackPage = new FeedbackPage(driver);
+            feedbackPage.GoToFeedbackSiteURL();
+            feedbackPage.SelectTypeofFeedback(feedbackType);
+
+            switch (feedbackType)
+            {
+                case "Bus":
+                    feedbackPage.EnterRouteNumber(routeNumber);
+                    feedbackPage.EnterIncidentDate(day);
+                    feedbackPage.EnterIncidentTime(time);
+                    feedbackPage.EnterResponseChoice("no");
+                    Thread.Sleep(2000);
+                    feedbackPage.EnterResponseChoice("yes");
+                    feedbackPage.ClickSubmitButton(feedbackType);
+                    break;
+
+                case "SkyTrain":
+                    
+                    break;
+
+                default:
+                    return;
+            }
+        }
     }
 }

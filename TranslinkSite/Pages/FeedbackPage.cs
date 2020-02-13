@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using TranslinkSite.Pages;
+using static TranslinkSite.HelperFunctions.DateTimeGenerator;
+
 
 namespace TranslinkSite.Pages
 {
@@ -35,6 +37,11 @@ namespace TranslinkSite.Pages
         //Bus Feedback Form 
         public readonly string routeNumberLegend = "Route Number"; 
         public readonly string routeNumberLegendFailMsg = "Route Number Legend Missing";
+        private static readonly By RouteNumberField = By.Id("busfeedback-routenumber");
+        private static readonly By BusIncidentDateField = By.Id("busfeedback-incidentdate");
+        private static readonly By BusIncidentTimeField = By.Id("busfeedback-incidenttime");
+        private static readonly By BusCustRepResponseYesButton = By.XPath("(//*[.='Yes'])[3]");
+        private static readonly By BusCustRepResponseNoButton = By.XPath("(//*[.='No'])[3]");
 
         //Skytrain FeedBack Form 
         public readonly string skytrainLineLegend = "SkyTrain Line";
@@ -116,7 +123,47 @@ namespace TranslinkSite.Pages
             {
                 throw new Exception("Error: Please Include Feedback Type Value of either: Bus or SkyTrain");
             }
+        }
 
+        public void EnterRouteNumber(string routeNumber)
+        {
+            driver.FindElement(RouteNumberField).SendKeys(routeNumber); 
+        }
+
+        public void EnterIncidentDate(string date)
+        {
+            //string selectedDate = SystemDate(date);  
+            driver.FindElement(BusIncidentDateField).SendKeys(SystemDate(date)); //Call DateTimeGenerator 
+        }
+
+        public void EnterIncidentTime(string time)
+        {
+            driver.FindElement(BusIncidentTimeField).SendKeys(time); 
+        }
+
+        public void EnterResponseChoice(string choice)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+
+            if (choice == "yes")
+            {
+                jse.ExecuteScript("arguments[0].click()", driver.FindElement(BusCustRepResponseYesButton));
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                return; 
+            }
+
+            if (choice == "no")
+            {
+                jse.ExecuteScript("arguments[0].click()", driver.FindElement(BusCustRepResponseNoButton));
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                return; 
+            }
+
+            else
+            {
+                throw new Exception("Error: Please Include Response Type Value of either: yes or no");
+            }
         }
     }
+
 }
