@@ -21,15 +21,15 @@ namespace TranslinkSite.Pages
         private static readonly By SubmitButton = By.Id("pagecolumnsrows_0_btnSubmit");
 
         // Field Validation Error Messages 
-        public readonly string ExpectedNameErrorMsg = "Please enter a first name";
-        public readonly string ExpectedEmailErrorMsg = "Please enter a valid email address";
-        public readonly string ExpectedPasswordErrorMsg = "Your password must be at least 8 characters";
-        public readonly string ExpectedTermsErrorMsg = "You must agree to the terms in order to use this service";
+        public readonly string ExpectedNameFailMsg = "Please enter a first name";
+        public readonly string ExpectedEmailFailMsg = "Please enter a valid email address";
+        public readonly string ExpectedPasswordFailMsg = "Your password must be at least 8 characters";
+        public readonly string ExpectedTermsFailMsg = "You must agree to the terms in order to use this service";
 
-        public readonly string NameErrorMsgMissing = "Empty First Name Message Missing";
-        public readonly string EmailErrorMsgMissing = "Empty Email Field Message Missing";
-        public readonly string PasswordErrorMsgMissing = "Password Field Message Missing";
-        public readonly string TermsErrorMsgMissing = "Terms & Conditions Empty Message Missing";
+        public readonly string NameFailMsgMissing = "Empty First Name Message Missing";
+        public readonly string EmailFailMsgMissing = "Empty Email Field Message Missing";
+        public readonly string PasswordFailMsgMissing = "Password Field Message Missing";
+        public readonly string TermsFailMsgMissing = "Terms & Conditions Empty Message Missing";
 
 
         public TransitAlertPage(IWebDriver drv)

@@ -15,12 +15,12 @@ namespace TranslinkSite.TestCases
         [TestCase("R5"), Order(1)]
         [TestCase("99")]
         [TestCase("145")]
-        [TestCase("129")]
+        [TestCase("555")]
         public void NextBusRoute(string busRoute)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
             nextBusPage.GoToNextBus();
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.nextBusPageTitle)), nextBusPage.nextBusPageTitleErrorMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.nextBusPageTitle)), nextBusPage.nextBusPageTitleFailMsg);
 
             nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.ClickFindBusRoute();

@@ -15,24 +15,38 @@ namespace TranslinkSite.Pages
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
         private readonly string FeedbackURL = "https://new.translink.ca/feedback";
-        
+        private readonly string namePipelineVariable = Environment.GetEnvironmentVariable("name", EnvironmentVariableTarget.Process);
+
         //Link From homepage 
         private static readonly By CustomerFeedbackLink = By.XPath("//a[.='Customer Feedback']");
 
         public readonly string feedbackDescription = "We're here to help! Use this form to send us questions, lost item inquiries, comments and suggestions.";
-        public readonly string feedbackDescriptErrorMsg = "Incorrect Feedback Description";
+        public readonly string feedbackDescriptFailMsg = "Incorrect Feedback Description";
         public readonly string dropDownTitle = "What is your feedback regarding";
-        public readonly string dropDownTitleErrorMsg = "Incorrect Dropdown Title Displayed";
+        public readonly string dropDownTitleFailMsg = "Incorrect Dropdown Title Displayed";
 
         private static readonly By DropdownSelector = By.Name("FeedbackTopic");
 
+        //XPath query to get nth instance of an element 
+        // https://stackoverflow.com/questions/4007413/xpath-query-to-get-nth-instance-of-an-element
+        private static readonly By BusFeedbackSubmitButton = By.XPath("(//*[.='Submit'])[2]");
+        private static readonly By SkyTrainFeedbackSubmitButton = By.XPath("(//*[.='Submit'])[3]");
+
         //Bus Feedback Form 
         public readonly string routeNumberLegend = "Route Number"; 
-        public readonly string routeNumberLegendErrorMsg = "Route Number Legend Missing";
+        public readonly string routeNumberLegendFailMsg = "Route Number Legend Missing";
 
         //Skytrain FeedBack Form 
         public readonly string skytrainLineLegend = "SkyTrain Line";
-        public readonly string skytrainLineLegendErrorMsg = "Skytrain Line Legend Missing";
+        public readonly string skytrainLineLegendFailMsg = "Skytrain Line Legend Missing";
+
+        //Empty Required Fields Messages 
+        public readonly string detailsRequiredFieldMsg = "Please enter your details in 2000 characters or less";
+        public readonly string detailRequiredFieldFailMsg = "Details Required Red Text Missing";
+        public readonly string nameRequiredFieldMsg = "Please enter your first name";
+        public readonly string nameRequiredFieldFailMsg = "Name Required Red Text Missing";
+        public readonly string emailRequiredFieldMsg = "Please enter a valid email address";
+        public readonly string emailRequiredFieldFailMsg = "Email Required Red Text Missing";
 
         public FeedbackPage(IWebDriver drv)
         {
@@ -80,6 +94,29 @@ namespace TranslinkSite.Pages
             new SelectElement(driver.FindElement(DropdownSelector)).SelectByText(type); 
         }
 
+        public void ClickSubmitButton(string type)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            
+            if (type == "Bus")
+            {
+                jse.ExecuteScript("arguments[0].click()", driver.FindElement(BusFeedbackSubmitButton));
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                return; 
+            }
 
+            if (type == "SkyTrain")
+            {
+                jse.ExecuteScript("arguments[0].click()", driver.FindElement(SkyTrainFeedbackSubmitButton));
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                return; 
+            }
+            
+            else
+            {
+                throw new Exception("Error: Please Include Feedback Type Value of either: Bus or SkyTrain");
+            }
+
+        }
     }
 }

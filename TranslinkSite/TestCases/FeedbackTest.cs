@@ -18,8 +18,8 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.Url.Contains("translink.ca/feedback"), "This is not the Feedback page");
 
             //Verify Page Descriptions 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.feedbackDescription), feedbackPage.feedbackDescriptErrorMsg);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.dropDownTitle), feedbackPage.dropDownTitleErrorMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.feedbackDescription), feedbackPage.feedbackDescriptFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.dropDownTitle), feedbackPage.dropDownTitleFailMsg);
         }
 
         [TestCase(), Order(2), Category("Smoke")]
@@ -30,8 +30,8 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.Url.Contains("translink.ca/feedback"), "This is not the Feedback page");
 
             //Verify Page Descriptions 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.feedbackDescription), feedbackPage.feedbackDescriptErrorMsg);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.dropDownTitle), feedbackPage.dropDownTitleErrorMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.feedbackDescription), feedbackPage.feedbackDescriptFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.dropDownTitle), feedbackPage.dropDownTitleFailMsg);
         }
 
         [TestCase(), Order(3)]
@@ -44,7 +44,7 @@ namespace TranslinkSite.TestCases
 
         [TestCase("Bus"), Order(4)]
         [TestCase("SkyTrain")]
-        public void FeedbackChoice(string feedbackType)
+        public void FeedbackNoInput(string feedbackType)
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
             feedbackPage.GoToFeedbackSiteURL();
@@ -53,18 +53,24 @@ namespace TranslinkSite.TestCases
             switch(feedbackType)
             {
                 case "Bus":
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.routeNumberLegend), feedbackPage.routeNumberLegendErrorMsg);
-                    
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.routeNumberLegend), feedbackPage.routeNumberLegendFailMsg);
+                    feedbackPage.ClickSubmitButton(feedbackType);
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.detailsRequiredFieldMsg), feedbackPage.detailRequiredFieldFailMsg);
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.nameRequiredFieldMsg), feedbackPage.nameRequiredFieldFailMsg);
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.emailRequiredFieldMsg), feedbackPage.emailRequiredFieldFailMsg);
                     break;
 
                 case "SkyTrain":
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.skytrainLineLegend), feedbackPage.skytrainLineLegendErrorMsg);
-                    
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.skytrainLineLegend), feedbackPage.skytrainLineLegendFailMsg);
+                    feedbackPage.ClickSubmitButton(feedbackType);
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.detailsRequiredFieldMsg), feedbackPage.detailRequiredFieldFailMsg);
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.nameRequiredFieldMsg), feedbackPage.nameRequiredFieldFailMsg);
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.emailRequiredFieldMsg), feedbackPage.emailRequiredFieldFailMsg);
                     break;
 
                 default:
-
-                    break;              
+                    return; 
+                                 
             }
 
         }

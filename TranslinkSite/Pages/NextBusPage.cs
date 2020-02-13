@@ -36,7 +36,7 @@ namespace TranslinkSite.Pages
         private static readonly By TryNewNBLink = By.LinkText("Try the new Next Bus");
 
         public readonly string nextBusPageTitle = "Next bus departures in real-time";
-        public readonly string nextBusPageTitleErrorMsg = "Next bus Page Title Missing";
+        public readonly string nextBusPageTitleFailMsg = "Next bus Page Title Missing";
 
 
         public NextBusPage(IWebDriver drv)

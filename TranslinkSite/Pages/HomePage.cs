@@ -18,16 +18,16 @@ namespace TranslinkSite.Pages
         //compass card 
         private static readonly By CompassCardButton = By.XPath("//a[.='Visit compasscard.ca']");
         public readonly string CompassCardTitle = "Compass is your key!";
-        public readonly string CompassCardTitleErrorMsg = "Compass Article Title is Incorrect";
+        public readonly string CompassCardTitleFailMsg = "Compass Article Title is Incorrect";
         public readonly string CompassCardDescription = "TransLink's reloadable fare card that works everywhere on transit.";
-        public readonly string CompassCardDescriptionErrorMsg = "Compass Article Body is Incorrect";
+        public readonly string CompassCardDescriptionFailMsg = "Compass Article Body is Incorrect";
 
         // transit alerts
         private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts");
         public readonly string TransitAlertsCardTitle = "Know before you go!";
-        public readonly string TransitAlertsCardTitleErrorMsg = "Alerts Article Title is Incorrect";
+        public readonly string TransitAlertsCardTitleFailMsg = "Alerts Article Title is Incorrect";
         public readonly string TransitAlertsCardDescription = "Create notifications for the transit services that matter most to you. Sign up to receive transit alerts via SMS or email.";
-        public readonly string TransitAlertsCardDescriptionErrorMsg = "Alerts Article Body is Incorrect";
+        public readonly string TransitAlertsCardDescriptionFailMsg = "Alerts Article Body is Incorrect";
 
         // transit general info: Fares, Rider Info, Contact Us, Schedules 
         private static readonly By TransitFareCard = By.LinkText("Transit Fares"); 
