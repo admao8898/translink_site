@@ -15,8 +15,7 @@ namespace TranslinkSite.Pages
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
         private readonly string FeedbackURL = "https://new.translink.ca/feedback";
-
-
+        
         //Link From homepage 
         private static readonly By CustomerFeedbackLink = By.XPath("//a[.='Customer Feedback']");
 

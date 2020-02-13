@@ -73,12 +73,13 @@ namespace TranslinkSite.TestCases
 
         }
 
-        [TestCase("sample88_123@nonameemail.com", "Mitch", "no"), Order(5)]
+        [TestCase("sample88_123@nonameemail.com", "Mitch", "no"), Order(5), Category("Smoke")]
         public void ValidEmailAndName(string EmailValue, string NameValue, string Randomize)
         {
             TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
             transitAlertPage.GoToSignUpForTransAlert();
-            transitAlertPage.EnterFirstName(NameValue, Randomize);
+            string namePipelineVariable = Environment.GetEnvironmentVariable("name22", EnvironmentVariableTarget.Process); 
+            transitAlertPage.EnterFirstName(namePipelineVariable, Randomize);
             transitAlertPage.EnterEmail(EmailValue);
             transitAlertPage.SubmitForm();
 
