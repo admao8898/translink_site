@@ -138,7 +138,7 @@ namespace TranslinkSite.Pages
 
         public void EnterIncidentTime(string time)
         {
-            driver.FindElement(BusIncidentTimeField).SendKeys(time); 
+            driver.FindElement(BusIncidentTimeField).SendKeys(SystemTime(time)); 
         }
 
         public void EnterResponseChoice(string choice)

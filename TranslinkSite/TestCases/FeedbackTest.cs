@@ -73,7 +73,7 @@ namespace TranslinkSite.TestCases
             }
         }
 
-        [TestCase("Bus", "Bob", "R5", "today-7days","12:12", "6041234567"), Order(5), Category("Smoke")]
+        [TestCase("Bus", "Bob", "R5", "today-7days","Current-3hours", "6041234567"), Order(5), Category("Smoke")]
         public void FeedbackPartialFilled(string feedbackType, string name, string routeNumber, string day, string time, string phoneNumber)
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
@@ -85,7 +85,7 @@ namespace TranslinkSite.TestCases
                 case "Bus":
                     feedbackPage.EnterRouteNumber(routeNumber);
                     feedbackPage.EnterIncidentDate(day);
-                    feedbackPage.EnterIncidentTime(time);
+                    feedbackPage.EnterIncidentTime("no");
                     feedbackPage.EnterResponseChoice("no");
                     Thread.Sleep(2000);
                     feedbackPage.EnterResponseChoice("yes");

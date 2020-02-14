@@ -34,9 +34,7 @@ namespace TranslinkSite.HelperFunctions
             else
             {
                 throw new System.ArgumentException("Parameter must either be 'name' or 'random'", "Word Type");
-
             }
-
         }
     }
 }

@@ -32,7 +32,7 @@ namespace TranslinkSite.Pages
 
         private static readonly By RouteTopDestination = By.XPath("//*[@id='MainContent_PanelStops']/*/section[3]/article");
         private static readonly By RouteBottomDestination = By.XPath("//*[@id='MainContent_PanelStops']/*/article");
-        private static readonly By SecondStop = By.XPath("//*[@id='MainContent_PanelStops']//*/article[2]");
+        private static readonly By SecondStop = By.XPath("//*/article[2]");
         private static readonly By TryNewNBLink = By.LinkText("Try the new Next Bus");
 
         public readonly string nextBusPageTitle = "Next bus departures in real-time";
@@ -42,13 +42,13 @@ namespace TranslinkSite.Pages
         public NextBusPage(IWebDriver drv)
         {
             driver = drv;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
         }
 
         public void GoToNextBus()
-        {            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+        {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Navigate().GoToUrl(nextBusURL);
-
         }
 
         public void EnterBusRoute(string busRoute)
@@ -58,8 +58,10 @@ namespace TranslinkSite.Pages
 
         public void ClickFindBusRoute()
         {
-            driver.FindElement(SubmitNextBusButton).Click();
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitNextBusButton));
         }
+
         // Two options for Time Display 
         public void ChangeSettings(string timedDisplay)
         {
@@ -85,25 +87,42 @@ namespace TranslinkSite.Pages
                 throw new Exception("Error: Please Include Desired Setting Value of either: ClockTime or Countdown");
             }
         }
-
-        public void ClickTopDestination()
+        public void Destination(string choice)
         {
-            driver.FindElement(RouteTopDestination).Click();
-        }
+            if (choice == "Top")
+            {
+                //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                //jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteTopDestination));
+                driver.FindElement(RouteTopDestination).Click();
+                return; 
+            }
 
-        public void ClickBottomDestination()
-        {
-            driver.FindElement(RouteBottomDestination).Click();
+            if (choice == "Bottom")
+            {
+                //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                //jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteBottomDestination));
+                driver.FindElement(RouteBottomDestination).Click();
+                return; 
+            }
+
+            else
+            {
+                throw new Exception("Error: Please Include Desired Destination Value of either: Top or Bottom");
+            }
         }
 
         public void Click2ndBusStop()
         {
-            driver.FindElement(SecondStop).Click();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+            IWebElement Stop2nd = driver.FindElement(SecondStop);
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("arguments[0].scrollIntoView()", Stop2nd);
+            var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(SecondStop)); 
         }
 
         public void MapViewOption()
         {
-            driver.FindElement(MapView).Click();
+            driver.FindElement(MapView).Click(); 
         }
 
         public void ClickHiddenRefreshButton()

@@ -12,10 +12,10 @@ namespace TranslinkSite.TestCases
     {
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
-        [TestCase("R5"), Order(1)]
-        [TestCase("145")]
-        [TestCase("555")]
-        public void NextBusRoute(string busRoute)
+        [TestCase("R3", "Top"), Order(1)]
+        [TestCase("145", "Bottom")]
+        [TestCase("555", "Top")]
+        public void NextBusRoute(string busRoute, string destination)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
             nextBusPage.GoToNextBus();
@@ -26,9 +26,7 @@ namespace TranslinkSite.TestCases
 
             nextBusPage.ChangeSettings("ClockTime");
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
-
-            //nextBusPage.ClickTopDestination();
-            nextBusPage.ClickBottomDestination();
+            nextBusPage.Destination(destination);                            
             nextBusPage.Click2ndBusStop();
 
             nextBusPage.MapViewOption();
