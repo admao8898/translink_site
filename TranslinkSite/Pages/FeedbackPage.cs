@@ -40,6 +40,7 @@ namespace TranslinkSite.Pages
         private static readonly By RouteNumberField = By.Id("busfeedback-routenumber");
         private static readonly By BusIncidentDateField = By.Id("busfeedback-incidentdate");
         private static readonly By BusIncidentTimeField = By.Id("busfeedback-incidenttime");
+        private static readonly By PhoneNumberField = By.Id("busfeedback-phonenumber");
         private static readonly By BusCustRepResponseYesButton = By.XPath("(//*[.='Yes'])[3]");
         private static readonly By BusCustRepResponseNoButton = By.XPath("(//*[.='No'])[3]");
 
@@ -139,6 +140,11 @@ namespace TranslinkSite.Pages
         public void EnterIncidentTime(string time)
         {
             driver.FindElement(BusIncidentTimeField).SendKeys(SystemTime(time)); 
+        }
+
+        public void EnterPhoneNumber(string phoneNumber)
+        {
+            driver.FindElement(PhoneNumberField).SendKeys(phoneNumber); 
         }
 
         public void EnterResponseChoice(string choice)

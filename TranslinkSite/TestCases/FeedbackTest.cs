@@ -85,7 +85,8 @@ namespace TranslinkSite.TestCases
                 case "Bus":
                     feedbackPage.EnterRouteNumber(routeNumber);
                     feedbackPage.EnterIncidentDate(day);
-                    feedbackPage.EnterIncidentTime("no");
+                    feedbackPage.EnterIncidentTime(time);
+                    feedbackPage.EnterPhoneNumber(phoneNumber);
                     feedbackPage.EnterResponseChoice("no");
                     Thread.Sleep(2000);
                     feedbackPage.EnterResponseChoice("yes");
