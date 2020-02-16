@@ -58,8 +58,7 @@ namespace TranslinkSite.Pages
 
         public void ClickFindBusRoute()
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitNextBusButton));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(SubmitNextBusButton));
         }
 
         // Two options for Time Display 
@@ -117,7 +116,8 @@ namespace TranslinkSite.Pages
             IWebElement Stop2nd = driver.FindElement(SecondStop);
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].scrollIntoView()", Stop2nd);
-            var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(SecondStop)); 
+            driver.FindElement(SecondStop).Click(); 
+            //var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(SecondStop)); 
         }
 
         public void MapViewOption()
@@ -127,8 +127,7 @@ namespace TranslinkSite.Pages
 
         public void ClickHiddenRefreshButton()
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RefreshPage));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(RefreshPage));
         } 
     }
 }

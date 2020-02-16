@@ -53,7 +53,7 @@ namespace TranslinkSite.HelperFunctions
 
             if (time == "Current+3hours")
             {
-                returnTime = DateTime.Now.AddHours(4).ToString(timeFormat);
+                returnTime = DateTime.Now.AddHours(3).ToString(timeFormat);
                 return returnTime;
             }
 

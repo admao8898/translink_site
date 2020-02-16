@@ -79,8 +79,7 @@ namespace TranslinkSite.Pages
 
         public void GoToFares()
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitFareCard));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(TransitFareCard));
         }
 
         public void GoToContactUs()
@@ -97,8 +96,7 @@ namespace TranslinkSite.Pages
 
         public void GoToSchedules()
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SchedulesCard));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(SchedulesCard));
         }
     }
 }

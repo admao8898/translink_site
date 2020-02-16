@@ -73,8 +73,9 @@ namespace TranslinkSite.TestCases
             }
         }
 
-        [TestCase("Bus", "Bob", "R5", "today-7days","Current-3hours", "6041234567"), Order(5), Category("Smoke")]
-        public void FeedbackPartialFilled(string feedbackType, string name, string routeNumber, string day, string time, string phoneNumber)
+        [TestCase("Bus", "Bob", "R5", null, null, "today-7days","Current-3hours", "6041234567"), Order(5), Category("Smoke")]
+        [TestCase("SkyTrain", "Joy", null,"CanLine", "Langara-49th Avenue", "today", "Current+3hours", "7781234567"), Category("Smoke")]
+        public void FeedbackPartialFilled(string feedbackType, string name, string routeNumber,string skytrainLine, string station, string day, string time, string phoneNumber)
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
             feedbackPage.GoToFeedbackSiteURL();
@@ -84,17 +85,26 @@ namespace TranslinkSite.TestCases
             {
                 case "Bus":
                     feedbackPage.EnterRouteNumber(routeNumber);
-                    feedbackPage.EnterIncidentDate(day);
-                    feedbackPage.EnterIncidentTime(time);
-                    feedbackPage.EnterPhoneNumber(phoneNumber);
-                    feedbackPage.EnterResponseChoice("no");
+                    feedbackPage.EnterIncidentDate(day, feedbackType);
+                    feedbackPage.EnterIncidentTime(time, feedbackType);
+                    feedbackPage.EnterPhoneNumber(phoneNumber, feedbackType);
+                    feedbackPage.EnterResponseChoice("no", feedbackType);
                     Thread.Sleep(2000);
-                    feedbackPage.EnterResponseChoice("yes");
+                    feedbackPage.EnterResponseChoice("yes", feedbackType);
                     feedbackPage.ClickSubmitButton(feedbackType);
                     break;
 
                 case "SkyTrain":
-                    
+                    feedbackPage.EnterSkytrainLine(skytrainLine);
+                    feedbackPage.ClickCanLineWaterfrontDirection();
+                    feedbackPage.SelectSkyTrainStation(station);
+                    feedbackPage.EnterIncidentDate(day, feedbackType);
+                    feedbackPage.EnterIncidentTime(time, feedbackType);
+                    feedbackPage.EnterPhoneNumber(phoneNumber, feedbackType);
+                    feedbackPage.EnterResponseChoice("no", feedbackType);
+                    Thread.Sleep(2000);
+                    feedbackPage.EnterResponseChoice("yes", feedbackType);
+                    feedbackPage.ClickSubmitButton(feedbackType);
                     break;
 
                 default:

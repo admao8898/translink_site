@@ -40,9 +40,8 @@ namespace TranslinkSite.Pages
 
         public void GoToSignUpForTransAlert()
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
         }
 
         public void EnterFirstName(string firstName, string random)
@@ -75,8 +74,7 @@ namespace TranslinkSite.Pages
         public void SubmitForm()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
         }
     }
 }
