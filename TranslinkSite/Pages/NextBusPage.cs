@@ -113,9 +113,7 @@ namespace TranslinkSite.Pages
         public void Click2ndBusStop()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-            IWebElement Stop2nd = driver.FindElement(SecondStop);
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].scrollIntoView()", Stop2nd);
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", driver.FindElement(SecondStop));
             driver.FindElement(SecondStop).Click(); 
             //var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(SecondStop)); 
         }

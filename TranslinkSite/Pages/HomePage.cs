@@ -59,8 +59,7 @@ namespace TranslinkSite.Pages
             //Use the below method instead with reference to 
             //https://stackoverflow.com/questions/38923356/element-is-not-clickable-at-point-other-element-would-receive-the-click
 
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(CompassCardButton));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(CompassCardButton));
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);                        
             
             //Because clicking on link opens new tab, driver must switch windows
@@ -71,9 +70,7 @@ namespace TranslinkSite.Pages
         public void GoToTransitAlerts()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            IWebElement SignUpForAlerts = driver.FindElement(TransitAlertsButton);
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", SignUpForAlerts);
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertsButton));
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
@@ -84,14 +81,14 @@ namespace TranslinkSite.Pages
 
         public void GoToContactUs()
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
+            //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            //jse.ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
         }
 
         public void GoToRiderInfo()
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RiderInfoCard));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(RiderInfoCard));
         }
 
         public void GoToSchedules()

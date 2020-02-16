@@ -103,7 +103,7 @@ namespace TranslinkSite.Pages
             for (int i = 1; i < numberofOptions; i++)
             {
                 dropDownActualValue = options[i];
-                Assert.AreEqual(dropDownActualValue.GetAttribute("value"), dropList[i]);
+                Assert.AreEqual(dropDownActualValue.GetAttribute("value"), dropList[i],"One or more of the dropdown options are missing or incorrect");
             }
         }
 
