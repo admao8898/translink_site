@@ -24,9 +24,11 @@ namespace TranslinkSite.TestCases
             nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.ClickFindBusRoute();
 
-            nextBusPage.ChangeSettings("ClockTime");
+            nextBusPage.ChangeTimeDisplaySettings("ClockTime");
+            nextBusPage.ChangeViewPreferenceSettings("MapView"); 
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
-            nextBusPage.Destination(destination);                            
+            nextBusPage.Destination(destination);
+            Thread.Sleep(500); 
             nextBusPage.Click2ndBusStop();
             Thread.Sleep(2000);
             nextBusPage.MapViewOption();
