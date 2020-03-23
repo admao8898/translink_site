@@ -111,5 +111,16 @@ namespace TranslinkSite.TestCases
                     return;
             }
         }
+
+        [TestCase("green"), Order(6)]
+        [TestCase("yellow")]
+        [TestCase("orange")]
+        [TestCase(null)]
+        public void FeedbackHighlighting(string highLightColour)
+        {
+            FeedbackPage feedbackPage = new FeedbackPage(driver);
+            feedbackPage.GoToFeedbackSiteURL();
+            feedbackPage.HightlightText(highLightColour); 
+        }
     }
 }

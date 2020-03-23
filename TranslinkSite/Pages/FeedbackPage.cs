@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using TranslinkSite.Pages;
+using TranslinkSite.HelperFunctions;
 using static TranslinkSite.HelperFunctions.DateTimeGenerator;
 
 
@@ -34,6 +34,10 @@ namespace TranslinkSite.Pages
         // https://stackoverflow.com/questions/4007413/xpath-query-to-get-nth-instance-of-an-element
         private static readonly By BusFeedbackSubmitButton = By.XPath("(//*[.='Submit'])[2]");
         private static readonly By SkyTrainFeedbackSubmitButton = By.XPath("(//*[.='Submit'])[3]");
+
+        private static readonly By CustomerFeedbackTitle = By.XPath("//h2[text()='Customer Feedback']");
+        private static readonly By CustomerFeedbackDescription = By.XPath("");
+
 
         //Bus Feedback Form 
         public readonly string routeNumberLegend = "Route Number";
@@ -279,6 +283,12 @@ namespace TranslinkSite.Pages
             }
         }
 
+        public void HightlightText(string highLightColour)
+        {
+            TextHighLightJS HighLighter = new TextHighLightJS();
+            HighLighter.HighlightElement(driver, driver.FindElement(CustomerFeedbackTitle), highLightColour);
+            Thread.Sleep(2000); 
+        }
     }
 
 }
