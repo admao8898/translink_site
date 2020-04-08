@@ -12,9 +12,9 @@ namespace TranslinkSite.TestCases
     {
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
-        [TestCase("R4", "Top"), Order(1)]
-        [TestCase("145", "Bottom")]
-        [TestCase("555", "Top")]
+        [TestCase("R2", "Top")]
+        [TestCase("22", "Bottom")]
+        [TestCase("99", "Bottom")]
         public void NextBusRoute(string busRoute, string destination)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
@@ -32,9 +32,10 @@ namespace TranslinkSite.TestCases
             nextBusPage.Click2ndBusStop();
             Thread.Sleep(2000);
             nextBusPage.MapViewOption();
+            Thread.Sleep(2000);
 
             nextBusPage.ClickHiddenRefreshButton();
-            Thread.Sleep(2000); 
+            //Thread.Sleep(2000); 
         }
     }
 }

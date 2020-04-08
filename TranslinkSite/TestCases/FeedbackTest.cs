@@ -115,7 +115,7 @@ namespace TranslinkSite.TestCases
         [TestCase("green"), Order(6)]
         [TestCase("yellow")]
         [TestCase("orange")]
-        [TestCase(null)]
+        //[TestCase(null)]
         public void FeedbackHighlighting(string highLightColour)
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
