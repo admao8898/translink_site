@@ -35,7 +35,7 @@ namespace TranslinkSite.TestCases
         }
 
         [TestCase(), Order(3)]
-        public void DropdownOptions()
+        public void FeedbackVerifyDropdownOptions()
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
             feedbackPage.GoToFeedbackSiteURL();
