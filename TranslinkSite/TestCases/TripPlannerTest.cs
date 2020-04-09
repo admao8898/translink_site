@@ -25,7 +25,7 @@ namespace TranslinkSite.TestCases
         public void TripPlannerURL()
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
-            tripPlannerPage.GoToTripPlannerURL();          
+            tripPlannerPage.GoToTripPlannerURL();
             Assert.IsTrue(driver.Url.Contains("translink.ca/trip-planner"), "This is not the Trip Planner page");
 
             //Verify Page Descriptions 
@@ -40,7 +40,7 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.EnterFromDestinationText(startPoint);
             tripPlannerPage.EnterToDestinationText(endPoint);
             tripPlannerPage.ClickPlanMyTripButton();
-            tripPlannerPage.VerifyGoogleMaps(); 
+            tripPlannerPage.VerifyGoogleMaps();
         }
 
         [TestCase("Prefer"), Order(4)]
@@ -49,20 +49,21 @@ namespace TranslinkSite.TestCases
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
             tripPlannerPage.GoToTripPlannerURL();
-            tripPlannerPage.VerifyAllDropdownOptions(type); 
+            tripPlannerPage.VerifyAllDropdownOptions(type);
         }
 
-        [TestCase("New Westminster Station", "UBC", "Bus", "Less walking"),Order(5)]
+        [TestCase("New Westminster Station", "UBC", "Bus", "Less walking"), Order(5)]
         public void SampleTrip(string startPoint, string endPoint, string preferedMode, string routeOption)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
             tripPlannerPage.GoToTripPlannerURL();
             tripPlannerPage.EnterFromDestinationText(startPoint);
             tripPlannerPage.EnterToDestinationText(endPoint);
-            tripPlannerPage.ClickMoreOptionsLink(); 
+            tripPlannerPage.ClickMoreOptionsLink();
             tripPlannerPage.SelectPreferedTransitMode(preferedMode);
-            tripPlannerPage.SelectPreferedRouteMode(routeOption); 
+            tripPlannerPage.SelectPreferedRouteMode(routeOption);
             tripPlannerPage.ClickPlanMyTripButton();
         }
-    }
+
+    }   
 }

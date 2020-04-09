@@ -4,10 +4,11 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading;
 using TranslinkSite.HelperFunctions;
-using static TranslinkSite.HelperFunctions.DateTimeGenerator;
+using static TranslinkSite.HelperFunctions.ExcelToDataTableConverter;
 
 namespace TranslinkSite.Pages
 {
@@ -73,6 +74,7 @@ namespace TranslinkSite.Pages
         //Verify Google Map Destinations match Trip Planner Destinations 
         public void VerifyGoogleMaps()
         {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             Boolean isPresentStart = driver.FindElement(GMapStartPoint).Displayed;
             Boolean isPresentEnd = driver.FindElement(GMapEndPoint).Displayed; 
 
@@ -106,7 +108,12 @@ namespace TranslinkSite.Pages
                     break;
 
                 case "Routes":
-                    dropList =  new string[] {"def", "num", "walk", "whe" };
+                    var dropList11 = ImportSheet("test_file.xlsx");
+
+                    string[] arrayList = dropList11.Rows.OfType<DataRow>().Select(k => k[0].ToString()).ToArray();
+                    dropList = arrayList; 
+
+                    //dropList =  new string[] {"def", "num", "walk", "whe" };
                     dropdownChoice = driver.FindElement(RouteDropdownSelector);
                     break;
                
@@ -137,6 +144,22 @@ namespace TranslinkSite.Pages
         public void SelectPreferedRouteMode(string option)
         {
             new SelectElement(driver.FindElement(RouteDropdownSelector)).SelectByText(option);
+        }
+
+        public void ExcelConverter()
+        {
+            var dropList = ImportSheet("test_file.xlsx");
+
+            string[] arrayList  = dropList.Rows.OfType<DataRow>().Select(k => k[0].ToString()).ToArray();
+
+            //foreach (DataRow row in dropList.Rows)
+            //{
+            //    Console.WriteLine();
+            //    for (int x = 0; x < dropList.Columns.Count; x++)
+            //    {
+            //        Console.Write(row[x].ToString() + " ");
+            //    }
+            //}
         }
     }
 }
