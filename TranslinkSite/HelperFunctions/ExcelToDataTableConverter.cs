@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Diagnostics;
+using System.IO;
 
 namespace TranslinkSite.HelperFunctions
 {
@@ -12,9 +14,12 @@ namespace TranslinkSite.HelperFunctions
         // https://stackoverflow.com/questions/33465284/how-to-get-data-from-every-single-cell
 
         public static DataTable ImportSheet(string fileName)
-        {
+        {            
             var datatable = new DataTable();
-            var workbook = new XLWorkbook(fileName);
+            //Gets file from desired directory not debug/bin folder
+            string parentOfStartupPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"../../../TestFiles/")); 
+            string filePath = parentOfStartupPath + fileName;
+            var workbook = new XLWorkbook(filePath);
             var xlWorksheet = workbook.Worksheet(1);
             var range = xlWorksheet.Range(xlWorksheet.FirstCellUsed(), xlWorksheet.LastCellUsed());
 

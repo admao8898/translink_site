@@ -74,6 +74,10 @@ namespace TranslinkSite.Pages
         public void SubmitForm()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(SubmitButton));
+            // can also use Actions from selenium.interactions.Actions class
+
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
         }
     }
