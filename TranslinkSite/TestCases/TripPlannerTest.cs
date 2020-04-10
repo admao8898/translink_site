@@ -41,9 +41,9 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.EnterToDestinationText(endPoint);
             tripPlannerPage.ClickPlanMyTripButton();
             Thread.Sleep(5000);
-            //tripPlannerPage.VerifyGoogleMaps();
-            Assert.IsTrue(driver.Url.Contains("google.com/maps/dir/"), "Incorrect Starting Point");
-            Assert.IsTrue(driver.Url.Contains("University+of+British+Columbia"), "Incorrect Ending Point");
+            tripPlannerPage.VerifyGoogleMaps();
+            //Assert.IsTrue(driver.Url.Contains("google.com/maps/dir/"), "Incorrect Starting Point");
+            //Assert.IsTrue(driver.Url.Contains("University+of+British+Columbia"), "Incorrect Ending Point");
         }
 
         [TestCase("Prefer"), Order(4)]
