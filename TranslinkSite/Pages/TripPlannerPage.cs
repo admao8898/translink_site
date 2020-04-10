@@ -74,7 +74,6 @@ namespace TranslinkSite.Pages
         //Verify Google Map Destinations match Trip Planner Destinations 
         public void VerifyGoogleMaps()
         {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             Boolean isPresentStart = driver.FindElement(GMapStartPoint).Displayed;
             Boolean isPresentEnd = driver.FindElement(GMapEndPoint).Displayed; 
 

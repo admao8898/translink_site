@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
@@ -25,12 +26,13 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedTermsFailMsg), transitAlertPage.termsFailMsgMissing);
         }
         
-        [TestCase(null, "yes"), Order(2)]
+        [TestCase(null, "yes"), Order(2), Category("Special")]
         public void SignUpRandomNameOnly(string NameValue, string Randomize)
         {
             TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
             transitAlertPage.GoToSignUpForTransAlert();
             transitAlertPage.EnterFirstName(NameValue, Randomize);
+            Thread.Sleep(2000);
             transitAlertPage.SubmitForm();
 
             //Verify Field Validation and correction message  
