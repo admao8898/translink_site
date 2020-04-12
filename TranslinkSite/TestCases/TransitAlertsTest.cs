@@ -9,10 +9,9 @@ using TranslinkSite.Pages;
 namespace TranslinkSite.TestCases
 {
     public class TransitAlertsTest : UITestFixture
-    {
-       
-        [TestCase(null, "no"), Order(1)]
-        public void SignUpEmptyForm(string NameValue, string Randomize)
+    {       
+        [TestCase(null, "no"), Order(1), Category("Smoke")]
+        public void TAlertSignUpEmptyForm(string NameValue, string Randomize)
         {
             TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
             transitAlertPage.GoToSignUpForTransAlert();
@@ -26,8 +25,8 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedTermsFailMsg), transitAlertPage.termsFailMsgMissing);
         }
         
-        [TestCase(null, "yes"), Order(2), Category("Special")]
-        public void SignUpRandomNameOnly(string NameValue, string Randomize)
+        [TestCase(null, "yes"), Order(2)]
+        public void TAlertSignUpRandomNameOnly(string NameValue, string Randomize)
         {
             TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
             transitAlertPage.GoToSignUpForTransAlert();
@@ -43,7 +42,7 @@ namespace TranslinkSite.TestCases
         }
 
         [TestCase("Jake", "no"), Order(3)]
-        public void SignUpNonRandomNameOnly(string NameValue, string Randomize)
+        public void TAlertSignUpNonRandomNameOnly(string NameValue, string Randomize)
         {
             TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
             transitAlertPage.GoToSignUpForTransAlert();
@@ -60,7 +59,7 @@ namespace TranslinkSite.TestCases
         [TestCase("special_character@$%!.com"), Order(4)]
         [TestCase("special~#$@sample.com")]
         [TestCase("234@#$@email3.com")]
-        public void InvalidEmailOnly(string EmailValue)
+        public void TAlertInvalidEmailOnly(string EmailValue)
         {
             TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
             transitAlertPage.GoToSignUpForTransAlert();
@@ -75,8 +74,8 @@ namespace TranslinkSite.TestCases
 
         }
 
-        [TestCase("sample88_123@nonameemail.com", "Mitch", "no"), Order(5)]
-        public void ValidEmailAndName(string EmailValue, string NameValue, string Randomize)
+        [TestCase("sample88_123@nonameemail.com", "Alex", "no"), Order(5), Category("Smoke")]
+        public void TAlertValidEmailAndName(string EmailValue, string NameValue, string Randomize)
         {
             TransitAlertPage transitAlertPage = new TransitAlertPage(driver);
             transitAlertPage.GoToSignUpForTransAlert();

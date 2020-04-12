@@ -107,9 +107,9 @@ namespace TranslinkSite.Pages
                     break;
 
                 case "Routes":
-                    var dropList11 = ImportSheet("test_file.xlsx");
+                    var dropListRoutes = ImportSheet("test_file.xlsx");
 
-                    string[] arrayList = dropList11.Rows.OfType<DataRow>().Select(k => k[0].ToString()).ToArray();
+                    string[] arrayList = dropListRoutes.Rows.OfType<DataRow>().Select(k => k[0].ToString()).ToArray();
                     dropList = arrayList; 
 
                     //dropList =  new string[] {"def", "num", "walk", "whe" };
@@ -117,7 +117,7 @@ namespace TranslinkSite.Pages
                     break;
                
                 default:
-                    throw new System.ArgumentException(("Error: Please Include Dropdown Type Value of either: Prefer or Routes"));
+                    throw new System.ArgumentException("Parameter must either be Prefer or Routes", "Dropdown Type Value");
             }
 
             SelectElement dropDownptions = new SelectElement(dropdownChoice);
@@ -145,12 +145,9 @@ namespace TranslinkSite.Pages
             new SelectElement(driver.FindElement(RouteDropdownSelector)).SelectByText(option);
         }
 
-        public void ExcelConverter()
+        public void ViewValuesInDataTable()
         {
             var dropList = ImportSheet("test_file.xlsx");
-
-            string[] arrayList  = dropList.Rows.OfType<DataRow>().Select(k => k[0].ToString()).ToArray();
-
             //foreach (DataRow row in dropList.Rows)
             //{
             //    Console.WriteLine();
@@ -160,5 +157,11 @@ namespace TranslinkSite.Pages
             //    }
             //}
         }
+
+        public void ClickChangeDirectionButton()
+        {
+            driver.FindElement(ChangeDirectionButton).Click(); 
+        }
+
     }
 }

@@ -23,14 +23,24 @@ namespace TranslinkSite.Pages
         private static readonly By NextBusTextField = By.Id("MainContent_textStop");
         private static readonly By FindNB_Button = By.Id("carouselNextBus");
         private static readonly By SubmitNextBusButton = By.Id("MainContent_linkSearch");
-        private static readonly By Settings = By.Id("myPreferenceUrl");
+        private static readonly By SettingsTab = By.Id("myPreferenceUrl");
         private static readonly By ClockTime = By.XPath("//*[@value='clockTime']");
         private static readonly By CountDown = By.XPath("//*[@value='countDown']");
         private static readonly By TextView = By.XPath("//*[@value='text']");
-        private static readonly By MapView = By.XPath("//*[@value='map']"); 
+        private static readonly By MapView = By.XPath("//*[@value='map']");
 
         private static readonly By MapViewTab = By.Id("mapview_tab");
         private static readonly By RefreshPage = By.Id("refresh_tab");
+
+        private static readonly By BrowseRoutesContainer = By.XPath("(//*[text()='Browse all bus routes'])[2]");
+        private static readonly By Route8 = By.XPath("//*[text()='8 Fraser / Downtown']");
+        private static readonly By Route8TopDirection = By.XPath("(//*[text()='To Fraser'])[2]");
+        private static readonly By Route8Stop = By.XPath("(//*[text()='E Broadway at Kingsway'])[2]");
+
+        private static readonly By RouteR2 = By.XPath("//*[text()='R2 Marine Dr']");
+        private static readonly By RouteR2TopDirection = By.XPath("(//*[text()='To Marine Dr To Phibbs Exch'])[2]");
+        private static readonly By RouteR2Stop = By.XPath("(//*[text()='Marine Dr at Capilano Rd'])[2]");
+
 
         private static readonly By RouteTopDestination = By.XPath("//*[@id='MainContent_PanelStops']/*/section[3]/article");
         private static readonly By RouteBottomDestination = By.XPath("//*[@id='MainContent_PanelStops']/*/article");
@@ -39,7 +49,6 @@ namespace TranslinkSite.Pages
 
         public readonly string nextBusPageTitle = "Next Bus is a quick way to look up departure, real time, or scheduled times for a specific bus stop and bus route.";
         public readonly string nextBusPageTitleFailMsg = "Next bus Page Title Missing";
-
 
         public NextBusPage(IWebDriver drv)
         {
@@ -62,12 +71,12 @@ namespace TranslinkSite.Pages
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(FindNB_Button));
         }
-
+               
         // Two options for Time Display 
         public void ChangeTimeDisplaySettings(string timedDisplay)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            driver.FindElement(Settings).Click();
+            driver.FindElement(SettingsTab).Click();
 
             if (timedDisplay == "ClockTime")
             {
@@ -93,7 +102,7 @@ namespace TranslinkSite.Pages
         public void ChangeViewPreferenceSettings(string viewPreference)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            driver.FindElement(Settings).Click();
+            driver.FindElement(SettingsTab).Click();
 
             if (viewPreference == "TextView")
             {
@@ -115,14 +124,14 @@ namespace TranslinkSite.Pages
             }
         }
 
-        public void Destination(string choice)
+        public void ClickBusDestination(string choice)
         {
             if (choice == "Top")
             {
                 //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
                 //jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteTopDestination));
                 driver.FindElement(RouteTopDestination).Click();
-                return; 
+                return;
             }
 
             if (choice == "Bottom")
@@ -130,7 +139,7 @@ namespace TranslinkSite.Pages
                 //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
                 //jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteBottomDestination));
                 driver.FindElement(RouteBottomDestination).Click();
-                return; 
+                return;
             }
 
             else
@@ -143,18 +152,80 @@ namespace TranslinkSite.Pages
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", driver.FindElement(SecondStop));
-            driver.FindElement(SecondStop).Click(); 
+            driver.FindElement(SecondStop).Click();
             //var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(SecondStop)); 
         }
 
-        public void MapViewOption()
+        public void ClickMapViewOption()
         {
-            driver.FindElement(MapViewTab).Click(); 
+            driver.FindElement(MapViewTab).Click();
         }
 
         public void ClickHiddenRefreshButton()
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(RefreshPage));
-        } 
+        }
+
+        public void ClickBrowseAllRoutes()
+        {
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(BrowseRoutesContainer));
+        }
+
+        public void ClickBusRoute(string routeName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+
+            switch (routeName)
+            {
+                case "8":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8));
+                    break;
+
+                case "R2":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2));
+                    break;
+
+                default:
+                    throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Route Choice");
+            }
+        }
+
+        public void ClickBrowseBusDestination(string routeName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+
+            switch (routeName)
+            {
+                case "8":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8TopDirection));
+                    break;
+
+                case "R2":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2TopDirection));
+                    break;
+
+                default:
+                    throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Destination Choice");
+            }        
+        }
+
+        public void ClickBrowseBusStop(string routeName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+
+            switch (routeName)
+            {
+                case "8":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8Stop));
+                    break;
+
+                case "R2":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2Stop));
+                    break;
+
+                default:
+                    throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Stop Choice");
+            }
+        }
     }
 }

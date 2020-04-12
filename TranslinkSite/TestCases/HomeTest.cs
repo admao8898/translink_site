@@ -11,7 +11,7 @@ namespace TranslinkSite.TestCases
     public class HomeTest : UITestFixture
     {
         [TestCase(), Order(1)]
-        public void HomePageContents()
+        public void HomePageContentsVerification()
         {
             HomePage homePage = new HomePage(driver);
             

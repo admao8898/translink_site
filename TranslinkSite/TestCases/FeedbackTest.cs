@@ -34,7 +34,7 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.dropDownTitle), feedbackPage.dropDownTitleFailMsg);
         }
 
-        [TestCase(), Order(3)]
+        [TestCase(), Order(3), Category("Smoke")]
         public void FeedbackVerifyDropdownOptions()
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
@@ -73,9 +73,9 @@ namespace TranslinkSite.TestCases
             }
         }
 
-        [TestCase("Bus", "Bob", "R5", null, null, "today-7days","Current-3hours", "6041234567"), Order(5), Category("Smoke")]
-        [TestCase("SkyTrain", "Joy", null,"CanLine", "Langara-49th Avenue", "today", "Current+3hours", "7781234567"), Category("Smoke")]
-        public void FeedbackPartialFilled(string feedbackType, string name, string routeNumber,string skytrainLine, string station, string day, string time, string phoneNumber)
+        [TestCase("Bus", "Bob", "R5", null, null, null, "today-7days","Current-3hours", "6041234567"), Order(5)]
+        [TestCase("SkyTrain", "Joy", null,"CanLine", "CanLineWaterfront", "Langara -49th Avenue", "today", "Current+3hours", "7781234567"), Category("Smoke")]
+        public void FeedbackTypePartialFilled(string feedbackType, string name, string routeNumber,string skytrainLine, string skytrainlineDirection, string station, string day, string time, string phoneNumber)
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
             feedbackPage.GoToFeedbackSiteURL();
@@ -89,20 +89,20 @@ namespace TranslinkSite.TestCases
                     feedbackPage.EnterIncidentTime(time, feedbackType);
                     feedbackPage.EnterPhoneNumber(phoneNumber, feedbackType);
                     feedbackPage.EnterResponseChoice("no", feedbackType);
-                    Thread.Sleep(2000);
+                    //Thread.Sleep(2000);
                     feedbackPage.EnterResponseChoice("yes", feedbackType);
                     feedbackPage.ClickSubmitButton(feedbackType);
                     break;
 
                 case "SkyTrain":
                     feedbackPage.EnterSkytrainLine(skytrainLine);
-                    feedbackPage.ClickCanLineWaterfrontDirection();
-                    feedbackPage.SelectSkyTrainStation(station);
+                    feedbackPage.ClickSkytrainLineDirection(skytrainlineDirection);
+                    feedbackPage.SelectSkyTrainStation(skytrainlineDirection, station);
                     feedbackPage.EnterIncidentDate(day, feedbackType);
                     feedbackPage.EnterIncidentTime(time, feedbackType);
                     feedbackPage.EnterPhoneNumber(phoneNumber, feedbackType);
                     feedbackPage.EnterResponseChoice("no", feedbackType);
-                    Thread.Sleep(2000);
+                    //Thread.Sleep(2000);
                     feedbackPage.EnterResponseChoice("yes", feedbackType);
                     feedbackPage.ClickSubmitButton(feedbackType);
                     break;
@@ -112,7 +112,25 @@ namespace TranslinkSite.TestCases
             }
         }
 
-        [TestCase("green"), Order(6)]
+        [TestCase("CanLine", "CanLineWaterfront", "King Edward"), Order(6)]
+        [TestCase("CanLine", "CanLineRichmond", "Lansdowne")]
+        //[TestCase("CanLine", "CanLineDoNotKnow", null)]
+        [TestCase("ExpoLine", "ExpLineKingGeorge", "Edmonds" )]
+        [TestCase("ExpoLine", "ExpLineWaterfront", "Stadium-Chinatown")]
+        [TestCase("ExpoLine", "ExpLineProWayUni", "Main Street-Science World")]
+        //[TestCase("ExpoLine", "ExpLineDoNotKnow", "")]
+        public void FeedbackSTLineDirectionTests(string skytrainLine, string sktyrainlineDirection, string station)
+        {
+            FeedbackPage feedbackPage = new FeedbackPage(driver);
+            feedbackPage.GoToFeedbackSiteURL();
+            feedbackPage.SelectTypeofFeedback("SkyTrain");
+            feedbackPage.EnterSkytrainLine(skytrainLine);
+            feedbackPage.ClickSkytrainLineDirection(sktyrainlineDirection);            
+            feedbackPage.SelectSkyTrainStation(sktyrainlineDirection, station);
+        }
+
+
+        [TestCase("green"), Order(7)]
         [TestCase("yellow")]
         [TestCase("orange")]
         //[TestCase(null)]

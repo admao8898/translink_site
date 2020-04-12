@@ -10,7 +10,7 @@ namespace TranslinkSite.TestCases
 {
     public class TripPlannerTest : UITestFixture
     {
-        [TestCase(), Order(1), Category("Smoke")]
+        [TestCase(), Order(1)]
         public void TripPlannerLink()
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
@@ -21,7 +21,7 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(tripPlannerPage.tripPlannerPageDescription), tripPlannerPage.tripPlannerPageDescriptFailMsg);
         }
 
-        [TestCase(), Order(2), Category("Smoke")]
+        [TestCase(), Order(2)]
         public void TripPlannerURL()
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
@@ -32,7 +32,7 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(tripPlannerPage.tripPlannerPageDescription), tripPlannerPage.tripPlannerPageDescriptFailMsg);
         }
 
-        [TestCase("SFU", "UBC"), Order(3), Category("Special")]
+        [TestCase("SFU", "UBC"), Order(3), Category("Smoke")]
         public void TripPlannerGMapVerify(string startPoint, string endPoint)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
@@ -55,8 +55,8 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.VerifyAllDropdownOptions(type);
         }
 
-        [TestCase("New Westminster Station", "UBC", "Bus", "Less walking"), Order(5)]
-        public void SampleTrip(string startPoint, string endPoint, string preferedMode, string routeOption)
+        [TestCase("New Westminster Station", "UBC", "Bus", "Less walking"), Order(5), Category("Smoke")]
+        public void TripPlannerSampleTrip(string startPoint, string endPoint, string preferedMode, string routeOption)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
             tripPlannerPage.GoToTripPlannerURL();
@@ -68,5 +68,17 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.ClickPlanMyTripButton();
         }
 
+        [TestCase("King Edward Station", "Surrey Central Station"), Order(6), Category("Smoke")]
+        public void TripPlannerSwitchDirections(string startPoint, string endPoint)
+        {
+            TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
+            tripPlannerPage.GoToTripPlannerURL();
+            tripPlannerPage.EnterFromDestinationText(startPoint);
+            tripPlannerPage.EnterToDestinationText(endPoint);
+            //Thread.Sleep(2000);
+            tripPlannerPage.ClickChangeDirectionButton();
+            //Thread.Sleep(2000);
+            tripPlannerPage.ClickPlanMyTripButton();
+        }
     }   
 }

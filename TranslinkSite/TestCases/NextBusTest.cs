@@ -12,10 +12,9 @@ namespace TranslinkSite.TestCases
     {
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
-        [TestCase("R2", "Top")]
-        [TestCase("22", "Bottom")]
-        [TestCase("99", "Bottom")]
-        public void NextBusRoute(string busRoute, string destination)
+        [TestCase("99", "Top"), Category("Smoke")]
+        [TestCase("210", "Bottom")]
+        public void NextBusRouteNumberInput(string busRoute, string destination)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
             nextBusPage.GoToNextBus();
@@ -26,16 +25,36 @@ namespace TranslinkSite.TestCases
 
             nextBusPage.ChangeTimeDisplaySettings("ClockTime");
             nextBusPage.ChangeViewPreferenceSettings("MapView"); 
+
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
-            nextBusPage.Destination(destination);
+            nextBusPage.ClickBusDestination(destination);
             Thread.Sleep(500); 
             nextBusPage.Click2ndBusStop();
-            Thread.Sleep(2000);
-            nextBusPage.MapViewOption();
-            Thread.Sleep(2000);
-
+            Thread.Sleep(500);
+            nextBusPage.ClickMapViewOption();
+            Thread.Sleep(1000);
             nextBusPage.ClickHiddenRefreshButton();
             //Thread.Sleep(2000); 
+        }
+
+        [TestCase("R2")]
+        [TestCase("8")]
+        public void NextBusBrowseDesiredRoute(string busRoute)
+        {
+            NextBusPage nextBusPage = new NextBusPage(driver);
+            nextBusPage.GoToNextBus();
+
+            nextBusPage.ClickBrowseAllRoutes();
+            nextBusPage.ClickBusRoute(busRoute); 
+            nextBusPage.ClickBrowseBusDestination(busRoute);
+            nextBusPage.ClickBrowseBusStop(busRoute);
+
+            nextBusPage.ChangeTimeDisplaySettings("ClockTime");
+            nextBusPage.ChangeViewPreferenceSettings("MapView");
+            Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
+            Thread.Sleep(500);
+            nextBusPage.ClickMapViewOption();
+            Thread.Sleep(1000);
         }
     }
 }
