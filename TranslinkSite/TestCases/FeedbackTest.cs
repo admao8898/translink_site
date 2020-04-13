@@ -71,7 +71,7 @@ namespace TranslinkSite.TestCases
         }
 
         [TestCase("Bus", "random", "R5", null, null, null, "-7","-3", "6041234567"), Order(5)]
-        [TestCase("SkyTrain", "name", null,"CanLine", "CanLineWaterfront", "Langara -49th Avenue", "0", "2", "7781234567"), Category("Smoke")]
+        [TestCase("SkyTrain", "name", null,"CanLine", "CanLineWaterfront", "Bridgeport", "0", "2", "7781234567"), Category("Smoke")]
         public void FeedbackTypePartialFilled(string feedbackType, string name, string routeNumber,string skytrainLine, string skytrainlineDirection, string station, string day, string time, string phoneNumber)
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
