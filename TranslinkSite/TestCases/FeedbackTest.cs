@@ -49,32 +49,29 @@ namespace TranslinkSite.TestCases
             FeedbackPage feedbackPage = new FeedbackPage(driver);
             feedbackPage.GoToFeedbackSiteURL();
             feedbackPage.SelectTypeofFeedback(feedbackType);
-
-            switch(feedbackType)
+                        
+            switch (feedbackType)
             {
                 case "Bus":
                     Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.routeNumberLegend), feedbackPage.routeNumberLegendFailMsg);
-                    feedbackPage.ClickSubmitButton(feedbackType);
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.detailsRequiredFieldMsg), feedbackPage.detailRequiredFieldFailMsg);
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.nameRequiredFieldMsg), feedbackPage.nameRequiredFieldFailMsg);
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.emailRequiredFieldMsg), feedbackPage.emailRequiredFieldFailMsg);
                     break;
 
                 case "SkyTrain":
                     Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.skytrainLineLegend), feedbackPage.skytrainLineLegendFailMsg);
-                    feedbackPage.ClickSubmitButton(feedbackType);
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.detailsRequiredFieldMsg), feedbackPage.detailRequiredFieldFailMsg);
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.nameRequiredFieldMsg), feedbackPage.nameRequiredFieldFailMsg);
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.emailRequiredFieldMsg), feedbackPage.emailRequiredFieldFailMsg);
-                    break;
+                    break; 
 
                 default:
-                    return;                                  
+                    return;
             }
+
+            feedbackPage.ClickSubmitButton(feedbackType);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.detailsRequiredFieldMsg), feedbackPage.detailRequiredFieldFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.nameRequiredFieldMsg), feedbackPage.nameRequiredFieldFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.emailRequiredFieldMsg), feedbackPage.emailRequiredFieldFailMsg);
         }
 
-        [TestCase("Bus", "Bob", "R5", null, null, null, "today-7days","Current-3hours", "6041234567"), Order(5)]
-        [TestCase("SkyTrain", "Joy", null,"CanLine", "CanLineWaterfront", "Langara -49th Avenue", "today", "Current+3hours", "7781234567"), Category("Smoke")]
+        [TestCase("Bus", "random", "R5", null, null, null, "-7","-3", "6041234567"), Order(5)]
+        [TestCase("SkyTrain", "name", null,"CanLine", "CanLineWaterfront", "Langara -49th Avenue", "0", "2", "7781234567"), Category("Smoke")]
         public void FeedbackTypePartialFilled(string feedbackType, string name, string routeNumber,string skytrainLine, string skytrainlineDirection, string station, string day, string time, string phoneNumber)
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
@@ -84,32 +81,27 @@ namespace TranslinkSite.TestCases
             switch (feedbackType)
             {
                 case "Bus":
-                    feedbackPage.EnterRouteNumber(routeNumber);
-                    feedbackPage.EnterIncidentDate(day, feedbackType);
-                    feedbackPage.EnterIncidentTime(time, feedbackType);
-                    feedbackPage.EnterPhoneNumber(phoneNumber, feedbackType);
-                    feedbackPage.EnterResponseChoice("no", feedbackType);
-                    //Thread.Sleep(2000);
-                    feedbackPage.EnterResponseChoice("yes", feedbackType);
-                    feedbackPage.ClickSubmitButton(feedbackType);
+                    feedbackPage.EnterRouteNumber(routeNumber);                    
                     break;
 
                 case "SkyTrain":
                     feedbackPage.EnterSkytrainLine(skytrainLine);
                     feedbackPage.ClickSkytrainLineDirection(skytrainlineDirection);
-                    feedbackPage.SelectSkyTrainStation(skytrainlineDirection, station);
-                    feedbackPage.EnterIncidentDate(day, feedbackType);
-                    feedbackPage.EnterIncidentTime(time, feedbackType);
-                    feedbackPage.EnterPhoneNumber(phoneNumber, feedbackType);
-                    feedbackPage.EnterResponseChoice("no", feedbackType);
-                    //Thread.Sleep(2000);
-                    feedbackPage.EnterResponseChoice("yes", feedbackType);
-                    feedbackPage.ClickSubmitButton(feedbackType);
+                    feedbackPage.SelectSkyTrainStation(skytrainlineDirection, station);                    
                     break;
 
                 default:
                     return;
             }
+
+            feedbackPage.EnterFirstName(name, feedbackType); 
+            feedbackPage.EnterIncidentDate(day, feedbackType);
+            feedbackPage.EnterIncidentTime(time, feedbackType);
+            feedbackPage.EnterPhoneNumber(phoneNumber, feedbackType);
+            feedbackPage.EnterResponseChoice("no", feedbackType);
+            //Thread.Sleep(2000);
+            feedbackPage.EnterResponseChoice("yes", feedbackType);
+            feedbackPage.ClickSubmitButton(feedbackType);
         }
 
         [TestCase("CanLine", "CanLineWaterfront", "King Edward"), Order(6)]
@@ -129,7 +121,6 @@ namespace TranslinkSite.TestCases
             feedbackPage.SelectSkyTrainStation(sktyrainlineDirection, station);
         }
 
-
         [TestCase("green"), Order(7)]
         [TestCase("yellow")]
         [TestCase("orange")]
@@ -138,7 +129,8 @@ namespace TranslinkSite.TestCases
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
             feedbackPage.GoToFeedbackSiteURL();
-            feedbackPage.HightlightText(highLightColour); 
+            feedbackPage.HightlightText(highLightColour);
+            Thread.Sleep(2000); 
         }
     }
 }

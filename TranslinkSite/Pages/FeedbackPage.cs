@@ -5,10 +5,9 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using TranslinkSite.HelperFunctions;
 using static TranslinkSite.HelperFunctions.DateTimeGenerator;
-
+using static TranslinkSite.HelperFunctions.RandomCharGenerator;
 
 namespace TranslinkSite.Pages
 {
@@ -36,8 +35,7 @@ namespace TranslinkSite.Pages
 
         private static readonly By CustomerFeedbackTitle = By.XPath("//h2[text()='Customer Feedback']");
         private static readonly By CustomerFeedbackDescription = By.XPath("");
-
-
+        
         //Bus Feedback Form 
         public readonly string routeNumberLegend = "Route Number";
         public readonly string routeNumberLegendFailMsg = "Route Number Legend Missing";
@@ -45,6 +43,7 @@ namespace TranslinkSite.Pages
         private static readonly By BusIncidentDateField = By.Id("busfeedback-incidentdate");
         private static readonly By BusIncidentTimeField = By.Id("busfeedback-incidenttime");
         private static readonly By BusPhoneNumberField = By.Id("busfeedback-phonenumber");
+        private static readonly By BusFirstNameField = By.Id("busfeedback-firstname");
         private static readonly By BusCustRepResponseYesButton = By.XPath("(//*[.='Yes'])[3]");
         private static readonly By BusCustRepResponseNoButton = By.XPath("(//*[.='No'])[3]");
 
@@ -79,11 +78,11 @@ namespace TranslinkSite.Pages
         private static readonly By ExpLineKGDropdownSelector = By.XPath("(//*[@id='skytrainfeedback-skytrainstation'])[4]");
         private static readonly By ExpLinePWURadioDropdownSelector = By.XPath("(//*[@id='skytrainfeedback-skytrainstation'])[5]");
         private static readonly By ExpLineWaterfrontDropdownSelector = By.XPath("(//*[@id='skytrainfeedback-skytrainstation'])[6]");
-
-
+        
         private static readonly By STIncidentDateField = By.Id("skytrainfeedback-incidentdate");
         private static readonly By STIncidentTimeField = By.Id("skytrainfeedback-incidenttime");
         private static readonly By STPhoneNumberField = By.Id("skytrainfeedback-phonenumber");
+        private static readonly By STFirstNameField = By.Id("skytrainfeedback-firstname");
         private static readonly By STCustRepResponseYesButton = By.XPath("(//*[.='Yes'])[5]");
         private static readonly By STCustRepResponseNoButton = By.XPath("(//*[.='No'])[5]");
 
@@ -289,6 +288,44 @@ namespace TranslinkSite.Pages
             driver.FindElement(RouteNumberField).SendKeys(routeNumber); 
         }
 
+        public void EnterFirstName(string nameType, string type)
+        {
+            if (type == "Bus")
+            {
+                if (nameType == "random")
+                {
+                    driver.FindElement(BusFirstNameField).SendKeys(RandomWordGenerator(8, nameType)); 
+                    return; 
+                }
+
+                else
+                {
+                    driver.FindElement(BusFirstNameField).SendKeys(RandomWordGenerator(2, nameType));
+                    return; 
+                }               
+            }
+
+            if (type == "SkyTrain")
+            {
+                if (nameType == "random")
+                {
+                    driver.FindElement(STFirstNameField).SendKeys(RandomWordGenerator(8, nameType));
+                    return;
+                }
+
+                else
+                {
+                    driver.FindElement(STFirstNameField).SendKeys(RandomWordGenerator(2, nameType));
+                    return;
+                }
+            }
+
+            else
+            {
+                throw new System.ArgumentException("Parameter must either be Bus or SkyTrain", "Feedback Type");
+            }
+        }
+
         public void EnterIncidentDate(string date, string type)
         {
             if (type == "Bus")
@@ -392,7 +429,6 @@ namespace TranslinkSite.Pages
         {
             TextHighLightJS HighLighter = new TextHighLightJS();
             HighLighter.HighlightElement(driver, driver.FindElement(CustomerFeedbackTitle), highLightColour);
-            Thread.Sleep(2000); 
         }
     }
 

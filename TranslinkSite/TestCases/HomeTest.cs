@@ -5,7 +5,6 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using TranslinkSite.Pages; 
 
-
 namespace TranslinkSite.TestCases
 {
     public class HomeTest : UITestFixture

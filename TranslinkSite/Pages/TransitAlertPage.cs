@@ -30,8 +30,7 @@ namespace TranslinkSite.Pages
         public readonly string emailFailMsgMissing = "Empty Email Field Message Missing";
         public readonly string passwordFailMsgMissing = "Password Field Message Missing";
         public readonly string termsFailMsgMissing = "Terms & Conditions Empty Message Missing";
-
-
+        
         public TransitAlertPage(IWebDriver drv)
         {
             driver = drv;

@@ -4,63 +4,43 @@ namespace TranslinkSite.HelperFunctions
 {
     public class DateTimeGenerator
     {
-        public static string SystemDate(string date)
+        //Function returns System Date and Time. User may use dates/times are either past, current, or future relative to current date/time
+
+        public static string SystemDate(string days)
         {
-            string returnDate;
             string dateFormat = "yyyy/MM/dd";
-
-            if (date == "today")
+            
+            //Verify string is an integer
+            if (int.TryParse(days, out int dayInteger))
             {
-                DateTime today = DateTime.Today;
-                returnDate = today.ToString(dateFormat);
-                return returnDate;
-            }
-
-            if (date == "today-7days")
-            {
-                returnDate = DateTime.Today.AddDays(-7).ToString(dateFormat);
-                return returnDate;
-            }
-
-            if (date == "today+10days")
-            {
-                returnDate = DateTime.Today.AddDays(+10).ToString(dateFormat);
-                return returnDate;
+                dayInteger = Convert.ToInt32(days);
             }
 
             else
             {
-                throw new Exception("Error: Please Include Date Type Value of either: today or today-7days or today+10days");
+                throw new Exception("String must be integer type only, i.e. '8' for +8 days or '-3' for -3 days");
             }
+
+            string date = DateTime.Today.AddDays(dayInteger).ToString(dateFormat);
+            return date;
         } 
         
         public static string SystemTime(string time)
         {
-            string returnTime;
             string timeFormat = "hh:mm tt";
-            if (time == "Current")
-            {
-                DateTime currentTime = DateTime.Now;
-                returnTime = currentTime.ToString(timeFormat);
-                return returnTime;
-            }
 
-            if (time == "Current-3hours")
+            if (int.TryParse(time, out int timeInteger))
             {
-                returnTime = DateTime.Now.AddHours(-3).ToString(timeFormat);
-                return returnTime;
-            }
-
-            if (time == "Current+3hours")
-            {
-                returnTime = DateTime.Now.AddHours(3).ToString(timeFormat);
-                return returnTime;
+                timeInteger = Convert.ToInt32(time);
             }
 
             else
             {
-                throw new System.ArgumentException("Parameter must either be Current or Current-3hours or Current+3hours", "Time Type");
+                throw new Exception("String must be integer type only, i.e. '8' for +8 hours or '-3' for -3 hours");
             }
+
+            string returnTime = DateTime.Now.AddHours(timeInteger).ToString(timeFormat);
+            return returnTime;
         }
     }
 }

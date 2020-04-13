@@ -34,7 +34,7 @@ namespace TranslinkSite.Pages
         private static readonly By MoreOptionsLink = By.XPath("(//*[@class='Header'])[2]");
 
         private static readonly By PreferedTransitOptionDropdownSelector = By.Name("tripPreferences");
-        private static readonly By RouteDropdownSelector = By.Id("tripplannerwidget-routepreferences");
+        private static readonly By RouteOptionDropdownSelector = By.Id("tripplannerwidget-routepreferences");
         // ** Time and Departing Option hidden on mobile view 
 
         public TripPlannerPage(IWebDriver drv)
@@ -72,6 +72,8 @@ namespace TranslinkSite.Pages
         }
 
         //Verify Google Map Destinations match Trip Planner Destinations 
+        //Fails when run on the cloud (Azure DevOps), but works on local machine
+        //Out of scope for tests, but will leave for further investigation
         public void VerifyGoogleMaps()
         {
             Boolean isPresentStart = driver.FindElement(GMapStartPoint).Displayed;
@@ -91,7 +93,6 @@ namespace TranslinkSite.Pages
         public void ClickMoreOptionsLink()
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(MoreOptionsLink));
-            //driver.FindElement(MoreOptionsLink).Click(); 
         }
 
         public void VerifyAllDropdownOptions(string type)
@@ -107,13 +108,14 @@ namespace TranslinkSite.Pages
                     break;
 
                 case "Routes":
+                    // String data taken from Excel spreadsheet and converted into a datatable 
+                    // Which is then converted to an array 
                     var dropListRoutes = ImportSheet("test_file.xlsx");
 
                     string[] arrayList = dropListRoutes.Rows.OfType<DataRow>().Select(k => k[0].ToString()).ToArray();
                     dropList = arrayList; 
 
-                    //dropList =  new string[] {"def", "num", "walk", "whe" };
-                    dropdownChoice = driver.FindElement(RouteDropdownSelector);
+                    dropdownChoice = driver.FindElement(RouteOptionDropdownSelector);
                     break;
                
                 default:
@@ -125,7 +127,7 @@ namespace TranslinkSite.Pages
             int numberofOptions = options.Count;
 
             IWebElement dropDownActualValue;
-            // using a for loop to match all option values against desired values 
+            // using a "for" loop to match all option values against desired values 
             // reference to https://stackoverflow.com/questions/9562853/how-to-get-all-options-in-a-drop-down-list-by-selenium-webdriver-using-c
 
             for (int i = 1; i < numberofOptions; i++)
@@ -142,26 +144,26 @@ namespace TranslinkSite.Pages
 
         public void SelectPreferedRouteMode(string option)
         {
-            new SelectElement(driver.FindElement(RouteDropdownSelector)).SelectByText(option);
+            new SelectElement(driver.FindElement(RouteOptionDropdownSelector)).SelectByText(option);
         }
-
+        
+        //Displays values in datatable via Console 
         public void ViewValuesInDataTable()
         {
             var dropList = ImportSheet("test_file.xlsx");
-            //foreach (DataRow row in dropList.Rows)
-            //{
-            //    Console.WriteLine();
-            //    for (int x = 0; x < dropList.Columns.Count; x++)
-            //    {
-            //        Console.Write(row[x].ToString() + " ");
-            //    }
-            //}
+            foreach (DataRow row in dropList.Rows)
+            {
+                Console.WriteLine();
+                for (int x = 0; x < dropList.Columns.Count; x++)
+                {
+                    Console.Write(row[x].ToString() + " ");
+                }
+            }
         }
 
         public void ClickChangeDirectionButton()
         {
             driver.FindElement(ChangeDirectionButton).Click(); 
         }
-
     }
 }

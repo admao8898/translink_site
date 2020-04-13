@@ -4,9 +4,9 @@ namespace TranslinkSite.HelperFunctions
 {
     //This function will highlight the selected text via JavaScript 
     //With reference to https://www.edgewordstraining.co.uk/2018/02/23/highlighting-web-elements/
+
     public class TextHighLightJS 
     {
-
         public void HighlightElement(IWebDriver driver, IWebElement element, string highLightColour) // function will need input value of driver otherwise just reads null 
         {
             if (highLightColour == "orange")
@@ -33,7 +33,6 @@ namespace TranslinkSite.HelperFunctions
             else
             {
                 throw new System.ArgumentException("Parameter must either be orange or yellow or green", "Highlight Colour Type");
-
             }           
         }
     }
