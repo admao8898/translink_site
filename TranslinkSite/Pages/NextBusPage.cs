@@ -76,8 +76,8 @@ namespace TranslinkSite.Pages
         public void ChangeTimeDisplaySettings(string timedDisplay)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            driver.FindElement(SettingsTab).Click();
-
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SettingsTab));
+            
             if (timedDisplay == "ClockTime")
             {
                 jse.ExecuteScript("arguments[0].click()", driver.FindElement(ClockTime));
@@ -102,7 +102,7 @@ namespace TranslinkSite.Pages
         public void ChangeViewPreferenceSettings(string viewPreference)
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            driver.FindElement(SettingsTab).Click();
+            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SettingsTab));
 
             if (viewPreference == "TextView")
             {
@@ -126,9 +126,10 @@ namespace TranslinkSite.Pages
 
         public void ClickBusDestination(string choice)
         {
+            //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+
             if (choice == "Top")
             {
-                //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
                 //jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteTopDestination));
                 driver.FindElement(RouteTopDestination).Click();
                 return;
@@ -136,7 +137,6 @@ namespace TranslinkSite.Pages
 
             if (choice == "Bottom")
             {
-                //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
                 //jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteBottomDestination));
                 driver.FindElement(RouteBottomDestination).Click();
                 return;
