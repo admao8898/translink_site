@@ -25,13 +25,13 @@ namespace TranslinkSite.HelperFunctions
             return date;
         } 
         
-        public static string SystemTime(string time)
+        public static string SystemTime(string times)
         {
             string timeFormat = "hh:mm tt";
 
-            if (int.TryParse(time, out int timeInteger))
+            if (int.TryParse(times, out int timeInteger))
             {
-                timeInteger = Convert.ToInt32(time);
+                timeInteger = Convert.ToInt32(times);
             }
 
             else
@@ -39,8 +39,8 @@ namespace TranslinkSite.HelperFunctions
                 throw new Exception("String must be integer type only, i.e. '8' for +8 hours or '-3' for -3 hours");
             }
 
-            string returnTime = DateTime.Now.AddHours(timeInteger).ToString(timeFormat);
-            return returnTime;
+            string time = DateTime.Now.AddHours(timeInteger).ToString(timeFormat);
+            return time;
         }
     }
 }

@@ -12,14 +12,15 @@ namespace TranslinkSite.TestCases
     {
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
-        [TestCase("R1", "Top"), Category("Smoke")]
+        [TestCase("R5", "Top"), Category("Smoke")]
         [TestCase("701", "Bottom")]
-        [TestCase("503", "Bottom")]
+        [TestCase("501", "Bottom")]
         public void NextBusRouteNumberInput(string busRoute, string destination)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
             nextBusPage.GoToNextBus();
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.nextBusPageTitle)), nextBusPage.nextBusPageTitleFailMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.nextBusPageTitle)), 
+                nextBusPage.nextBusPageTitleFailMsg);
 
             nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.ClickFindBusRoute();
@@ -29,11 +30,11 @@ namespace TranslinkSite.TestCases
 
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
             nextBusPage.ClickBusDestination(destination);
-            Thread.Sleep(500); 
             nextBusPage.Click2ndBusStop();
-            Thread.Sleep(500);
             nextBusPage.ClickMapViewOption();
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
+            nextBusPage.ChangeTimeDisplaySettings("CountDown");
+            Thread.Sleep(500);
             nextBusPage.ClickHiddenRefreshButton();
             //Thread.Sleep(2000); 
         }

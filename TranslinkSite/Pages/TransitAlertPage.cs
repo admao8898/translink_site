@@ -57,6 +57,7 @@ namespace TranslinkSite.Pages
                 string nameValue = RandomWordGenerator(5, "random");
                 driver.FindElement(NameField).SendKeys(nameValue);
                 jse.ExecuteScript("arguments[0].click()", driver.FindElement(SubmitButton));
+                return; 
             }
 
             else // All other cases 

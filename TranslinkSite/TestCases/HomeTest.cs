@@ -14,15 +14,19 @@ namespace TranslinkSite.TestCases
         {
             HomePage homePage = new HomePage(driver);
             
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.CompassCardTitle)), homePage.CompassCardTitleFailMsg);
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.CompassCardDescription)), homePage.CompassCardDescriptionFailMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.CompassCardTitle)), 
+                homePage.CompassCardTitleFailMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.CompassCardDescription)), 
+                homePage.CompassCardDescriptionFailMsg);
             homePage.GoToCompassCardCard();
             Assert.IsTrue(driver.Url.Contains("compasscard"), "Compass Card is Not Displayed");
 
             homePage.DriverSwitchBackToHomePage();
                        
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TransitAlertsCardDescription)), homePage.TransitAlertsCardDescriptionFailMsg);
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TransitAlertsCardTitle)), homePage.TransitAlertsCardTitleFailMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TransitAlertsCardDescription)), 
+                homePage.TransitAlertsCardDescriptionFailMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TransitAlertsCardTitle)),
+                homePage.TransitAlertsCardTitleFailMsg);
             homePage.GoToTransitAlerts();
             homePage.GoBackToHomePage(); 
 

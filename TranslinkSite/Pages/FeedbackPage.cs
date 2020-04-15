@@ -21,7 +21,8 @@ namespace TranslinkSite.Pages
         //Link From homepage 
         private static readonly By CustomerFeedbackLink = By.XPath("//a[.='Customer Feedback']");
 
-        public readonly string feedbackDescription = "We're here to help! Use this form to send us questions, lost item inquiries, comments and suggestions.";
+        public readonly string feedbackDescription = "We're here to help! Use this form to send us questions, " +
+            "lost item inquiries, comments and suggestions.";
         public readonly string feedbackDescriptFailMsg = "Incorrect Feedback Description";
         public readonly string dropDownTitle = "What is your feedback regarding";
         public readonly string dropDownTitleFailMsg = "Incorrect Dropdown Title Displayed";
@@ -119,18 +120,15 @@ namespace TranslinkSite.Pages
 
         public void VerifyAllDropdownOptions()
         {
-            SelectElement dropDownptions = new SelectElement(driver.FindElement(FBTypeDropdownSelector));
-            IList<IWebElement> options = dropDownptions.Options;
-            int numberofOptions = options.Count;
-            string[] dropList = { "", "LostPropertyFeedback", "BusFeedback", "SkyTrainFeedback", "SeaBusFeedback", "WestCoastExpressFeedback", "HandyDARTFeedback", "HandyDARTTaxiFeedback", "WebAndTechnicalFeedback", "OtherFeedback" };
-            IWebElement dropDownActualValue;
-            // using a for loop to match all option values against desired values 
-            // reference to https://stackoverflow.com/questions/9562853/how-to-get-all-options-in-a-drop-down-list-by-selenium-webdriver-using-c
-
-            for (int i = 1; i < numberofOptions; i++)
+            SelectElement dropDownoptions = new SelectElement(driver.FindElement(FBTypeDropdownSelector));
+            IList<IWebElement> options = dropDownoptions.Options;
+            string[] dropList = { "", "LostPropertyFeedback", "BusFeedback", "SkyTrainFeedback", "SeaBusFeedback",
+                "WestCoastExpressFeedback", "HandyDARTFeedback", "HandyDARTTaxiFeedback", "WebAndTechnicalFeedback", "OtherFeedback" };
+    
+            for (int i = 1; i < options.Count; i++)
             {
-                dropDownActualValue = options[i];
-                Assert.AreEqual(dropDownActualValue.GetAttribute("value"), dropList[i], "One or more of the dropdown options are missing or incorrect");
+                Assert.AreEqual(options[i].GetAttribute("value"), dropList[i], "One or more of the dropdown options are " +
+                    "missing or incorrect");
             }
         }
 
@@ -162,6 +160,7 @@ namespace TranslinkSite.Pages
                 throw new Exception("Error: Please Include Feedback Type Value of either: Bus or SkyTrain");
             }
         }
+
         public void EnterSkytrainLine(string Line)
         {
             switch (Line)
@@ -195,47 +194,41 @@ namespace TranslinkSite.Pages
             {
                 case "CanLineWaterfront":
                     jse.ExecuteScript("arguments[0].click()", driver.FindElement(CanLineWaterfrontRadioButton));
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "CanLineRichmond":
                     jse.ExecuteScript("arguments[0].click()", driver.FindElement(CanLineRichmondRadioButton));
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "CanLineYVR":
                     jse.ExecuteScript("arguments[0].click()", driver.FindElement(CanLineAirportRadioButton));
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "CanLineDoNotKnow":
                     jse.ExecuteScript("arguments[0].click()", driver.FindElement(CanLineDoNotKnowRadioButton));
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "ExpLineKingGeorge":
                     jse.ExecuteScript("arguments[0].click()", driver.FindElement(ExpLineKGRadioButton));
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "ExpLineProWayUni":
                     jse.ExecuteScript("arguments[0].click()", driver.FindElement(ExpLinePWURadioButton));
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "ExpLineWaterfront":
                     jse.ExecuteScript("arguments[0].click()", driver.FindElement(ExpLineWaterfrontRadioButton));
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "ExpLineDoNotKnow":
                     jse.ExecuteScript("arguments[0].click()", driver.FindElement(ExpLineWaterfrontRadioButton));
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 default:
                     throw new System.ArgumentException("Parameter must be a valid Skytrain Line Direction", "Skytrain Line Direction Type");
             }
+
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
         public void SelectSkyTrainStation(string skytrainLineDirection, string station)
@@ -250,37 +243,33 @@ namespace TranslinkSite.Pages
 
                 case "CanLineWaterfront":
                     jse.ExecuteScript("var select = arguments[0]; for(var i = 0; i < select.options.length; i++){ if(select.options[i].text == arguments[1]){ select.options[i].selected = true; } }", driver.FindElement(CanLineWaterfrontDropdownSelector), station);
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "CanLineRichmond":
                     jse.ExecuteScript("var select = arguments[0]; for(var i = 0; i < select.options.length; i++){ if(select.options[i].text == arguments[1]){ select.options[i].selected = true; } }", driver.FindElement(CanLineRichmondDropdownSelector), station);
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "CanLineYVR":
                     jse.ExecuteScript("var select = arguments[0]; for(var i = 0; i < select.options.length; i++){ if(select.options[i].text == arguments[1]){ select.options[i].selected = true; } }", driver.FindElement(CanLineAirportRadioButtonDropdownSelector), station);
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
             
                 case "ExpLineKingGeorge":
                     jse.ExecuteScript("var select = arguments[0]; for(var i = 0; i < select.options.length; i++){ if(select.options[i].text == arguments[1]){ select.options[i].selected = true; } }", driver.FindElement(ExpLineKGDropdownSelector), station);
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "ExpLineProWayUni":
                     jse.ExecuteScript("var select = arguments[0]; for(var i = 0; i < select.options.length; i++){ if(select.options[i].text == arguments[1]){ select.options[i].selected = true; } }", driver.FindElement(ExpLinePWURadioDropdownSelector), station);
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 case "ExpLineWaterfront":
                     jse.ExecuteScript("var select = arguments[0]; for(var i = 0; i < select.options.length; i++){ if(select.options[i].text == arguments[1]){ select.options[i].selected = true; } }", driver.FindElement(ExpLineWaterfrontDropdownSelector), station);
-                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                     break;
 
                 default:
                     throw new System.ArgumentException("Parameter must be a valid Skytrain Line Direction with Corresponding Station", "Skytrain Line Direction Station Type");
             }
+
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
         public void EnterRouteNumber(string routeNumber)
@@ -421,7 +410,8 @@ namespace TranslinkSite.Pages
 
             if (choice != "no" || choice != "yes" || type != "Bus" || type != "SkyTrain" )
             {
-                throw new Exception("Error: Please Include Response Value of either: yes or no AND Feedback Value of either: Bus or Skytrain");
+                throw new Exception("Error: Please Include Response Value of either: yes or no AND Feedback Value of either: " +
+                    "Bus or Skytrain");
             }
         }
 

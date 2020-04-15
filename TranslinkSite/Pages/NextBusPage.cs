@@ -47,7 +47,8 @@ namespace TranslinkSite.Pages
         private static readonly By SecondStop = By.XPath("//*/article[2]");
         private static readonly By TryNewNBLink = By.LinkText("Try the new Next Bus");
 
-        public readonly string nextBusPageTitle = "Next Bus is a quick way to look up departure, real time, or scheduled times for a specific bus stop and bus route.";
+        public readonly string nextBusPageTitle = "Next Bus is a quick way to look up departure, real time, " +
+            "or scheduled times for a specific bus stop and bus route.";
         public readonly string nextBusPageTitleFailMsg = "Next bus Page Title Missing";
 
         public NextBusPage(IWebDriver drv)
@@ -77,25 +78,22 @@ namespace TranslinkSite.Pages
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SettingsTab));
-            
-            if (timedDisplay == "ClockTime")
+
+            switch (timedDisplay)
             {
-                jse.ExecuteScript("arguments[0].click()", driver.FindElement(ClockTime));
-                driver.Navigate().Back();
-                return;
+                case "ClockTime":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(ClockTime));
+                    break;
+
+                case "CountDown":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(CountDown));
+                    break;
+
+                default:
+                    throw new Exception("Error: Please Include Desired Setting Value of either: ClockTime or Countdown");
             }
 
-            if (timedDisplay == "CountDown")
-            {
-                jse.ExecuteScript("arguments[0].click()", driver.FindElement(CountDown));
-                driver.Navigate().Back();
-                return;
-            }
-
-            else
-            {
-                throw new Exception("Error: Please Include Desired Setting Value of either: ClockTime or Countdown");
-            }
+            driver.Navigate().Back();
         }
 
         // Two options for View Preference 
@@ -104,24 +102,21 @@ namespace TranslinkSite.Pages
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click()", driver.FindElement(SettingsTab));
 
-            if (viewPreference == "TextView")
+            switch(viewPreference)
             {
-                jse.ExecuteScript("arguments[0].click()", driver.FindElement(TextView));
-                driver.Navigate().Back();
-                return;
+                case "TextView":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(TextView));
+                    break;
+
+                case "MapView":
+                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(MapView));
+                    break;
+
+                default:
+                    throw new System.ArgumentException("Parameter must either be MapView or TextView", "View Preference Type");
             }
 
-            if (viewPreference == "MapView")
-            {
-                jse.ExecuteScript("arguments[0].click()", driver.FindElement(MapView));
-                driver.Navigate().Back();
-                return;
-            }
-
-            else
-            {
-                throw new System.ArgumentException("Parameter must either be MapView or TextView", "View Preference Type");
-            }
+            driver.Navigate().Back();
         }
 
         public void ClickBusDestination(string choice)

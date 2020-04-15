@@ -18,7 +18,8 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.Url.Contains("translink.ca/trip-planner"), "This is not the Trip Planner page");
 
             //Verify Page Descriptions 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(tripPlannerPage.tripPlannerPageDescription), tripPlannerPage.tripPlannerPageDescriptFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(tripPlannerPage.tripPlannerPageDescription), 
+                tripPlannerPage.tripPlannerPageDescriptFailMsg);
         }
 
         [TestCase(), Order(2)]
@@ -29,7 +30,8 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.Url.Contains("translink.ca/trip-planner"), "This is not the Trip Planner page");
 
             //Verify Page Descriptions 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(tripPlannerPage.tripPlannerPageDescription), tripPlannerPage.tripPlannerPageDescriptFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(tripPlannerPage.tripPlannerPageDescription), 
+                tripPlannerPage.tripPlannerPageDescriptFailMsg);
         }
 
         [TestCase("SFU", "UBC"), Order(3), Category("Smoke")]

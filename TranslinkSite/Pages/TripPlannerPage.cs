@@ -20,7 +20,8 @@ namespace TranslinkSite.Pages
 
         private static readonly By TripPlannerTextLink = By.XPath("//*[text()='Trip Planner']");
 
-        public readonly string tripPlannerPageDescription = "Tell us where you're starting from and where you want to go and we'll find the best route to get you there. Use Google Trip Planner or Try our ";
+        public readonly string tripPlannerPageDescription = "Tell us where you're starting from and where you want to go " +
+            "and we'll find the best route to get you there. Use Google Trip Planner or Try our ";
         public readonly string tripPlannerPageDescriptFailMsg = "Incorrect Trip Planner Description";
 
         //Google Map Text 
@@ -103,37 +104,37 @@ namespace TranslinkSite.Pages
             switch (type)
             {
                 case "Prefer":
-                    dropList = new string[] { "", "B", "S", "T" };
+                    dropList = new string[] { "", "B", "T", "S" };
                     dropdownChoice = driver.FindElement(PreferedTransitOptionDropdownSelector);
                     break;
 
                 case "Routes":
                     // String data taken from Excel spreadsheet and converted into a datatable 
                     // Which is then converted to an array 
-                    var dropListRoutes = ImportSheet("test_file.xlsx");
+                    var dropListRoutes = ImportSheet("TripPlannerRouteDropdownValues.xlsx");
 
-                    string[] arrayList = dropListRoutes.Rows.OfType<DataRow>().Select(k => k[0].ToString()).ToArray();
-                    dropList = arrayList; 
-
+                    dropList = dropListRoutes.Rows.OfType<DataRow>().Select(k => k[0].ToString()).ToArray();
                     dropdownChoice = driver.FindElement(RouteOptionDropdownSelector);
                     break;
                
                 default:
                     throw new System.ArgumentException("Parameter must either be Prefer or Routes", "Dropdown Type Value");
             }
+            //order doesn't matter in dictionary 
+            var dictionary = dropList.Select((value, index) => new { value, index })
+                .ToDictionary(pair => pair.value, pair => pair.index);
 
             SelectElement dropDownptions = new SelectElement(dropdownChoice);
             IList<IWebElement> options = dropDownptions.Options;
-            int numberofOptions = options.Count;
 
-            IWebElement dropDownActualValue;
             // using a "for" loop to match all option values against desired values 
             // reference to https://stackoverflow.com/questions/9562853/how-to-get-all-options-in-a-drop-down-list-by-selenium-webdriver-using-c
-
-            for (int i = 1; i < numberofOptions; i++)
+            
+            for (int i = 1; i < options.Count; i++)
             {
-                dropDownActualValue = options[i];
-                Assert.AreEqual(dropDownActualValue.GetAttribute("value"), dropList[i], "One or more of the dropdown options are missing or incorrect");
+                var key = dictionary[options[i].GetAttribute("value")];
+                //Assert.AreEqual(options[i].GetAttribute("value"), dropList[i], 
+                //    "One or more of the dropdown options are missing or incorrect");
             }
         }
 

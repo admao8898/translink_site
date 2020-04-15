@@ -26,7 +26,8 @@ namespace TranslinkSite.Pages
         private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts");
         public readonly string TransitAlertsCardTitle = "Know before you go!";
         public readonly string TransitAlertsCardTitleFailMsg = "Alerts Article Title is Incorrect";
-        public readonly string TransitAlertsCardDescription = "Create notifications for the transit services that matter most to you. Sign up to receive transit alerts via SMS or email.";
+        public readonly string TransitAlertsCardDescription = "Create notifications for the transit services that matter most to you. " +
+            "Sign up to receive transit alerts via SMS or email.";
         public readonly string TransitAlertsCardDescriptionFailMsg = "Alerts Article Body is Incorrect";
 
         // transit general info: Fares, Rider Info, Contact Us, Schedules 
