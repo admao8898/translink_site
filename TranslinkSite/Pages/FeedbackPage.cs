@@ -8,6 +8,7 @@ using System.Linq;
 using TranslinkSite.HelperFunctions;
 using static TranslinkSite.HelperFunctions.DateTimeGenerator;
 using static TranslinkSite.HelperFunctions.RandomCharGenerator;
+using static TranslinkSite.HelperFunctions.DropdownListVerifier; 
 
 namespace TranslinkSite.Pages
 {
@@ -118,18 +119,10 @@ namespace TranslinkSite.Pages
             driver.FindElement(FBTypeDropdownSelector).Click();
         }
 
-        public void VerifyAllDropdownOptions()
+        public void VerifyAllDropdownOptions(string[] dropdownList)
         {
-            SelectElement dropDownoptions = new SelectElement(driver.FindElement(FBTypeDropdownSelector));
-            IList<IWebElement> options = dropDownoptions.Options;
-            string[] dropList = { "", "LostPropertyFeedback", "BusFeedback", "SkyTrainFeedback", "SeaBusFeedback",
-                "WestCoastExpressFeedback", "HandyDARTFeedback", "HandyDARTTaxiFeedback", "WebAndTechnicalFeedback", "OtherFeedback" };
-    
-            for (int i = 1; i < options.Count; i++)
-            {
-                Assert.AreEqual(options[i].GetAttribute("value"), dropList[i], "One or more of the dropdown options are " +
-                    "missing or incorrect");
-            }
+            DropdownListVerifier DropdownListVerify = new DropdownListVerifier();
+            DropdownListVerify.VerifiyDropdownValues(driver, driver.FindElement(FBTypeDropdownSelector), dropdownList);
         }
 
         public void SelectTypeofFeedback(string type)

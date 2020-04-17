@@ -13,8 +13,8 @@ namespace TranslinkSite.TestCases
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
         [TestCase("R5", "Top"), Category("Smoke")]
-        [TestCase("701", "Bottom")]
-        [TestCase("501", "Bottom")]
+        [TestCase("14", "Bottom")]
+        [TestCase("403", "Bottom")]
         public void NextBusRouteNumberInput(string busRoute, string destination)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
@@ -56,7 +56,7 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
             Thread.Sleep(500);
             nextBusPage.ClickMapViewOption();
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
         }
     }
 }

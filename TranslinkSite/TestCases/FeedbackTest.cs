@@ -39,7 +39,9 @@ namespace TranslinkSite.TestCases
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
             feedbackPage.GoToFeedbackSiteURL();
-            feedbackPage.VerifyAllDropdownOptions();
+            string[] dropList = { "", "LostPropertyFeedback", "BusFeedback", "SkyTrainFeedback", "SeaBusFeedback",
+                "WestCoastExpressFeedback", "HandyDARTFeedback", "HandyDARTTaxiFeedback", "WebAndTechnicalFeedback", "OtherFeedback" };
+            feedbackPage.VerifyAllDropdownOptions(dropList);
         }
 
         [TestCase("Bus"), Order(4)]

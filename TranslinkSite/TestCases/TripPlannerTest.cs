@@ -34,7 +34,7 @@ namespace TranslinkSite.TestCases
                 tripPlannerPage.tripPlannerPageDescriptFailMsg);
         }
 
-        [TestCase("SFU", "UBC"), Order(3), Category("Smoke")]
+        [TestCase("BCIT", "UBC"), Order(3), Category("Smoke")]
         public void TripPlannerGMapVerify(string startPoint, string endPoint)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
@@ -42,10 +42,9 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.EnterFromDestinationText(startPoint);
             tripPlannerPage.EnterToDestinationText(endPoint);
             tripPlannerPage.ClickPlanMyTripButton();
-            Thread.Sleep(5000);
-            //tripPlannerPage.VerifyGoogleMaps();
-            Assert.IsTrue(driver.Url.Contains("google.com/maps/dir/"), "Not Google Maps");
-            Assert.IsTrue(driver.Url.Contains("University+of+British+Columbia"), "Incorrect Ending Point");
+            Assert.IsTrue(driver.Url.Contains("google.com/maps"), "Not Google Maps");
+            Assert.IsTrue(driver.Url.Contains(endPoint), "Incorrect Ending Point");
+            Assert.IsTrue(driver.Url.Contains(startPoint), "Incorrect Starting Point");
         }
 
         [TestCase("Prefer"), Order(4)]

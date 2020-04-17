@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using TranslinkSite.HelperFunctions;
 using static TranslinkSite.HelperFunctions.ExcelToDataTableConverter;
+using static TranslinkSite.HelperFunctions.DropdownListVerifier;
 
 namespace TranslinkSite.Pages
 {
@@ -70,6 +71,7 @@ namespace TranslinkSite.Pages
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(PlanMyTripButton));
             driver.SwitchTo().Window(driver.WindowHandles.Last());
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
 
         //Verify Google Map Destinations match Trip Planner Destinations 
@@ -100,6 +102,7 @@ namespace TranslinkSite.Pages
         {
             string[] dropList;
             IWebElement dropdownChoice;
+            DropdownListVerifier DropdownListVerify = new DropdownListVerifier();
 
             switch (type)
             {
@@ -120,22 +123,8 @@ namespace TranslinkSite.Pages
                 default:
                     throw new System.ArgumentException("Parameter must either be Prefer or Routes", "Dropdown Type Value");
             }
-            //order doesn't matter in dictionary 
-            var dictionary = dropList.Select((value, index) => new { value, index })
-                .ToDictionary(pair => pair.value, pair => pair.index);
 
-            SelectElement dropDownptions = new SelectElement(dropdownChoice);
-            IList<IWebElement> options = dropDownptions.Options;
-
-            // using a "for" loop to match all option values against desired values 
-            // reference to https://stackoverflow.com/questions/9562853/how-to-get-all-options-in-a-drop-down-list-by-selenium-webdriver-using-c
-            
-            for (int i = 1; i < options.Count; i++)
-            {
-                var key = dictionary[options[i].GetAttribute("value")];
-                //Assert.AreEqual(options[i].GetAttribute("value"), dropList[i], 
-                //    "One or more of the dropdown options are missing or incorrect");
-            }
+            DropdownListVerify.VerifiyDropdownValues(driver, dropdownChoice, dropList);
         }
 
         public void SelectPreferedTransitMode(string option)
