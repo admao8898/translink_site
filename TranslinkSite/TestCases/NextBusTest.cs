@@ -21,20 +21,18 @@ namespace TranslinkSite.TestCases
             nextBusPage.GoToNextBus();
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.nextBusPageTitle)), 
                 nextBusPage.nextBusPageTitleFailMsg);
-
             nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.ClickFindBusRoute();
 
             nextBusPage.ChangeTimeDisplaySettings("ClockTime");
             nextBusPage.ChangeViewPreferenceSettings("MapView"); 
-
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
             nextBusPage.ClickBusDestination(destination);
             nextBusPage.Click2ndBusStop();
             nextBusPage.ClickMapViewOption();
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
             nextBusPage.ChangeTimeDisplaySettings("CountDown");
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
             nextBusPage.ClickHiddenRefreshButton();
             //Thread.Sleep(2000); 
         }
@@ -54,9 +52,9 @@ namespace TranslinkSite.TestCases
             nextBusPage.ChangeTimeDisplaySettings("ClockTime");
             nextBusPage.ChangeViewPreferenceSettings("MapView");
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
             nextBusPage.ClickMapViewOption();
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
         }
     }
 }

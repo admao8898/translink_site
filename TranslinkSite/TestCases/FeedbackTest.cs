@@ -133,7 +133,7 @@ namespace TranslinkSite.TestCases
             FeedbackPage feedbackPage = new FeedbackPage(driver);
             feedbackPage.GoToFeedbackSiteURL();
             feedbackPage.HightlightText(highLightColour);
-            Thread.Sleep(2000); 
+            //Thread.Sleep(2000); 
         }
     }
 }
