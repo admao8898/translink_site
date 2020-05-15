@@ -121,7 +121,7 @@ namespace TranslinkSite.Pages
 
         public void ClickBusDestination(string choice)
         {
-            //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
 
             if (choice == "Top")
             {
@@ -132,7 +132,17 @@ namespace TranslinkSite.Pages
 
             if (choice == "Bottom")
             {
+                // https://stackoverflow.com/questions/49866334/c-sharp-selenium-expectedconditions-is-obsolete
+                //WebDriverWait waiter = new WebDriverWait(driver, TimeSpan.FromSeconds(100)); 
+                //waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(RouteBottomDestination)).Click();
+                IWebElement element = driver.FindElement(RouteBottomDestination);
+
+                //new Actions(driver).MoveToElement(element).MoveByOffset(631,683).Click().Perform();
+                //((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0," + ele.getLocation().y + ")");
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", driver.FindElement(RouteBottomDestination));
+
                 //jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteBottomDestination));
+
                 driver.FindElement(RouteBottomDestination).Click();
                 return;
             }

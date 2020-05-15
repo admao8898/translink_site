@@ -76,6 +76,8 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.GoToTripPlannerURL();
             tripPlannerPage.EnterFromDestinationText(startPoint);
             tripPlannerPage.EnterToDestinationText(endPoint);
+            tripPlannerPage.TakeSShot();
+
             //Thread.Sleep(2000);
             tripPlannerPage.ClickChangeDirectionButton();
             //Thread.Sleep(2000);

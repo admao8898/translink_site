@@ -4,6 +4,8 @@ using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox; 
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+using OpenQA.Selenium.Support.Extensions;
+using System.Drawing.Imaging;
 
 // This class is configure URL for all test cases using inheritance 
 namespace TranslinkSite.TestCases
@@ -11,10 +13,10 @@ namespace TranslinkSite.TestCases
     public class UITestFixture
     {
         public string url = "https://new.translink.ca/";
-               
+
         public IWebDriver driver;
         private readonly string TranslinkTitle = "Metro Vancouver's transportation network, serving residents and visitors with public transit, major roads, bridges and Trip Planning.";
-        
+
         [SetUp]
         public void BeforeTest()
         {
@@ -37,15 +39,19 @@ namespace TranslinkSite.TestCases
 
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);                    
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(TranslinkTitle), "Translink Page Title is Incorrect");
         }
-
+                     
         [TearDown]
         public void TearDown()
         {
             driver.Close();
             driver.Quit();
         }
+
+        // using screen shot 
+        // https://stackoverflow.com/questions/33320912/take-screenshot-on-test-failure-exceptions
     }
+
 }
