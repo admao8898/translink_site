@@ -10,7 +10,6 @@ using System.Threading;
 using TranslinkSite.HelperFunctions;
 using static TranslinkSite.HelperFunctions.ExcelToDataTableConverter;
 using static TranslinkSite.HelperFunctions.DropdownListVerifier;
-using static TranslinkSite.HelperFunctions.TakeScreenShot; 
 
 namespace TranslinkSite.Pages
 {
@@ -157,10 +156,5 @@ namespace TranslinkSite.Pages
             driver.FindElement(ChangeDirectionButton).Click(); 
         }
 
-        public void TakeSShot()
-        {
-            TakeScreenShot takeScreenShot = new TakeScreenShot();
-            takeScreenShot.GetScreenShot(driver); 
-        }
     }
 }
