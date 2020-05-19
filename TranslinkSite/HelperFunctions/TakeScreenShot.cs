@@ -19,7 +19,8 @@ namespace TranslinkSite.HelperFunctions
         public void GetScreenShot(IWebDriver driver)
         {
             var screenshot = driver.TakeScreenshot();
-            string fileName = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "_Exception.png";
+            string testMethodName = TestContext.CurrentContext.Test.MethodName + "_Failed_";
+            string fileName = testMethodName + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".png";
             string screenshotFile = Path.Combine(Environment.CurrentDirectory, fileName);
             screenshot.SaveAsFile(screenshotFile, ScreenshotImageFormat.Png);
             TestContext.AddTestAttachment(screenshotFile, "My Screenshot");
