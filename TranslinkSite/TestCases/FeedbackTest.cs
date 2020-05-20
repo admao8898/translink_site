@@ -109,11 +109,11 @@ namespace TranslinkSite.TestCases
 
         [TestCase("CanLine", "CanLineWaterfront", "King Edward"), Order(6)]
         [TestCase("CanLine", "CanLineRichmond", "Lansdowne")]
-        [TestCase("CanLine", "CanLineDoNotKnow", null)]
+        //[TestCase("CanLine", "CanLineDoNotKnow", null)]
         [TestCase("ExpoLine", "ExpLineKingGeorge", "Edmonds" )]
         [TestCase("ExpoLine", "ExpLineWaterfront", "Stadium-Chinatown")]
         [TestCase("ExpoLine", "ExpLineProWayUni", "Main Street-Science World")]
-        [TestCase("ExpoLine", "ExpLineDoNotKnow", "")]
+        //[TestCase("ExpoLine", "ExpLineDoNotKnow", "")]
         public void FeedbackSTLineDirectionTests(string skytrainLine, string sktyrainlineDirection, string station)
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
