@@ -33,7 +33,7 @@ namespace TranslinkSite.Pages
         private static readonly By ToTextBox = By.Id("tripplannerwidget-nextpoint");
         private static readonly By ChangeDirectionButton = By.XPath("//*[@class='changeDirectionButton']");
         private static readonly By PlanMyTripButton = By.Id("planMyTrip");
-        private static readonly By MoreOptionsLink = By.XPath("//*[text()='More options']");
+        private static readonly By MoreOptionsLink = By.XPath("(//*[@class='Header'])[2]");
 
         private static readonly By PreferedTransitOptionDropdownSelector = By.Name("tripPreferences");
         private static readonly By RouteOptionDropdownSelector = By.Id("tripplannerwidget-routepreferences");

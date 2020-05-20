@@ -56,7 +56,7 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.VerifyAllDropdownOptions(type);
         }
 
-        [TestCase("22nd Street Station", "VCC-Clark", "Bus", "Less walking"), Order(5), Category("Smoke")]
+        [TestCase("New Westminster Station", "UBC", "Bus", "Less walking"), Order(5), Category("Smoke")]
         public void TripPlannerSampleTrip(string startPoint, string endPoint, string preferedMode, string routeOption)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
