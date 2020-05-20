@@ -68,11 +68,12 @@ namespace TranslinkSite.TestCases
         {
             //Takes screenshot of all tests that fail
             //Reference to https://stackoverflow.com/questions/44287058/error-on-taking-screenshot-in-selenium-c-sharp
-            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
-            {
-                TakeScreenShot takeScreenShot = new TakeScreenShot();
-                takeScreenShot.GetScreenShot(driver);
-            }
+            //Use try catch in future https://stackoverflow.com/questions/14973642/how-using-try-catch-for-exception-handling-is-best-practice
+            //if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            //{
+            //    TakeScreenShot takeScreenShot = new TakeScreenShot();
+            //    takeScreenShot.GetScreenShot(driver);
+            //}
 
             driver.Close();
             driver.Quit();
