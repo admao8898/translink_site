@@ -16,7 +16,7 @@ namespace TranslinkSite.Pages
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
-        private readonly string FeedbackURL = "https://new.translink.ca/feedback";
+        private readonly string feedbackURL = "https://new.translink.ca/feedback";
         private readonly string namePipelineVariable = Environment.GetEnvironmentVariable("name", EnvironmentVariableTarget.Process);
 
         //Link From homepage 
@@ -111,7 +111,7 @@ namespace TranslinkSite.Pages
         public void GoToFeedbackSiteURL()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Navigate().GoToUrl(FeedbackURL);
+            driver.Navigate().GoToUrl(feedbackURL);
         }
 
         public void ClickDropdownSelector()

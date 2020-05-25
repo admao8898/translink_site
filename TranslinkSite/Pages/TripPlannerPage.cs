@@ -17,7 +17,7 @@ namespace TranslinkSite.Pages
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
-        private readonly string TripPlannerURL = "https://new.translink.ca/trip-planner";
+        private readonly string tripPlannerURL = "https://new.translink.ca/trip-planner";
 
         private static readonly By TripPlannerTextLink = By.XPath("//*[text()='Trip Planner']");
 
@@ -54,7 +54,7 @@ namespace TranslinkSite.Pages
         public void GoToTripPlannerURL()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Navigate().GoToUrl(TripPlannerURL);
+            driver.Navigate().GoToUrl(tripPlannerURL);
         }
 
         public void EnterFromDestinationText(string startingPoint)

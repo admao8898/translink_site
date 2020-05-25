@@ -71,7 +71,7 @@ namespace TranslinkSite.TestCases
         }
         
         [TestCase("special_character@$%!.com"), Order(4)]
-        [TestCase("special~#$@sample.com")]
+        //[TestCase("special~#$@sample.com")]
         [TestCase("234@#$@email3.com")]
         public void TAlertInvalidEmailOnly(string EmailValue)
         {

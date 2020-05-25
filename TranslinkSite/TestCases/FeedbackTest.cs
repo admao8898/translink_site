@@ -125,8 +125,8 @@ namespace TranslinkSite.TestCases
         }
 
         [TestCase("green"), Order(7)]
-        [TestCase("yellow")]
-        [TestCase("orange")]
+        //[TestCase("yellow")]
+        //[TestCase("orange")]
         //[TestCase(null)]
         public void FeedbackHighlighting(string highLightColour)
         {
