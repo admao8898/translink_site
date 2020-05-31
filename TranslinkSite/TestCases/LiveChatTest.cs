@@ -14,6 +14,7 @@ namespace TranslinkSite.TestCases
         public void LiveChatURL()
         {
             LiveChatPage liveChatPage = new LiveChatPage(driver);
+            liveChatPage.GoToLiveChatURL();
             Assert.IsTrue(driver.Url.Contains("livechat.translink.ca/ccmwa/chat"), "This is not the Live Chat page");
 
             //Verify Page Descriptions 
