@@ -38,8 +38,18 @@ namespace TranslinkSite.TestCases
         {
             LiveChatPage liveChatPage = new LiveChatPage(driver);
             liveChatPage.GoToLiveChatLink(); 
-            Assert.IsTrue(driver.Url.Contains("livechat.translink.ca/ccmwa/chat"), "This is not the Live Chat page");
             liveChatPage.ClickEnterChat();
+        }
+
+        [TestCase("Dean", "testEmail@noname.com", "Fares"), Order(4)]
+        [TestCase("SkyTrain", "livechatTest@test.com", "Trip Planning")]
+        public void FillInAllFields(string name, string email, string chatTopic)
+        {
+            LiveChatPage liveChatPage = new LiveChatPage(driver);
+            liveChatPage.GoToLiveChatLink();
+            liveChatPage.EnterFirstName(name);
+            liveChatPage.EnterEmail(email);
+            liveChatPage.TopicDropdownSelector(chatTopic); 
         }
     }
 }
