@@ -34,7 +34,7 @@ namespace TranslinkSite.TestCases
                 tripPlannerPage.tripPlannerPageDescriptFailMsg);
         }
 
-        [TestCase("BCIT", "UBC"), Order(3), Category("Smoke")]
+        [TestCase("BCIT", "UBC"), Order(3)]
         public void TripPlannerGMapVerify(string startPoint, string endPoint)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);

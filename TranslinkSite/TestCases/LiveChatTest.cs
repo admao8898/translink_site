@@ -10,7 +10,7 @@ namespace TranslinkSite.TestCases
 {
     public class LiveChatTest : UITestFixture
     {
-        [TestCase(), Order(1)]
+        [TestCase(), Order(1), Category("Smoke")]
         public void LiveChatURL()
         {
             LiveChatPage liveChatPage = new LiveChatPage(driver);
