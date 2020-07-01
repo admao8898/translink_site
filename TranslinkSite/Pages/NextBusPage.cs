@@ -19,9 +19,9 @@ namespace TranslinkSite.Pages
 
         private static readonly By NextBusTab = By.Id("next-bus");
         private static readonly By NextBusMenuLink = By.XPath("//a[.='Next Bus']");
-        private static readonly By NextBusField = By.Name("nextBusQuery");
+        private static readonly By NextBusField = By.Name("NextBusSearchTerm");
         private static readonly By NextBusTextField = By.Id("MainContent_textStop");
-        private static readonly By FindNB_Button = By.Id("carouselNextBus");
+        private static readonly By FindNB_Button = By.XPath("//button[contains(text(),'Find my next bus')]");
         private static readonly By SubmitNextBusButton = By.Id("MainContent_linkSearch");
         private static readonly By SettingsTab = By.Id("myPreferenceUrl");
         private static readonly By ClockTime = By.XPath("//*[@value='clockTime']");
@@ -70,7 +70,8 @@ namespace TranslinkSite.Pages
 
         public void ClickFindBusRoute()
         {
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(FindNB_Button));
+            //((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(FindNB_Button));
+            driver.FindElement(FindNB_Button).Click(); 
         }
                
         // Two options for Time Display 
