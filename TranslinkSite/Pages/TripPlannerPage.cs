@@ -29,14 +29,14 @@ namespace TranslinkSite.Pages
         private static readonly By GMapStartPoint = By.XPath("//*[@aria-label='Starting point Simon Fraser University']");
         private static readonly By GMapEndPoint = By.XPath("//*[@aria-label='Destination The University of British Columbia']");
         
-        private static readonly By FromTextBox = By.Id("tripplannerwidget-prevpoint");
-        private static readonly By ToTextBox = By.Id("tripplannerwidget-nextpoint");
+        private static readonly By FromTextBox = By.Id("prev_point_desktop");
+        private static readonly By ToTextBox = By.Id("next_point_desktop");
         private static readonly By ChangeDirectionButton = By.XPath("//*[@class='changeDirectionButton']");
-        private static readonly By PlanMyTripButton = By.Id("planMyTrip");
+        private static readonly By PlanMyTripButton = By.XPath("//*[text()='Plan my trip']");
         private static readonly By MoreOptionsLink = By.XPath("//*[text()='More options']");
 
         private static readonly By PreferedTransitOptionDropdownSelector = By.Name("tripPreferences");
-        private static readonly By RouteOptionDropdownSelector = By.Id("tripplannerwidget-routepreferences");
+        private static readonly By RouteOptionDropdownSelector = By.Name("routePreferences");
         // ** Time and Departing Option hidden on mobile view 
 
         public TripPlannerPage(IWebDriver drv)

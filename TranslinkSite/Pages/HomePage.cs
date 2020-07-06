@@ -22,6 +22,11 @@ namespace TranslinkSite.Pages
         public readonly string CompassCardDescription = "TransLink's reloadable fare card that works everywhere on transit.";
         public readonly string CompassCardDescriptionFailMsg = "Compass Article Body is Incorrect";
 
+        // fares dropdown options 
+        private static readonly By FaresLink = By.XPath("//*[text()='Fares']"); 
+        private static readonly By CompassCardCardTab = By.Id("compass-card");
+        private static readonly By FarePricing_ZonesCardTab = By.XPath("(//*[@id='pricing-and-fare-zones'])[2]"); 
+
         // transit alerts
         private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts");
         public readonly string TransitAlertsCardTitle = "Know before you go!";
@@ -66,6 +71,21 @@ namespace TranslinkSite.Pages
             //Because clicking on link opens new tab, driver must switch windows
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);                
+        }
+
+        public void ClickFaresLink()
+        {
+            driver.FindElement(FaresLink).Click(); 
+        }
+
+        public void ClickFaresPriceZonesSubLink()
+        {
+            driver.FindElement(FarePricing_ZonesCardTab).Click(); 
+        }
+
+        public void ClickCompassCardSubLink()
+        {
+            driver.FindElement(CompassCardCardTab).Click(); 
         }
 
         public void GoToTransitAlerts()
