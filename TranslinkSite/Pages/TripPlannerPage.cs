@@ -21,8 +21,8 @@ namespace TranslinkSite.Pages
 
         private static readonly By TripPlannerTextLink = By.XPath("//*[text()='Trip Planner']");
 
-        public readonly string tripPlannerPageDescription = "Tell us where you're starting from and where you want to go " +
-            "and we'll find the best route to get you there. Use Google Trip Planner or Try our ";
+        public readonly string tripPlannerPageDescription = "Tell us where you're starting from and where you want to go and we'll find the " +
+            "best route to get you there. Use Google Trip Planner or try our ";
         public readonly string tripPlannerPageDescriptFailMsg = "Incorrect Trip Planner Description";
 
         //Google Map Text 

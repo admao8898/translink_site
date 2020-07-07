@@ -28,12 +28,12 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TransitAlertsCardTitle)),
                 homePage.TransitAlertsCardTitleFailMsg);
 
-            //homePage.ClickFaresLink();
+            homePage.ClickFaresLink();
             //homePage.ClickFaresPriceZonesSubLink();
-            //homePage.DriverSwitchBackToHomePage();
+            homePage.DriverSwitchBackToHomePage();
 
-            //homePage.ClickCompassCardSubLink();
-            //homePage.ClickCompassCardSubLink();
+            homePage.ClickFaresDropdown(); 
+            homePage.ClickCompassCardSubLink();
             //homePage.DriverSwitchBackToHomePage();
 
             homePage.GoToTransitAlerts();

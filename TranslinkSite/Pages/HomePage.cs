@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading;
 using TranslinkSite.Pages;
 
-
 namespace TranslinkSite.Pages
 {
     public class HomePage
@@ -15,17 +14,10 @@ namespace TranslinkSite.Pages
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
 
-        //compass card 
-        private static readonly By CompassCardButton = By.XPath("//a[.='Visit compasscard.ca']");
-        public readonly string CompassCardTitle = "Compass is your key!";
-        public readonly string CompassCardTitleFailMsg = "Compass Article Title is Incorrect";
-        public readonly string CompassCardDescription = "TransLink's reloadable fare card that works everywhere on transit.";
-        public readonly string CompassCardDescriptionFailMsg = "Compass Article Body is Incorrect";
-
         // fares dropdown options 
-        private static readonly By FaresLink = By.XPath("//*[text()='Fares']"); 
-        private static readonly By CompassCardCardTab = By.Id("compass-card");
-        private static readonly By FarePricing_ZonesCardTab = By.XPath("(//*[@id='pricing-and-fare-zones'])[2]"); 
+        private static readonly By FaresLink = By.XPath("//*[text()='Fares']");
+        private static readonly By FaresDropDownLink = By.XPath("//*[@aria-label = 'Subpages for Fares page']");
+        private static readonly By CompassCardDDLink = By.XPath("//*[text()='Compass Card']"); 
 
         // transit alerts
         private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts");
@@ -59,33 +51,22 @@ namespace TranslinkSite.Pages
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
-        public void GoToCompassCardCard()
-        {
-            //user exception of element not clickable at point (x,y), tried Actions method doesn't work. 
-            //Use the below method instead with reference to 
-            //https://stackoverflow.com/questions/38923356/element-is-not-clickable-at-point-other-element-would-receive-the-click
-
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(CompassCardButton));
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);                        
-            
-            //Because clicking on link opens new tab, driver must switch windows
-            driver.SwitchTo().Window(driver.WindowHandles.Last());
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);                
-        }
-
         public void ClickFaresLink()
         {
-            driver.FindElement(FaresLink).Click(); 
+            driver.FindElement(FaresLink).Click();
+            driver.Navigate().Back(); 
         }
 
-        public void ClickFaresPriceZonesSubLink()
+        public void ClickFaresDropdown()
         {
-            driver.FindElement(FarePricing_ZonesCardTab).Click(); 
+            driver.FindElement(FaresDropDownLink).Click();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
         public void ClickCompassCardSubLink()
         {
-            driver.FindElement(CompassCardCardTab).Click(); 
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(CompassCardDDLink));
+            driver.Navigate().Back();
         }
 
         public void GoToTransitAlerts()
