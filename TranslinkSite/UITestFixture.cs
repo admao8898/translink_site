@@ -21,7 +21,7 @@ namespace TranslinkSite.TestCases
         private readonly string TranslinkTitle = "Metro Vancouver's transportation network, serving residents and visitors " +
             "with public transit, major roads, bridges and Trip Planning.";
 
-        [OneTimeSetUp]
+        [SetUp]
         public void BeforeTest()
         {
             // gives local the execution location 
@@ -63,7 +63,7 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(TranslinkTitle), "Translink Page Title is Incorrect");
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             //Takes screenshot of all tests that fail
