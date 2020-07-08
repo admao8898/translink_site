@@ -27,14 +27,9 @@ namespace TranslinkSite.TestCases
                 homePage.TransitAlertsCardDescriptionFailMsg);
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TransitAlertsCardTitle)),
                 homePage.TransitAlertsCardTitleFailMsg);
-
-            homePage.ClickFaresLink();
-            //homePage.ClickFaresPriceZonesSubLink();
-            homePage.DriverSwitchBackToHomePage();
-
-            homePage.ClickFaresDropdown(); 
-            homePage.ClickCompassCardSubLink();
-            //homePage.DriverSwitchBackToHomePage();
+     
+            homePage.ClickFaresHamMenu();
+            homePage.GoBackToHomePage();
 
             homePage.GoToTransitAlerts();
             homePage.GoBackToHomePage(); 

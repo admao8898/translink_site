@@ -21,7 +21,7 @@ namespace TranslinkSite.TestCases
         private readonly string TranslinkTitle = "Metro Vancouver's transportation network, serving residents and visitors " +
             "with public transit, major roads, bridges and Trip Planning.";
 
-        [SetUp]
+        [OneTimeSetUp]
         public void BeforeTest()
         {
             // gives local the execution location 
@@ -41,7 +41,7 @@ namespace TranslinkSite.TestCases
                     driver = new ChromeDriver(path);
                     break;
             }
-            
+
             switch (deviceType)
             {
                 case "desktop":
@@ -52,18 +52,18 @@ namespace TranslinkSite.TestCases
                     break;
                 case "Iphone11":
                     driver.Manage().Window.Size = new Size(414, 800); // approximated 
-                    break; 
+                    break;
                 default:
-                    driver.Manage().Window.Maximize();
+                    driver.Manage().Window.Size = new Size(414, 800);
                     break;
             }
-            
+
             driver.Navigate().GoToUrl(url);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(TranslinkTitle), "Translink Page Title is Incorrect");
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             //Takes screenshot of all tests that fail

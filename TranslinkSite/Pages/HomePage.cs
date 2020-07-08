@@ -15,9 +15,12 @@ namespace TranslinkSite.Pages
         private readonly WebDriverWait wait;
 
         // fares dropdown options 
+        private static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
         private static readonly By FaresLink = By.XPath("//*[text()='Fares']");
-        private static readonly By FaresDropDownLink = By.XPath("//*[@aria-label = 'Subpages for Fares page']");
-        private static readonly By CompassCardDDLink = By.XPath("//*[text()='Compass Card']"); 
+        private static readonly By Price_Fares_ZonesNonMobile = By.XPath("(//*[@href='/transit-fares/pricing-and-fare-zones'])[1]");
+        private static readonly By CompassCardContainerNonMobile = By.XPath("(//*[@href='/transit-fares/compass-card'])[1]");
+        private static readonly By Price_Fares_ZonesMobile = By.XPath("(//*[@href='/transit-fares/pricing-and-fare-zones'])[2]");
+        private static readonly By CompassCardContainerMobile = By.XPath("(//*[@href='/transit-fares/compass-card'])[2]");
 
         // transit alerts
         private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts");
@@ -51,22 +54,19 @@ namespace TranslinkSite.Pages
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
-        public void ClickFaresLink()
+        public void ClickFaresHamMenu()
         {
-            driver.FindElement(FaresLink).Click();
-            driver.Navigate().Back(); 
-        }
+            if (driver.FindElement(HamburgerMenuButton).Displayed)
+            {
+                driver.FindElement(HamburgerMenuButton).Click();
+                driver.FindElement(FaresLink).Click();
+                return;
+            }
 
-        public void ClickFaresDropdown()
-        {
-            driver.FindElement(FaresDropDownLink).Click();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-        }
-
-        public void ClickCompassCardSubLink()
-        {
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(CompassCardDDLink));
-            driver.Navigate().Back();
+            else
+            {
+                driver.FindElement(FaresLink).Click();
+            }
         }
 
         public void GoToTransitAlerts()

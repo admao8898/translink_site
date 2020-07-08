@@ -14,10 +14,13 @@ namespace TranslinkSite.Pages
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
 
+        private static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton"); 
         private static readonly By FaresLink = By.XPath("//*[text()='Fares']");
-        private static readonly By Price_Fares_ZonesCard = By.XPath("(//*[@href='/transit-fares/pricing-and-fare-zones'])[1]");
-        private static readonly By CompassCardContainer = By.XPath("(//*[@href='/transit-fares/compass-card'])[1]");
-        
+        private static readonly By Price_Fares_ZonesNonMobile = By.XPath("(//*[@href='/transit-fares/pricing-and-fare-zones'])[1]");
+        private static readonly By CompassCardContainerNonMobile = By.XPath("(//*[@href='/transit-fares/compass-card'])[1]");
+        private static readonly By Price_Fares_ZonesMobile = By.XPath("(//*[@href='/transit-fares/pricing-and-fare-zones'])[2]");
+        private static readonly By CompassCardContainerMobile = By.XPath("(//*[@href='/transit-fares/compass-card'])[2]");
+
         // compass card 
         private static readonly By CompassCardButton = By.XPath("//a[.='Visit compasscard.ca']");
         public readonly string CompassCardTitle = "Compass is your key!";
@@ -37,17 +40,45 @@ namespace TranslinkSite.Pages
 
         public void ClickFaresLink()
         {
-            driver.FindElement(FaresLink).Click();
+            if(driver.FindElement(HamburgerMenuButton).Displayed)
+            {
+                driver.FindElement(HamburgerMenuButton).Click();
+                driver.FindElement(FaresLink).Click();
+                return; 
+            }
+
+            else
+            {
+                driver.FindElement(FaresLink).Click();
+            }
         }
 
         public void ClickPriceFareZones()
         {
-            driver.FindElement(Price_Fares_ZonesCard).Click(); 
+           if (driver.FindElement(HamburgerMenuButton).Displayed)
+           {
+                driver.FindElement(Price_Fares_ZonesMobile).Click();
+                return; 
+           }
+
+           else
+           {
+                driver.FindElement(Price_Fares_ZonesNonMobile).Click();
+           }
         }
 
         public void ClickCompassCard()
         {
-            driver.FindElement(CompassCardContainer).Click(); 
+            if (driver.FindElement(HamburgerMenuButton).Displayed)
+            {
+                driver.FindElement(CompassCardContainerMobile).Click();
+                return;
+            }
+
+            else
+            {
+                driver.FindElement(CompassCardContainerNonMobile).Click();
+            }
         }
 
         public void GoToCompassCardCard()
@@ -55,7 +86,6 @@ namespace TranslinkSite.Pages
             //user exception of element not clickable at point (x,y), tried Actions method doesn't work. 
             //Use the below method instead with reference to 
             //https://stackoverflow.com/questions/38923356/element-is-not-clickable-at-point-other-element-would-receive-the-click
-
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(CompassCardButton));
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
@@ -64,7 +94,4 @@ namespace TranslinkSite.Pages
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
         }
     }
-
- 
-
 }

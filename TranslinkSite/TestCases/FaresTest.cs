@@ -10,6 +10,7 @@ namespace TranslinkSite.TestCases
     public class FaresTest : UITestFixture
     {
         [TestCase(), Order(1)]
+        //[TestCase()]
         public void FaresPageVerification()
         {
             FaresPage farePage = new FaresPage(driver);
@@ -28,14 +29,14 @@ namespace TranslinkSite.TestCases
             farePage.ClickPriceFareZones();
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("There are three fare zones " +
                 "across Metro Vancouver. The number of SeaBus and/or SkyTrain boundaries you cross during your " +
-                "trip determine your fare."),"Fare Description is Incorrect");
+                "trip determine your fare."), "Fare Description is Incorrect");
             farePage.BackToFaresPage();
 
             farePage.ClickCompassCard();
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("We offer a range of fares, passes, " +
-                "and ticket types, to reflect the different ways you can get around."), 
+                "and ticket types, to reflect the different ways you can get around."),
                 "Compass Card Description is Incorrect");
-            farePage.BackToFaresPage(); 
+            farePage.BackToFaresPage();
 
         }
     }
