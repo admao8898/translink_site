@@ -19,8 +19,7 @@ namespace TranslinkSite.Pages
         private static readonly By Price_Fares_ZonesNonMobile = By.XPath("(//*[@href='/transit-fares/pricing-and-fare-zones'])[1]");
         private static readonly By CompassCardContainerNonMobile = By.XPath("(//*[@href='/transit-fares/compass-card'])[1]");
         private static readonly By Price_Fares_ZonesMobile = By.XPath("(//*[@href='/transit-fares/pricing-and-fare-zones'])[2]");
-        private static readonly By CompassCardContainerMobile = By.XPath("//*[text()='Learn more about fares and transit passes, " +
-            "concession fares, and available payment methods. ']");
+        private static readonly By CompassCardContainerMobile = By.XPath("//*[text()='Learn more about fares and transit passes, concession fares, and available payment methods. ']");
 
         // compass card 
         private static readonly By CompassCardButton = By.XPath("//a[.='Visit compasscard.ca']");
@@ -70,7 +69,8 @@ namespace TranslinkSite.Pages
 
         public void ClickCompassCard()
         {
-            if (driver.FindElement(HamburgerMenuButton).Displayed)
+            bool hamMenu = driver.FindElement(HamburgerMenuButton).Displayed; 
+            if (hamMenu == true)
             {
                 ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(CompassCardContainerMobile));
                 return;
