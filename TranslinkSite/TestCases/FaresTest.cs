@@ -32,11 +32,11 @@ namespace TranslinkSite.TestCases
                 "trip determine your fare."), "Fare Description is Incorrect");
             farePage.BackToFaresPage();
 
-            farePage.ClickCompassCard();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("We offer a range of fares, passes, " +
-                "and ticket types, to reflect the different ways you can get around."),
-                "Compass Card Description is Incorrect");
-            farePage.BackToFaresPage();
+            //farePage.ClickCompassCard();
+            //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("We offer a range of fares, passes, " +
+            //    "and ticket types, to reflect the different ways you can get around."),
+            //    "Compass Card Description is Incorrect");
+            //farePage.BackToFaresPage();
 
         }
     }
