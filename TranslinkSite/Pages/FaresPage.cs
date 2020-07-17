@@ -63,8 +63,9 @@ namespace TranslinkSite.Pages
 
            else
            {
-                driver.FindElement(Price_Fares_ZonesNonMobile).Click();
            }
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(Price_Fares_ZonesNonMobile));
+                //driver.FindElement(Price_Fares_ZonesNonMobile).Click();
         }
 
         public void ClickCompassCard()
