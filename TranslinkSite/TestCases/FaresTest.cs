@@ -9,7 +9,7 @@ namespace TranslinkSite.TestCases
 {
     public class FaresTest : UITestFixture
     {
-        [TestCase(), Order(1)]
+        [TestCase()]
         //[TestCase()]
         public void FaresPageVerification()
         {
@@ -20,7 +20,7 @@ namespace TranslinkSite.TestCases
                 "This is Not the Fares Page");
         }
 
-        [TestCase(), Order(2), Category("Smoke")]
+        /*[TestCase(), Order(2), Category("Smoke")]
         public void FareZoneContainersVerify()
         {
             FaresPage farePage = new FaresPage(driver);
@@ -32,12 +32,12 @@ namespace TranslinkSite.TestCases
                 "trip determine your fare."), "Fare Description is Incorrect");
             farePage.BackToFaresPage();
 
-            //farePage.ClickCompassCard();
-            //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("We offer a range of fares, passes, " +
-            //    "and ticket types, to reflect the different ways you can get around."),
-            //    "Compass Card Description is Incorrect");
-            //farePage.BackToFaresPage();
+            farePage.ClickCompassCard();
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("We offer a range of fares, passes, " +
+                "and ticket types, to reflect the different ways you can get around."),
+                "Compass Card Description is Incorrect");
+            farePage.BackToFaresPage();
 
-        }
+        }*/
     }
 }
