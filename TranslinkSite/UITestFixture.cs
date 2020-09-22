@@ -15,7 +15,7 @@ namespace TranslinkSite.TestCases
 {
     public class UITestFixture
     {
-        public string url = "https://new.translink.ca/";
+        private readonly string url = "https://new.translink.ca/";
 
         public IWebDriver driver;
         private readonly string TranslinkTitle = "Metro Vancouver's transportation network, serving residents and visitors " +
@@ -29,18 +29,12 @@ namespace TranslinkSite.TestCases
             string browser = Environment.GetEnvironmentVariable("browser", EnvironmentVariableTarget.Process);
             string deviceType = Environment.GetEnvironmentVariable("device", EnvironmentVariableTarget.Process);
 
-            switch (browser)
+            driver = browser switch
             {
-                case "chrome":
-                    driver = new ChromeDriver(path);
-                    break;
-                case "firefox":
-                    driver = new FirefoxDriver(path);
-                    break;
-                default:
-                    driver = new ChromeDriver(path);
-                    break;
-            }
+                "chrome" => new ChromeDriver(path),
+                "firefox" => new FirefoxDriver(path),
+                _ => new ChromeDriver(path),
+            };
 
             switch (deviceType)
             {
