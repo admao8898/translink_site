@@ -39,7 +39,7 @@ namespace TranslinkSite.TestCases
             switch (deviceType)
             {
                 case "desktop":
-                    driver.Manage().Window.Maximize();
+                    driver.Manage().Window.Maximize(); // desktop view
                     break;
                 case "Samsung_S9+":
                     driver.Manage().Window.Size = new Size(414, 846); // set window size to Samsung S9 size 
@@ -48,7 +48,7 @@ namespace TranslinkSite.TestCases
                     driver.Manage().Window.Size = new Size(414, 800); // approximated 
                     break;
                 default:
-                    driver.Manage().Window.Size = new Size(414, 800);
+                    driver.Manage().Window.Size = new Size(414, 800); // approximated 
                     break;
             }
 

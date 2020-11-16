@@ -23,18 +23,17 @@ namespace TranslinkSite.Pages
         private static readonly By CompassCardContainerMobile = By.XPath("(//*[@href='/transit-fares/compass-card'])[2]");
 
         // transit alerts
-        private static readonly By TransitAlertsButton = By.LinkText("Sign up to receive transit alerts");
-        public readonly string TransitAlertsCardTitle = "Know before you go!";
-        public readonly string TransitAlertsCardTitleFailMsg = "Alerts Article Title is Incorrect";
-        public readonly string TransitAlertsCardDescription = "Create notifications for the transit services that matter most to you. " +
-            "Sign up to receive transit alerts via SMS or email.";
-        public readonly string TransitAlertsCardDescriptionFailMsg = "Alerts Article Body is Incorrect";
+        private static readonly By TransitAlertsButton = By.LinkText("Alerts Signup");
+        public readonly string TranslinkTitle = "Welcome to TransLink";
+        public readonly string TranslinkDescript = "Bringing the people and places of Metro Vancouver together.";
+        public readonly string TranslinkTitleErrorMsg = "Incorrect Page Title";
+        public readonly string TranslinkDescriptErrorMsg = "Incorrect Page Description";
 
         // transit general info: Fares, Rider Info, Contact Us, Schedules 
-        private static readonly By TransitFareCard = By.LinkText("Transit Fares"); 
-        private static readonly By RiderInfoCard = By.LinkText("Rider Info");
+        private static readonly By TransitFareCard = By.LinkText("Fares and Zones"); 
+        private static readonly By RiderInfoCard = By.LinkText("Rider Guide");
         private static readonly By ContactUsCard = By.LinkText("Contact Us");
-        private static readonly By SchedulesCard = By.LinkText("Schedules");
+        private static readonly By SchedulesCard = By.LinkText("Schedules & Maps");
 
         public HomePage(IWebDriver drv)
         {
@@ -83,9 +82,19 @@ namespace TranslinkSite.Pages
 
         public void GoToContactUs()
         {
+            if (driver.FindElement(HamburgerMenuButton).Displayed)
+            {
+                driver.FindElement(HamburgerMenuButton).Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
+                return;
+            }
+
+            else
+            {
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
+            }
             //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             //jse.ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
         }
 
         public void GoToRiderInfo()

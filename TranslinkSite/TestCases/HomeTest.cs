@@ -12,30 +12,21 @@ namespace TranslinkSite.TestCases
         [TestCase(), Order(1)]
         public void HomePageContentsVerification()
         {
-            HomePage homePage = new HomePage(driver);
-            
-            //Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.CompassCardTitle)), 
-            //    homePage.CompassCardTitleFailMsg);
-            //Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.CompassCardDescription)), 
-            //    homePage.CompassCardDescriptionFailMsg);
-            //homePage.GoToCompassCardCard();
-            //Assert.IsTrue(driver.Url.Contains("compasscard"), "Compass Card is Not Displayed");
-
-            //homePage.DriverSwitchBackToHomePage();
+            HomePage homePage = new HomePage(driver);          
                                    
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TransitAlertsCardDescription)), 
-                homePage.TransitAlertsCardDescriptionFailMsg);
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TransitAlertsCardTitle)),
-                homePage.TransitAlertsCardTitleFailMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TranslinkTitle)), 
+                homePage.TranslinkTitleErrorMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TranslinkDescript)),
+                homePage.TranslinkDescriptErrorMsg);
      
             homePage.ClickFaresHamMenu();
             homePage.GoBackToHomePage();
 
             homePage.GoToTransitAlerts();
-            homePage.GoBackToHomePage(); 
+            homePage.DriverSwitchBackToHomePage();
 
             homePage.GoToContactUs();
-            Assert.IsTrue(driver.Url.Contains("more-information/contact-information"));
+            Assert.IsTrue(driver.Url.Contains("contact-information"));
             homePage.GoBackToHomePage();
 
             homePage.GoToFares();
