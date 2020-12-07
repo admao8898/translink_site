@@ -42,8 +42,8 @@ namespace TranslinkSite.Pages
         private static readonly By RouteR2Stop = By.XPath("(//*[text()='Marine Dr at Capilano Rd'])[2]");
 
 
-        private static readonly By RouteTopDestination = By.XPath("//*[@id='MainContent_PanelStops']/*/section[3]/article");
-        private static readonly By RouteBottomDestination = By.XPath("//*[@id='MainContent_PanelStops']/*/article");
+        private static readonly By RouteTopDestination = By.XPath("(//*[@class='InfoCard indexLinkInfoCardTheme layoutItemContent indexLink'])[1]");
+        private static readonly By RouteBottomDestination = By.XPath("(//*[@class='InfoCard indexLinkInfoCardTheme layoutItemContent indexLink'])[2]");
         private static readonly By SecondStop = By.XPath("//*/article[2]");
         private static readonly By TryNewNBLink = By.LinkText("Try the new Next Bus");
 
@@ -126,8 +126,8 @@ namespace TranslinkSite.Pages
 
             if (choice == "Top")
             {
-                //jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteTopDestination));
-                driver.FindElement(RouteTopDestination).Click();
+                jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteTopDestination));
+                //driver.FindElement(RouteTopDestination).Click();
                 return;
             }
 
@@ -232,6 +232,13 @@ namespace TranslinkSite.Pages
                 default:
                     throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Stop Choice");
             }
+        }
+
+        public void PressEnterKey()
+        {
+            Actions key = new Actions(driver);
+            //key.SendKeys(Keys.Return);
+            driver.FindElement(NextBusField).SendKeys(Keys.Enter);
         }
     }
 }

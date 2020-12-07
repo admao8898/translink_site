@@ -48,7 +48,8 @@ namespace TranslinkSite.TestCases
                     driver.Manage().Window.Size = new Size(414, 800); // approximated 
                     break;
                 default:
-                    driver.Manage().Window.Size = new Size(414, 800); // approximated 
+                    driver.Manage().Window.Maximize(); // desktop view
+                    //driver.Manage().Window.Size = new Size(414, 800); // approximated 
                     break;
             }
 
