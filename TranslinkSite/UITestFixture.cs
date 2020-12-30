@@ -69,7 +69,7 @@ namespace TranslinkSite.TestCases
                 TakeScreenShot takeScreenShot = new TakeScreenShot();
                 takeScreenShot.GetScreenShot(driver);
             }
-
+          
             driver.Close();
             driver.Quit();
         }
