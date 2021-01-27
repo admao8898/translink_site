@@ -22,7 +22,7 @@ namespace TranslinkSite.TestCases
                 "its livability by providing a sustainable transportation system network."));
         }
 
-        [TestCase(), Category("Smoke")]
+        [TestCase()]
         public void CheckBurnGondoLink()
         {
             PlansProjectsPage plansProjectsPage = new PlansProjectsPage(driver);
