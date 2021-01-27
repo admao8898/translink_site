@@ -17,6 +17,7 @@ namespace TranslinkSite.Pages
         private static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
         private static readonly By PlansProjectsLink = By.XPath("(//*[text()='Plans and Projects'])[1]"); 
         private static readonly By PlansProjectsMobileTab = By.XPath("(//*[text()='Plans and Projects'])[2]");
+        private static readonly By BurnMounGondolaLink = By.XPath("//*[text()='Burnaby Mountain Gondola']");
 
         //methods
         public PlansProjectsPage(IWebDriver drv)
@@ -32,6 +33,7 @@ namespace TranslinkSite.Pages
                 driver.FindElement(HamburgerMenuButton).Click();
                 driver.FindElement(PlansProjectsMobileTab).Click();
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                driver.FindElement(HamburgerMenuButton).Click(); // close ham menu
                 return;
             }
             
@@ -40,6 +42,12 @@ namespace TranslinkSite.Pages
                 driver.FindElement(PlansProjectsLink).Click();
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             }
+        }
+
+        public void ClickBurnGondoLink()
+        {
+            //driver.FindElement(BurnMounGondolaLink).Click();
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(BurnMounGondolaLink));
         }
     }
 }
