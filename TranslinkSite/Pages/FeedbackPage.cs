@@ -21,6 +21,7 @@ namespace TranslinkSite.Pages
 
         //Link From homepage 
         private static readonly By CustomerFeedbackLink = By.XPath("//a[.='Customer Feedback']");
+        private static readonly By ContactUs = By.XPath("//*[text()='Contact Us'])");
 
         public readonly string feedbackDescription = "We're here to help! Use this form to send us questions, " +
             "lost item inquiries, comments and suggestions.";

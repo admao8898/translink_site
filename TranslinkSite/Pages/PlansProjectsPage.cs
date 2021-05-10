@@ -15,9 +15,9 @@ namespace TranslinkSite.Pages
         private readonly WebDriverWait wait;
 
         private static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
-        private static readonly By PlansProjectsLink = By.XPath("(//*[text()='Plans and Projects'])[1]"); 
-        private static readonly By PlansProjectsMobileTab = By.XPath("(//*[text()='Plans and Projects'])[2]");
-        private static readonly By BurnMounGondolaLink = By.XPath("//*[text()='Burnaby Mountain Gondola']");
+        private static readonly By PlansProjectsLink = By.XPath("(//a[contains(text(),'Plans & Projects')])[1]"); //desktop
+        private static readonly By PlansProjectsMobileTab = By.XPath("(//a[contains(text(),'Plans & Projects')])[2]"); //mobile view
+        private static readonly By BurnMounGondolaLink = By.CssSelector("a[title=\"Link to 'Burnaby Mountain Gondola' page on this site\"]");
 
         //methods
         public PlansProjectsPage(IWebDriver drv)
