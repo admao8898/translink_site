@@ -16,6 +16,7 @@ namespace TranslinkSite.Pages
 
         // fares dropdown options 
         private static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
+        private static readonly By TranslinkHomePageLogo = By.ClassName("SiteLogo"); 
         private static readonly By FaresLink = By.XPath("//*[text()='Fares']");
         private static readonly By Price_Fares_ZonesNonMobile = By.XPath("(//*[@href='/transit-fares/pricing-and-fare-zones'])[1]");
         private static readonly By CompassCardContainerNonMobile = By.XPath("(//*[@href='/transit-fares/compass-card'])[1]");
@@ -51,6 +52,11 @@ namespace TranslinkSite.Pages
         {
             driver.Navigate().Back();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+        }
+
+        public void ClickTranslinkHomePageLogo()
+        {
+            driver.FindElement(TranslinkHomePageLogo).Click(); 
         }
 
         public void ClickFaresHamMenu()

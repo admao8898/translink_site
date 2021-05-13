@@ -9,7 +9,7 @@ namespace TranslinkSite.TestCases
 {
     public class HomeTest : UITestFixture
     {
-        [TestCase(), Order(1)]
+        [TestCase(), Category("Smoke"), Order(1)]
         public void HomePageContentsVerification()
         {
             HomePage homePage = new HomePage(driver);          
@@ -27,15 +27,15 @@ namespace TranslinkSite.TestCases
 
             homePage.GoToContactUs();
             Assert.IsTrue(driver.Url.Contains("contact-information"));
-            homePage.GoBackToHomePage();
+            homePage.ClickTranslinkHomePageLogo();
 
             homePage.GoToFares();
             Assert.IsTrue(driver.Url.Contains("transit-fares"));
-            homePage.GoBackToHomePage();
+            homePage.ClickTranslinkHomePageLogo();
 
             homePage.GoToRiderInfo();
             Assert.IsTrue(driver.Url.Contains("rider-guide"));
-            homePage.GoBackToHomePage();
+            homePage.ClickTranslinkHomePageLogo();
 
             homePage.GoToSchedules();
             Assert.IsTrue(driver.Url.Contains("schedules-and-maps"));

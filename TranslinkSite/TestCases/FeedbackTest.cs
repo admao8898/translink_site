@@ -10,7 +10,7 @@ namespace TranslinkSite.TestCases
 {
     public class FeedbackTest : UITestFixture
     {
-        [TestCase(), Order(1), Category("Smoke")]
+        [TestCase(), Order(1)]
         public void FeedbackLink()
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
