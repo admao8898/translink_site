@@ -67,9 +67,9 @@ namespace TranslinkSite.TestCases
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
                 TakeScreenShot takeScreenShot = new TakeScreenShot();
-                takeScreenShot.GetScreenShot(driver);
+                takeScreenShot.GetFailedTestScreenShot(driver);
             }
-          
+
             driver.Close();
             driver.Quit();
         }

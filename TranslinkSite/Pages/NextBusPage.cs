@@ -1,10 +1,12 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
 using System.Threading;
+using TranslinkSite.HelperFunctions;
 using TranslinkSite.Pages;
 
 
@@ -17,19 +19,14 @@ namespace TranslinkSite.Pages
         private readonly WebDriverWait wait;
         private readonly string nextBusURL = "https://nb.translink.ca";
 
-        private static readonly By NextBusTab = By.Id("next-bus");
-        private static readonly By NextBusMenuLink = By.XPath("//a[.='Next Bus']");
         private static readonly By NextBusField = By.Name("NextBusSearchTerm");
-        private static readonly By NextBusTextField = By.Id("MainContent_textStop");
         private static readonly By FindNB_Button = By.XPath("//button[contains(text(),'Find my next bus')]");
         private static readonly By SubmitNextBusButton = By.Id("MainContent_linkSearch");
-        private static readonly By SettingsTab = By.XPath("//*[@href='/next-bus/settings']");
+        private static readonly By SettingsTab = By.LinkText("Settings");
         private static readonly By ClockTime = By.XPath("//*[@value='clockTime']");
         private static readonly By CountDown = By.XPath("//*[@value='countDown']");
-        private static readonly By TextView = By.XPath("//*[@value='text']");
-        private static readonly By MapView = By.XPath("//*[@value='map']");
+        private static readonly By MapView = By.CssSelector("a.toggleTextMapView"); //Toggle for text view as well
 
-        private static readonly By MapViewTab = By.Id("mapview_tab");
         private static readonly By RefreshPage = By.Id("refresh_tab");
 
         private static readonly By BrowseRoutesContainer = By.XPath("(//*[text()='Browse all bus routes'])[2]");
@@ -68,61 +65,88 @@ namespace TranslinkSite.Pages
             driver.FindElement(NextBusField).SendKeys(busRoute);
         }
 
+        public void PressEnterKey()
+        {
+            //Actions key = new Actions(driver);
+            //key.SendKeys(Keys.Return);
+            driver.FindElement(NextBusField).SendKeys(Keys.Enter);
+        }
+
         public void ClickFindBusRoute()
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(FindNB_Button));
             //driver.FindElement(FindNB_Button).Click(); 
         }
+
+        public void TakeScreenShotMapView()
+        {
+            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            {
+                TakeScreenShot takeScreenShot = new TakeScreenShot();
+                takeScreenShot.GetRegularScreenShot(driver);
+            }
+
+            else
+            {
+            }
+        }
                
-        // Two options for Time Display 
-        public void ChangeTimeDisplaySettings(string timedDisplay)
+        //// Two options for Time Display 
+        //public void ChangeTimeDisplaySettings(string timedDisplay)
+        //{
+        //    IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+        //    jse.ExecuteScript("arguments[0].click()", driver.FindElement(SettingsTab));
+
+        //    switch (timedDisplay)
+        //    {
+        //        case "ClockTime":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(ClockTime));
+        //            break;
+
+        //        case "CountDown":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(CountDown));
+        //            break;
+
+        //        default:
+        //            throw new Exception("Error: Please Include Desired Setting Value of either: ClockTime or Countdown");
+        //    }
+
+        //    driver.Navigate().Back();
+        //}
+
+        public void ClickMapView()
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SettingsTab));
-
-            switch (timedDisplay)
-            {
-                case "ClockTime":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(ClockTime));
-                    break;
-
-                case "CountDown":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(CountDown));
-                    break;
-
-                default:
-                    throw new Exception("Error: Please Include Desired Setting Value of either: ClockTime or Countdown");
-            }
-
-            driver.Navigate().Back();
+            driver.FindElement(MapView).Click(); 
         }
 
-        // Two options for View Preference 
-        public void ChangeViewPreferenceSettings(string viewPreference)
-        {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-            jse.ExecuteScript("arguments[0].click()", driver.FindElement(SettingsTab));
+        //// Two options for View Preference 
+        //public void ChangeViewPreferenceSettings(string viewPreference)
+        //{
+        //    IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+        //    jse.ExecuteScript("arguments[0].click()", driver.FindElement(SettingsTab));
 
-            switch(viewPreference)
-            {
-                case "TextView":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(TextView));
-                    break;
+        //    switch(viewPreference)
+        //    {
+        //        case "TextView":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(TextView));
+        //            break;
 
-                case "MapView":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(MapView));
-                    break;
+        //        case "MapView":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(MapView));
+        //            break;
 
-                default:
-                    throw new System.ArgumentException("Parameter must either be MapView or TextView", "View Preference Type");
-            }
+        //        default:
+        //            throw new System.ArgumentException("Parameter must either be MapView or TextView", "View Preference Type");
+        //    }
 
-            driver.Navigate().Back();
-        }
+        //    driver.Navigate().Back();
+        //}
 
         public void ClickBusDestination(string choice)
         {
+
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+
 
             if (choice == "Top")
             {
@@ -162,83 +186,71 @@ namespace TranslinkSite.Pages
             //var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(SecondStop)); 
         }
 
-        public void ClickMapViewOption()
-        {
-            driver.FindElement(MapViewTab).Click();
-        }
-
         public void ClickHiddenRefreshButton()
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(RefreshPage));
         }
 
-        public void ClickBrowseAllRoutes()
-        {
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(BrowseRoutesContainer));
-        }
+        //public void ClickBrowseAllRoutes()
+        //{
+        //    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(BrowseRoutesContainer));
+        //}
 
-        public void ClickBusRoute(string routeName)
-        {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+        //public void ClickBusRoute(string routeName)
+        //{
+        //    IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
 
-            switch (routeName)
-            {
-                case "8":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8));
-                    break;
+        //    switch (routeName)
+        //    {
+        //        case "8":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8));
+        //            break;
 
-                case "R2":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2));
-                    break;
+        //        case "R2":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2));
+        //            break;
 
-                default:
-                    throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Route Choice");
-            }
-        }
+        //        default:
+        //            throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Route Choice");
+        //    }
+        //}
 
-        public void ClickBrowseBusDestination(string routeName)
-        {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+        //public void ClickBrowseBusDestination(string routeName)
+        //{
+        //    IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
 
-            switch (routeName)
-            {
-                case "8":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8TopDirection));
-                    break;
+        //    switch (routeName)
+        //    {
+        //        case "8":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8TopDirection));
+        //            break;
 
-                case "R2":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2TopDirection));
-                    break;
+        //        case "R2":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2TopDirection));
+        //            break;
 
-                default:
-                    throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Destination Choice");
-            }        
-        }
+        //        default:
+        //            throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Destination Choice");
+        //    }        
+        //}
 
-        public void ClickBrowseBusStop(string routeName)
-        {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+        //public void ClickBrowseBusStop(string routeName)
+        //{
+        //    IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
 
-            switch (routeName)
-            {
-                case "8":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8Stop));
-                    break;
+        //    switch (routeName)
+        //    {
+        //        case "8":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8Stop));
+        //            break;
 
-                case "R2":
-                    jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2Stop));
-                    break;
+        //        case "R2":
+        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2Stop));
+        //            break;
 
-                default:
-                    throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Stop Choice");
-            }
-        }
-
-        public void PressEnterKey()
-        {
-            Actions key = new Actions(driver);
-            //key.SendKeys(Keys.Return);
-            driver.FindElement(NextBusField).SendKeys(Keys.Enter);
-        }
+        //        default:
+        //            throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Stop Choice");
+        //    }
+        //}                 
     }
 }
