@@ -6,6 +6,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
+using SeleniumExtras.WaitHelpers;
 
 namespace TranslinkSite.TestCases
 {
@@ -27,7 +28,7 @@ namespace TranslinkSite.TestCases
             nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.PressEnterKey();
             nextBusPage.ClickMapView(); //observe it in Mapview (note this is toggle for text view as well)
-            Thread.Sleep(500);
+            Thread.Sleep(3000);
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed. It's not Route " + busRoute);
             nextBusPage.TakeScreenShotMapView(); 
             

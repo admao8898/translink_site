@@ -90,7 +90,7 @@ namespace TranslinkSite.Pages
             {
             }
         }
-               
+      
         //// Two options for Time Display 
         //public void ChangeTimeDisplaySettings(string timedDisplay)
         //{
