@@ -21,7 +21,10 @@ namespace TranslinkSite.Pages
 
         //Link From homepage 
         private static readonly By CustomerFeedbackLink = By.XPath("//a[.='Customer Feedback']");
-        private static readonly By ContactUs = By.XPath("//*[text()='Contact Us'])");
+        private static readonly By ShareYourThoughtsLink = By.LinkText("Share your thoughts");
+        private static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
+        private static readonly By ContactUs = By.LinkText("Contact");
+
 
         public readonly string feedbackDescription = "We're here to help! Use this form to send us questions, " +
             "lost item inquiries, comments and suggestions.";
@@ -103,6 +106,21 @@ namespace TranslinkSite.Pages
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
+        public void ClickContactLink()
+        {
+            if (driver.FindElement(HamburgerMenuButton).Displayed)
+            {
+                driver.FindElement(HamburgerMenuButton).Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(ContactUs));
+                return;
+            }
+
+            else
+            {
+                driver.FindElement(ContactUs).Click();
+            }
+        }
+
         public void GoToFeedbackLink()
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(CustomerFeedbackLink));
@@ -113,6 +131,11 @@ namespace TranslinkSite.Pages
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Navigate().GoToUrl(feedbackURL);
+        }
+        
+        public void ClickShareYourThoughtsLink()
+        {
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(ShareYourThoughtsLink));
         }
 
         public void ClickDropdownSelector()

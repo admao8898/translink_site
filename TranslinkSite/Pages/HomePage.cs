@@ -58,7 +58,6 @@ namespace TranslinkSite.Pages
         {
             driver.FindElement(TranslinkHomePageLogo).Click(); 
         }
-
         public void ClickFaresHamMenu()
         {
             if (driver.FindElement(HamburgerMenuButton).Displayed)

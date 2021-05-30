@@ -14,8 +14,10 @@ namespace TranslinkSite.TestCases
         public void FeedbackLink()
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
-            feedbackPage.GoToFeedbackLink();
-            Assert.IsTrue(driver.Url.Contains("translink.ca/feedback"), "This is not the Feedback page");
+            feedbackPage.ClickContactLink();
+            //feedbackPage.GoToFeedbackLink();
+            feedbackPage.ClickShareYourThoughtsLink(); 
+            Assert.IsTrue(driver.Url.Contains("feedback"), "This is not the Feedback page");
 
             //Verify Page Descriptions 
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.feedbackDescription), feedbackPage.feedbackDescriptFailMsg);
@@ -38,7 +40,9 @@ namespace TranslinkSite.TestCases
         public void FeedbackVerifyDropdownOptions()
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
-            feedbackPage.GoToFeedbackSiteURL();
+            feedbackPage.ClickContactLink();
+            feedbackPage.ClickShareYourThoughtsLink();
+            Assert.IsTrue(driver.Url.Contains("feedback"), "This is not the Feedback page");
             string[] dropList = { "", "LostPropertyFeedback", "BusFeedback", "SkyTrainFeedback", "SeaBusFeedback",
                 "WestCoastExpressFeedback", "HandyDARTFeedback", "HandyDARTTaxiFeedback", "WebAndTechnicalFeedback", "OtherFeedback" };
             feedbackPage.VerifyAllDropdownOptions(dropList);
