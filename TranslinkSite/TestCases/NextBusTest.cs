@@ -33,6 +33,17 @@ namespace TranslinkSite.TestCases
             
         }
 
+        [TestCase()]
+        public void CurrentLocationScreenshot()
+        {
+            NextBusPage nextBusPage = new NextBusPage(driver);
+            nextBusPage.GoToNextBus();
+            nextBusPage.ClickCurrentLocation();
+            nextBusPage.ClickMapView(); //observe it in Mapview (note this is toggle for text view as well)
+            Thread.Sleep(3000);
+            nextBusPage.TakeScreenShotMapView(); 
+        }
+
         //[TestCase("R2")]
         //[TestCase("8")]
         //public void NextBusBrowseDesiredRoute(string busRoute)

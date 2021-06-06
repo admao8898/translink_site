@@ -21,6 +21,7 @@ namespace TranslinkSite.Pages
 
         private static readonly By NextBusField = By.Name("NextBusSearchTerm");
         private static readonly By FindNB_Button = By.XPath("//button[contains(text(),'Find my next bus')]");
+        private static readonly By UseCurrentLocationButton = By.Name("useCurrentLocation"); 
         private static readonly By SubmitNextBusButton = By.Id("MainContent_linkSearch");
         private static readonly By SettingsTab = By.LinkText("Settings");
         private static readonly By ClockTime = By.XPath("//*[@value='clockTime']");
@@ -72,6 +73,10 @@ namespace TranslinkSite.Pages
             driver.FindElement(NextBusField).SendKeys(Keys.Enter);
         }
 
+        public void ClickCurrentLocation()
+        {
+            driver.FindElement(UseCurrentLocationButton).Click(); 
+        }
         public void ClickFindBusRoute()
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(FindNB_Button));
