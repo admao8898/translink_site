@@ -33,7 +33,7 @@ namespace TranslinkSite.TestCases
             
         }
 
-        [TestCase()]
+        [TestCase(), Category("Smoke")]
         public void CurrentLocationScreenshot()
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
