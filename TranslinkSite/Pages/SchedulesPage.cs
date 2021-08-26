@@ -14,7 +14,7 @@ namespace TranslinkSite.Pages
         private readonly IWebDriver driver;
 
         //siteURL 
-        private readonly string SchedulesURL = "https://new.translink.ca/schedules-and-maps";
+        private readonly string SchedulesURL = "https://translink.ca/schedules-and-maps";
 
         //Schedule Type 
         private static readonly By BusSchContainFullScreen = By.XPath("(//*[@href='/schedules-and-maps/bus-schedules'])[2]");

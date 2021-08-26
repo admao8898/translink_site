@@ -17,7 +17,7 @@ namespace TranslinkSite.Pages
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
-        private readonly string tripPlannerURL = "https://new.translink.ca/trip-planner";
+        private readonly string tripPlannerURL = "https://translink.ca/trip-planner";
 
         private static readonly By TripPlannerTextLink = By.XPath("//*[text()='Trip Planner']");
 

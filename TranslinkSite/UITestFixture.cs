@@ -15,7 +15,7 @@ namespace TranslinkSite.TestCases
 {
     public class UITestFixture
     {
-        private readonly string url = "https://new.translink.ca/";
+        private readonly string url = "https://translink.ca/";
 
         public IWebDriver driver;
         private readonly string TranslinkTitle = "Metro Vancouver's transportation network, serving residents and visitors " +

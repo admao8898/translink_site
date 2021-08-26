@@ -16,7 +16,7 @@ namespace TranslinkSite.Pages
     {
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
-        private readonly string feedbackURL = "https://new.translink.ca/feedback";
+        private readonly string feedbackURL = "https://translink.ca/feedback";
         private readonly string namePipelineVariable = Environment.GetEnvironmentVariable("name", EnvironmentVariableTarget.Process);
 
         //Link From homepage 
