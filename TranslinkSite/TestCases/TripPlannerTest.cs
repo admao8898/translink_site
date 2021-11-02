@@ -60,12 +60,13 @@ namespace TranslinkSite.TestCases
         public void TripPlannerSampleTrip(string startPoint, string endPoint, string preferedMode, string routeOption)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
-            tripPlannerPage.GoToTripPlannerURL();
-            tripPlannerPage.EnterFromDestinationText(startPoint);
-            tripPlannerPage.EnterToDestinationText(endPoint);
+            tripPlannerPage.GoToTripPlannerURL(); 
             tripPlannerPage.ClickMoreOptionsLink();
             tripPlannerPage.SelectPreferedTransitMode(preferedMode);
             tripPlannerPage.SelectPreferedRouteMode(routeOption);
+            tripPlannerPage.EnterFromDestinationText(startPoint);
+            tripPlannerPage.EnterToDestinationText(endPoint);
+            tripPlannerPage.EscKey();
             tripPlannerPage.ClickPlanMyTripButton();
         }
 

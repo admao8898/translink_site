@@ -33,7 +33,7 @@ namespace TranslinkSite.Pages
         private static readonly By ToTextBox = By.Id("next_point_desktop");
         private static readonly By ChangeDirectionButton = By.XPath("//*[@class='changeDirectionButton']");
         private static readonly By PlanMyTripButton = By.XPath("//*[text()='Plan my trip']");
-        private static readonly By MoreOptionsLink = By.XPath("//*[text()='More options']");
+        private static readonly By MoreOptionsLink = By.CssSelector("button.Header");
 
         private static readonly By PreferedTransitOptionDropdownSelector = By.Name("tripPreferences");
         private static readonly By RouteOptionDropdownSelector = By.Name("routePreferences");
@@ -96,6 +96,7 @@ namespace TranslinkSite.Pages
         public void ClickMoreOptionsLink()
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(MoreOptionsLink));
+            //driver.FindElement(MoreOptionsLink).Click(); 
         }
 
         public void VerifyAllDropdownOptions(string type)
@@ -125,6 +126,12 @@ namespace TranslinkSite.Pages
             }
 
             DropdownListVerify.VerifiyDropdownValues(driver, dropdownChoice, dropList);
+        }
+
+        public void EscKey()
+        {
+            Actions action = new Actions(driver);
+            action.SendKeys(Keys.Escape);
         }
 
         public void SelectPreferedTransitMode(string option)
