@@ -128,16 +128,16 @@ namespace TranslinkSite.TestCases
             feedbackPage.SelectSkyTrainStation(sktyrainlineDirection, station);
         }
 
-        [TestCase("green"), Order(7)]
-        //[TestCase("yellow")]
-        //[TestCase("orange")]
-        //[TestCase(null)]
-        public void FeedbackHighlighting(string highLightColour)
-        {
-            FeedbackPage feedbackPage = new FeedbackPage(driver);
-            feedbackPage.GoToFeedbackSiteURL();
-            feedbackPage.HightlightText(highLightColour);
-            //Thread.Sleep(2000); 
-        }
+        //[TestCase("green"), Order(7)]
+        ////[TestCase("yellow")]
+        ////[TestCase("orange")]
+        ////[TestCase(null)]
+        //public void FeedbackHighlighting(string highLightColour)
+        //{
+        //    FeedbackPage feedbackPage = new FeedbackPage(driver);
+        //    feedbackPage.GoToFeedbackSiteURL();
+        //    feedbackPage.HightlightText(highLightColour);
+        //    //Thread.Sleep(2000); 
+        //}
     }
 }
