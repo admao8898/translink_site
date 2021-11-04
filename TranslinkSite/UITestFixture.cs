@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using TranslinkSite.HelperFunctions;
 using NUnit.Framework.Interfaces;
 using System.Drawing;
+using System.Collections.Generic;
 
 // This class is configure URL for all test cases using inheritance 
 namespace TranslinkSite.TestCases
@@ -21,6 +22,7 @@ namespace TranslinkSite.TestCases
         private readonly string TranslinkTitle = "Metro Vancouver's transportation network, serving residents and visitors " +
             "with public transit, major roads, bridges and Trip Planning.";
 
+        
         [SetUp]
         public void BeforeTest()
         {
@@ -28,13 +30,47 @@ namespace TranslinkSite.TestCases
             var path = System.IO.Path.GetFullPath(".");
             string browser = Environment.GetEnvironmentVariable("browser", EnvironmentVariableTarget.Process);
             string deviceType = Environment.GetEnvironmentVariable("device", EnvironmentVariableTarget.Process);
+            string headlessOption = Environment.GetEnvironmentVariable("headlessValue", EnvironmentVariableTarget.Process);
 
-            driver = browser switch
+            var chromeOptions = new ChromeOptions();
+
+            // because invisible window size is only 800x600, need to set desired screen size
+            // reference to https://itnext.io/how-to-run-a-headless-chrome-browser-in-selenium-webdriver-c5521bc12bf0
+            chromeOptions.AddArguments("headless", "--window-size=1920,1200");
+
+            driver = headlessOption switch
             {
-                "chrome" => new ChromeDriver(path),
-                "firefox" => new FirefoxDriver(path),
-                _ => new ChromeDriver(path),
+                "true" => new ChromeDriver(chromeOptions),
+                "false" => browser switch
+                {
+                    "chrome" => new ChromeDriver(path),
+                    "firefox" => new FirefoxDriver(path),
+                    _ => new ChromeDriver(path), //default expression 
+                },
+                _ => new ChromeDriver(chromeOptions), //default expression 
+                //_ => new ChromeDriver(path),
             };
+
+            //switch (headlessOption)
+            //{
+            //    case "true":
+            //        driver = new ChromeDriver(chromeOptions);
+            //        break;
+
+            //    case "false":
+            //        driver = browser switch
+            //        {
+            //            "chrome" => new ChromeDriver(path),
+            //            "firefox" => new FirefoxDriver(path),
+            //            _ => new ChromeDriver(path),
+            //        };
+            //        break;
+
+            //    default:
+            //        driver = new ChromeDriver(chromeOptions);
+            //        //driver = new ChromeDriver(path);
+            //        break;
+            //}
 
             switch (deviceType)
             {
