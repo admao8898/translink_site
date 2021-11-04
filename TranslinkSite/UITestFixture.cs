@@ -47,8 +47,8 @@ namespace TranslinkSite.TestCases
                     "firefox" => new FirefoxDriver(path),
                     _ => new ChromeDriver(path), //default expression 
                 },
-                _ => new ChromeDriver(chromeOptions), //default expression 
-                //_ => new ChromeDriver(path),
+                //_ => new ChromeDriver(chromeOptions), //default expression 
+                _ => new ChromeDriver(path),
             };
 
             //switch (headlessOption)
@@ -85,7 +85,7 @@ namespace TranslinkSite.TestCases
                     break;
                 default:
                     driver.Manage().Window.Maximize(); // desktop view
-                    //driver.Manage().Window.Size = new Size(414, 800); // approximated 
+                    //driver.Manage().Window.Size = new Size(1200, 1920); // approximated 
                     break;
             }
 

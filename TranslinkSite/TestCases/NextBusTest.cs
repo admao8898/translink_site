@@ -12,18 +12,19 @@ namespace TranslinkSite.TestCases
 {
     public class NextBusTest : UITestFixture
     {
+        string busrouteST; 
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
-        [TestCase("9"), Category("Smoke")]
-        [TestCase("r5")]
-        [TestCase("19")]
-
+        [TestCase("503"), Category("Smoke")]
+        [TestCase("351")]
+        [TestCase("16")]
         public void NextBusRouteInput(string busRoute)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
             nextBusPage.GoToNextBus();
             Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.nextBusPageTitle)),
                 nextBusPage.nextBusPageTitleFailMsg);
+            //string busRouteST = busRoute.ToString(); 
             nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.PressEnterKey();
             nextBusPage.ClickMapView(); //observe it in Mapview (note this is toggle for text view as well)
