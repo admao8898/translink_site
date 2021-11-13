@@ -17,7 +17,7 @@ namespace TranslinkSite.Pages
         private static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
         private static readonly By PlansProjectsLink = By.XPath("(//a[contains(text(),'Plans & Projects')])[1]"); //desktop
         private static readonly By PlansProjectsMobileTab = By.XPath("(//a[contains(text(),'Plans & Projects')])[2]"); //mobile view
-        private static readonly By BurnMounGondolaLink = By.LinkText("Burnaby Mountain Gondola");
+        private static readonly By DesiredProjectLink = By.LinkText("TransLink Tomorrow");
         private static readonly By ProjectSearchField = By.Id("searchbox");
         private static readonly By SearchButton = By.CssSelector("div.flexContainer.flexWrapper.contentItem > button[type=\"submit\"]");
         //methods
@@ -57,10 +57,10 @@ namespace TranslinkSite.Pages
 
         }
 
-        public void ClickBurnGondoLink()
+        public void ClickDesiredProject()
         {
             //driver.FindElement(BurnMounGondolaLink).Click();
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(BurnMounGondolaLink));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(DesiredProjectLink));
         }
     }
 }

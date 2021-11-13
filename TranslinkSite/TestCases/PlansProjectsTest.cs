@@ -22,18 +22,18 @@ namespace TranslinkSite.TestCases
                 "its livability by providing a sustainable transportation system network."));
         }
 
-        [TestCase("burnaby mountain")]
-        public void CheckBurnGondoLink(string project)
+        [TestCase("Translink Tomorrow")]
+        public void DesiredProjectLink(string project)
         {
             PlansProjectsPage plansProjectsPage = new PlansProjectsPage(driver);
             plansProjectsPage.ClickPlansProjectsLink();
             Thread.Sleep(2000);
             plansProjectsPage.EnterProjectName(project);
             plansProjectsPage.ClickSearchButton();
-            plansProjectsPage.ClickBurnGondoLink(); 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("TransLink is advancing " +
-                "the planning and project development of a Burnaby Mountain Gondola."));
-            Assert.IsTrue(driver.Url.Contains("burnaby-mountain-gondola"));
+            plansProjectsPage.ClickDesiredProject(); 
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Solutions for a better " +
+                "transportation future"));
+            Assert.IsTrue(driver.Url.Contains("translink-tomorrow"));
         }
     }
 }
