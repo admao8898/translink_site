@@ -33,7 +33,7 @@ namespace TranslinkSite.Pages
         // transit general info: Fares, Rider Info, Contact Us, Schedules 
         private static readonly By TransitFareCard = By.LinkText("Fares and Zones"); 
         private static readonly By RiderInfoCard = By.LinkText("Rider Guide");
-        private static readonly By ContactUsCard = By.LinkText("Contact Us");
+        private static readonly By ContactUsCard = By.LinkText("Contact");
         private static readonly By SchedulesCard = By.LinkText("Schedules & Maps");
 
         public HomePage(IWebDriver drv)

@@ -23,7 +23,8 @@ namespace TranslinkSite.TestCases
             homePage.GoBackToHomePage();
 
             homePage.GoToTransitAlerts();
-            homePage.DriverSwitchBackToHomePage();
+            //homePage.DriverSwitchBackToHomePage();
+            homePage.GoBackToHomePage();
 
             homePage.GoToContactUs();
             Assert.IsTrue(driver.Url.Contains("contact-information"));
