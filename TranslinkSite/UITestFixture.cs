@@ -47,7 +47,7 @@ namespace TranslinkSite.TestCases
                     "firefox" => new FirefoxDriver(path),
                     _ => new ChromeDriver(path), //default expression 
                 },
-                //_ => new ChromeDriver(chromeOptions), //default expression 
+                //_ => new ChromeDriver(chromeOptions), //default expression headless option 
                 _ => new ChromeDriver(path),
             };
 

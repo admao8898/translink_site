@@ -15,9 +15,9 @@ namespace TranslinkSite.TestCases
         string busrouteST; 
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
-        [TestCase("351"), Category("Smoke")]
-        [TestCase("99")]
-        [TestCase("410")]
+        [TestCase("n9"), Category("Smoke")]
+        [TestCase("n19")]
+        [TestCase("321")]
         public void NextBusRouteInput(string busRoute)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);

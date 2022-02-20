@@ -46,8 +46,8 @@ namespace TranslinkSite.Pages
         public readonly string routeNumberLegend = "Route Number";
         public readonly string routeNumberLegendFailMsg = "Route Number Legend Missing";
         private static readonly By RouteNumberField = By.Id("busfeedback-routenumber");
-        private static readonly By BusIncidentDateField = By.Id("busfeedback-incidentdate");
-        private static readonly By BusIncidentTimeField = By.Id("busfeedback-incidenttime");
+        private static readonly By BusIncidentDateField = By.Id("busfeedback-incidentdatetime"); 
+        private static readonly By BusIncidentTimeField = By.Id("busfeedback-incidentdatetime");
         private static readonly By BusPhoneNumberField = By.Id("busfeedback-phonenumber");
         private static readonly By BusFirstNameField = By.Id("busfeedback-firstname");
         private static readonly By BusCustRepResponseYesButton = By.XPath("(//*[.='Yes'])[3]");
@@ -85,8 +85,8 @@ namespace TranslinkSite.Pages
         private static readonly By ExpLinePWURadioDropdownSelector = By.XPath("(//*[@id='skytrainfeedback-skytrainstation'])[5]");
         private static readonly By ExpLineWaterfrontDropdownSelector = By.XPath("(//*[@id='skytrainfeedback-skytrainstation'])[6]");
         
-        private static readonly By STIncidentDateField = By.Id("skytrainfeedback-incidentdate");
-        private static readonly By STIncidentTimeField = By.Id("skytrainfeedback-incidenttime");
+        private static readonly By STIncidentDateField = By.Id("skytrainfeedback-incidentdatetime");
+        private static readonly By STIncidentTimeField = By.Id("skytrainfeedback-incidentdatetime");
         private static readonly By STPhoneNumberField = By.Id("skytrainfeedback-phonenumber");
         private static readonly By STFirstNameField = By.Id("skytrainfeedback-firstname");
         private static readonly By STCustRepResponseYesButton = By.XPath("(//*[.='Yes'])[5]");
