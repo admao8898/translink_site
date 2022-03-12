@@ -40,6 +40,7 @@ namespace TranslinkSite.TestCases
             NextBusPage nextBusPage = new NextBusPage(driver);
             nextBusPage.GoToNextBus();
             nextBusPage.ClickCurrentLocation();
+            Thread.Sleep(1000);
             nextBusPage.ClickMapView(); //observe it in Mapview (note this is toggle for text view as well)
             Thread.Sleep(3000);
             nextBusPage.TakeScreenShotMapView(); 
