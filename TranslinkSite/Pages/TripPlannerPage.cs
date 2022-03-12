@@ -19,6 +19,8 @@ namespace TranslinkSite.Pages
         private readonly WebDriverWait wait;
         private readonly string tripPlannerURL = "https://translink.ca/trip-planner";
 
+        private static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
+
         private static readonly By TripPlannerTextLink = By.XPath("//*[text()='Trip Planner']");
 
         public readonly string tripPlannerPageDescription = "Tell us where you're starting from and where you want to go and we'll find the " +
@@ -47,8 +49,17 @@ namespace TranslinkSite.Pages
 
         public void GoToTripPlannerLink()
         {
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(TripPlannerTextLink));
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            if (driver.FindElement(HamburgerMenuButton).Displayed)
+            {
+                driver.FindElement(HamburgerMenuButton).Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(TripPlannerTextLink));
+                return;
+            }
+
+            else
+            {
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(TripPlannerTextLink));
+            }
         }
 
         public void GoToTripPlannerURL()
