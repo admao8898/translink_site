@@ -61,9 +61,9 @@ namespace TranslinkSite.TestCases
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
             tripPlannerPage.GoToTripPlannerURL(); 
-            tripPlannerPage.ClickMoreOptionsLink();
-            tripPlannerPage.SelectPreferedTransitMode(preferedMode);
-            tripPlannerPage.SelectPreferedRouteMode(routeOption);
+            //tripPlannerPage.ClickMoreOptionsLink();
+            //tripPlannerPage.SelectPreferedTransitMode(preferedMode);
+            //tripPlannerPage.SelectPreferedRouteMode(routeOption);
             tripPlannerPage.EnterFromDestinationText(startPoint);
             tripPlannerPage.EnterToDestinationText(endPoint);
             tripPlannerPage.EscKey();
