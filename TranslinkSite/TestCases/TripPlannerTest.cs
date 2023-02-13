@@ -47,8 +47,9 @@ namespace TranslinkSite.TestCases
             Assert.IsTrue(driver.Url.Contains(startPoint), "Incorrect Starting Point");
         }
 
-        [TestCase("Prefer"), Order(4)]
-        [TestCase("Routes")]
+        //[TestCase("Prefer"), Order(4)]
+        //[TestCase("Routes")]
+        // tests no longer used as options removed from site
         public void TripPlannerVerifyDropdownOptions(string type)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
