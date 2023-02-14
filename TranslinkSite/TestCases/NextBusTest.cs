@@ -12,12 +12,12 @@ namespace TranslinkSite.TestCases
 {
     public class NextBusTest : UITestFixture
     {
-        string busrouteST; 
+        //string busrouteST; 
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
-        [TestCase("321"), Category("Smoke")]
-        [TestCase("7")]
-        [TestCase("240")]
+        [TestCase("319"), Category("Smoke")]
+        [TestCase("8")]
+        [TestCase("99")]
         public void NextBusRouteInput(string busRoute)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
