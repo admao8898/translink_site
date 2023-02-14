@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using TranslinkSite.Locators;
 using TranslinkSite.Pages; 
 
 namespace TranslinkSite.TestCases
@@ -12,12 +13,13 @@ namespace TranslinkSite.TestCases
         [TestCase(), Category("Smoke"), Order(1)]
         public void HomePageContentsVerification()
         {
-            HomePage homePage = new HomePage(driver);          
-                                   
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TranslinkTitle)), 
-                homePage.TranslinkTitleErrorMsg);
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(homePage.TranslinkDescript)),
-                homePage.TranslinkDescriptErrorMsg);
+            HomePage homePage = new HomePage(driver);
+            HomePageLocators homePageLocators = new HomePageLocators();
+
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(homePageLocators.TranslinkTitle),
+                homePageLocators.TranslinkTitleErrorMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(homePageLocators.TranslinkDescript),
+                homePageLocators.TranslinkDescriptErrorMsg);
      
             homePage.ClickFaresHamMenu();
             homePage.GoBackToHomePage();
