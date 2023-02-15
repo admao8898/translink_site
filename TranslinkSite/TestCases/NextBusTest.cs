@@ -7,6 +7,7 @@ using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
 using SeleniumExtras.WaitHelpers;
+using TranslinkSite.Locators;
 
 namespace TranslinkSite.TestCases
 {
@@ -21,9 +22,11 @@ namespace TranslinkSite.TestCases
         public void NextBusRouteInput(string busRoute)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
+            NextBusPageLocators nextBusPageLocators = new NextBusPageLocators();
+
             nextBusPage.GoToNextBus();
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPage.nextBusPageTitle)),
-                nextBusPage.nextBusPageTitleFailMsg);
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPageLocators.nextBusPageTitle)),
+                nextBusPageLocators.nextBusPageTitleFailMsg);
             //string busRouteST = busRoute.ToString(); 
             nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.PressEnterKey();

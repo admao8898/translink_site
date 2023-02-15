@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using TranslinkSite.HelperFunctions;
-using TranslinkSite.Pages;
+using TranslinkSite.Locators;
 
 
 namespace TranslinkSite.Pages
@@ -17,38 +17,7 @@ namespace TranslinkSite.Pages
         //Next Bus ~ "NB"
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
-        private readonly string nextBusURL = "https://nb.translink.ca";
-
-        private static readonly By NextBusField = By.Name("NextBusSearchTerm");
-        private static readonly By FindNB_Button = By.XPath("//button[contains(text(),'Find my next bus')]");
-        private static readonly By UseCurrentLocationButton = By.Name("useCurrentLocation"); 
-        private static readonly By SubmitNextBusButton = By.Id("MainContent_linkSearch");
-        private static readonly By SettingsTab = By.LinkText("Settings");
-        private static readonly By ClockTime = By.XPath("//*[@value='clockTime']");
-        private static readonly By CountDown = By.XPath("//*[@value='countDown']");
-        private static readonly By MapView = By.CssSelector("a.toggleTextMapView"); //Toggle for text view as well
-
-        private static readonly By RefreshPage = By.Id("refresh_tab");
-
-        private static readonly By BrowseRoutesContainer = By.XPath("(//*[text()='Browse all bus routes'])[2]");
-        private static readonly By Route8 = By.XPath("//*[text()='8 Fraser / Downtown']");
-        private static readonly By Route8TopDirection = By.XPath("(//*[text()='To Fraser'])[2]");
-        private static readonly By Route8Stop = By.XPath("(//*[text()='E Broadway at Kingsway'])[2]");
-
-        private static readonly By RouteR2 = By.XPath("//*[text()='R2 Marine Dr']");
-        private static readonly By RouteR2TopDirection = By.XPath("(//*[text()='To Marine Dr To Phibbs Exch'])[2]");
-        private static readonly By RouteR2Stop = By.XPath("(//*[text()='Marine Dr at Capilano Rd'])[2]");
-
-
-        private static readonly By RouteTopDestination = By.XPath("(//*[@class='InfoCard indexLinkInfoCardTheme layoutItemContent indexLink'])[1]");
-        private static readonly By RouteBottomDestination = By.XPath("(//*[@class='InfoCard indexLinkInfoCardTheme layoutItemContent indexLink'])[2]");
-        private static readonly By SecondStop = By.XPath("//*/article[2]");
-        private static readonly By TryNewNBLink = By.LinkText("Try the new Next Bus");
-
-        public readonly string nextBusPageTitle = "Next Bus is a quick way to look up departure, real time, " +
-            "or scheduled times for a specific bus stop and bus route.";
-        public readonly string nextBusPageTitleFailMsg = "Next bus Page Title Missing";
-
+        
         public NextBusPage(IWebDriver drv)
         {
             driver = drv;
@@ -57,29 +26,30 @@ namespace TranslinkSite.Pages
 
         public void GoToNextBus()
         {
+            NextBusPageLocators nextBusPageLocators = new NextBusPageLocators();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Navigate().GoToUrl(nextBusURL);
+            driver.Navigate().GoToUrl(nextBusPageLocators.nextBusURL);
         }
 
         public void EnterBusRoute(string busRoute)
         {
-            driver.FindElement(NextBusField).SendKeys(busRoute);
+            driver.FindElement(NextBusPageLocators.NextBusField).SendKeys(busRoute);
         }
 
         public void PressEnterKey()
         {
             //Actions key = new Actions(driver);
             //key.SendKeys(Keys.Return);
-            driver.FindElement(NextBusField).SendKeys(Keys.Enter);
+            driver.FindElement(NextBusPageLocators.NextBusField).SendKeys(Keys.Enter);
         }
 
         public void ClickCurrentLocation()
         {
-            driver.FindElement(UseCurrentLocationButton).Click(); 
+            driver.FindElement(NextBusPageLocators.UseCurrentLocationButton).Click(); 
         }
         public void ClickFindBusRoute()
         {
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(FindNB_Button));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(NextBusPageLocators.FindNB_Button));
             //driver.FindElement(FindNB_Button).Click(); 
         }
 
@@ -121,7 +91,7 @@ namespace TranslinkSite.Pages
 
         public void ClickMapView()
         {
-            driver.FindElement(MapView).Click(); 
+            driver.FindElement(NextBusPageLocators.MapView).Click(); 
         }
 
         //// Two options for View Preference 
@@ -155,7 +125,7 @@ namespace TranslinkSite.Pages
 
             if (choice == "Top")
             {
-                jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteTopDestination));
+                jse.ExecuteScript("arguments[0].click()", driver.FindElement(NextBusPageLocators.RouteTopDestination));
                 //driver.FindElement(RouteTopDestination).Click();
                 return;
             }
@@ -165,15 +135,15 @@ namespace TranslinkSite.Pages
                 // https://stackoverflow.com/questions/49866334/c-sharp-selenium-expectedconditions-is-obsolete
                 //WebDriverWait waiter = new WebDriverWait(driver, TimeSpan.FromSeconds(100)); 
                 //waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(RouteBottomDestination)).Click();
-                IWebElement element = driver.FindElement(RouteBottomDestination);
+                IWebElement element = driver.FindElement(NextBusPageLocators.RouteBottomDestination);
 
                 //new Actions(driver).MoveToElement(element).MoveByOffset(631,683).Click().Perform();
                 //((IJavaScriptExecutor)driver).ExecuteScript("window.scrollTo(0," + ele.getLocation().y + ")");
-                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", driver.FindElement(RouteBottomDestination));
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", driver.FindElement(NextBusPageLocators.RouteBottomDestination));
 
                 //jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteBottomDestination));
 
-                driver.FindElement(RouteBottomDestination).Click();
+                driver.FindElement(NextBusPageLocators.RouteBottomDestination).Click();
                 return;
             }
 
@@ -186,14 +156,14 @@ namespace TranslinkSite.Pages
         public void Click2ndBusStop()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", driver.FindElement(SecondStop));
-            driver.FindElement(SecondStop).Click();
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", driver.FindElement(NextBusPageLocators.SecondStop));
+            driver.FindElement(NextBusPageLocators.SecondStop).Click();
             //var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(SecondStop)); 
         }
 
         public void ClickHiddenRefreshButton()
         {
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(RefreshPage));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(NextBusPageLocators.RefreshPage));
         }
 
         //public void ClickBrowseAllRoutes()
