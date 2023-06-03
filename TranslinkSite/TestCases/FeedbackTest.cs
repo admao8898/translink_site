@@ -5,6 +5,7 @@ using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
+using TranslinkSite.Locators;
 
 namespace TranslinkSite.TestCases
 {
@@ -14,32 +15,36 @@ namespace TranslinkSite.TestCases
         public void FeedbackLink()
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
+            FeedbackPageLocators feedbackPageLocators= new FeedbackPageLocators();
             feedbackPage.ClickContactLink();
             //feedbackPage.GoToFeedbackLink();
             feedbackPage.ClickShareYourThoughtsLink(); 
             Assert.IsTrue(driver.Url.Contains("feedback"), "This is not the Feedback page");
 
             //Verify Page Descriptions 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.feedbackDescription), feedbackPage.feedbackDescriptFailMsg);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.dropDownTitle), feedbackPage.dropDownTitleFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPageLocators.feedbackDescription), feedbackPageLocators.feedbackDescriptFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPageLocators.dropDownTitle), feedbackPageLocators.dropDownTitleFailMsg);
         }
 
         [TestCase(), Order(2), Category("Smoke")]
         public void FeedbackSiteURL()
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
+            FeedbackPageLocators feedbackPageLocators = new FeedbackPageLocators();
             feedbackPage.GoToFeedbackSiteURL();
             Assert.IsTrue(driver.Url.Contains("translink.ca/feedback"), "This is not the Feedback page");
 
             //Verify Page Descriptions 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.feedbackDescription), feedbackPage.feedbackDescriptFailMsg);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.dropDownTitle), feedbackPage.dropDownTitleFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPageLocators.feedbackDescription), feedbackPageLocators.feedbackDescriptFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPageLocators.dropDownTitle), feedbackPageLocators.dropDownTitleFailMsg);
         }
 
         [TestCase(), Order(3), Category("Smoke")]
         public void FeedbackVerifyDropdownOptions()
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
+                        FeedbackPageLocators feedbackPageLocators= new FeedbackPageLocators();
+
             feedbackPage.ClickContactLink();
             feedbackPage.ClickShareYourThoughtsLink();
             Assert.IsTrue(driver.Url.Contains("feedback"), "This is not the Feedback page");
@@ -53,17 +58,18 @@ namespace TranslinkSite.TestCases
         public void FeedbackNoInput(string feedbackType)
         {
             FeedbackPage feedbackPage = new FeedbackPage(driver);
+            FeedbackPageLocators feedbackPageLocators = new FeedbackPageLocators();
             feedbackPage.GoToFeedbackSiteURL();
             feedbackPage.SelectTypeofFeedback(feedbackType);
                         
             switch (feedbackType)
             {
                 case "Bus":
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.routeNumberLegend), feedbackPage.routeNumberLegendFailMsg);
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPageLocators.routeNumberLegend), feedbackPageLocators.routeNumberLegendFailMsg);
                     break;
 
                 case "SkyTrain":
-                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.skytrainLineLegend), feedbackPage.skytrainLineLegendFailMsg);
+                    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPageLocators.skytrainLineLegend), feedbackPageLocators.skytrainLineLegendFailMsg);
                     break; 
 
                 default:
@@ -71,9 +77,9 @@ namespace TranslinkSite.TestCases
             }
 
             feedbackPage.ClickSubmitButton(feedbackType);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.detailsRequiredFieldMsg), feedbackPage.detailRequiredFieldFailMsg);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.nameRequiredFieldMsg), feedbackPage.nameRequiredFieldFailMsg);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPage.emailRequiredFieldMsg), feedbackPage.emailRequiredFieldFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPageLocators.detailsRequiredFieldMsg), feedbackPageLocators.detailRequiredFieldFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPageLocators.nameRequiredFieldMsg), feedbackPageLocators.nameRequiredFieldFailMsg);
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(feedbackPageLocators.emailRequiredFieldMsg), feedbackPageLocators.emailRequiredFieldFailMsg);
         }
 
         [TestCase("Bus", "random", "R5", null, null, null, "-7","-3", "6041234567"), Order(5)]

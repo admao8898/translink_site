@@ -16,9 +16,9 @@ namespace TranslinkSite.TestCases
         //string busrouteST; 
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
-        [TestCase("319"), Category("Smoke")]
-        [TestCase("9")]
-        [TestCase("321")]
+        [TestCase("99"), Category("Smoke")]
+        [TestCase("19")]
+        [TestCase("319")]
         public void NextBusRouteInput(string busRoute)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
@@ -30,11 +30,12 @@ namespace TranslinkSite.TestCases
             //string busRouteST = busRoute.ToString(); 
             nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.PressEnterKey();
+            nextBusPage.ClickFirstSearchResult();   
             nextBusPage.ClickMapView(); //observe it in Mapview (note this is toggle for text view as well)
             Thread.Sleep(3000);
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed. It's not Route " + busRoute);
-            nextBusPage.TakeScreenShotMapView(); 
-            
+            nextBusPage.TakeScreenShotMapView();
+
         }
 
         [TestCase(), Category("Smoke")]

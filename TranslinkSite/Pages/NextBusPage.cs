@@ -91,7 +91,15 @@ namespace TranslinkSite.Pages
 
         public void ClickMapView()
         {
-            driver.FindElement(NextBusPageLocators.MapView).Click(); 
+            if (driver.FindElement(NextBusPageLocators.Stop_StationsText).Displayed)
+            {
+                driver.FindElement(NextBusPageLocators.NearbyMapView).Click();
+            }
+
+            else
+            {
+                driver.FindElement(NextBusPageLocators.MapView).Click();
+            }
         }
 
         //// Two options for View Preference 
@@ -226,6 +234,16 @@ namespace TranslinkSite.Pages
         //        default:
         //            throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Stop Choice");
         //    }
-        //}                 
+        //}
+        //
+
+        public void ClickFirstSearchResult()
+        {
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(NextBusPageLocators.FirstSearchResult));
+
+            //driver.FindElement(NextBusPageLocators.FirstSearchResult).Click();
+        }
     }
+
+   
 }
