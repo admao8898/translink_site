@@ -89,18 +89,21 @@ namespace TranslinkSite.Pages
         //    driver.Navigate().Back();
         //}
 
-        public void ClickMapView()
+        public void ClickMapView(string ViewType)
         {
-            if (driver.FindElement(NextBusPageLocators.Stop_StationsText).Displayed)
+           switch (ViewType)
             {
-                driver.FindElement(NextBusPageLocators.NearbyMapView).Click();
-            }
+                case "GPS":
+                    driver.FindElement(NextBusPageLocators.NearbyMapView).Click();
+                    break;
+                case "Route":
+                    driver.FindElement(NextBusPageLocators.MapView).Click();
+                    break;
+                default:
+                    break; 
+            };
 
-            else
-            {
-                driver.FindElement(NextBusPageLocators.MapView).Click();
-            }
-        }
+         }
 
         //// Two options for View Preference 
         //public void ChangeViewPreferenceSettings(string viewPreference)

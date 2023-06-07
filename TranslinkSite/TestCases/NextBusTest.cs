@@ -31,7 +31,7 @@ namespace TranslinkSite.TestCases
             nextBusPage.EnterBusRoute(busRoute);
             nextBusPage.PressEnterKey();
             nextBusPage.ClickFirstSearchResult();   
-            nextBusPage.ClickMapView(); //observe it in Mapview (note this is toggle for text view as well)
+            nextBusPage.ClickMapView("Route"); //observe it in Mapview (note this is toggle for text view as well)
             Thread.Sleep(3000);
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed. It's not Route " + busRoute);
             nextBusPage.TakeScreenShotMapView();
@@ -45,7 +45,7 @@ namespace TranslinkSite.TestCases
             nextBusPage.GoToNextBus();
             nextBusPage.ClickCurrentLocation();
             Thread.Sleep(1000);
-            nextBusPage.ClickMapView(); //observe it in Mapview (note this is toggle for text view as well)
+            nextBusPage.ClickMapView("GPS"); //observe it in Mapview (note this is toggle for text view as well)
             Thread.Sleep(3000);
             nextBusPage.TakeScreenShotMapView(); 
         }

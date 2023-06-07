@@ -22,7 +22,6 @@ namespace TranslinkSite.Locators
         public static readonly By MapView = By.XPath("//a[text()='View route on map' and @class ='flexContainer']"); //Toggle for text view as well
         
         public static readonly By NearbyMapView = By.XPath("//a[text()='Go to map view' and @class ='flexContainer']");
-        public static readonly By Stop_StationsText = By.Id("stops-and-stations-nearby");
 
         public static readonly By RefreshPage = By.Id("refresh_tab");
 
