@@ -32,7 +32,7 @@ namespace TranslinkSite.TestCases
             nextBusPage.PressEnterKey();
             nextBusPage.ClickFirstSearchResult();   
             nextBusPage.ClickMapView("Route"); //observe it in Mapview (note this is toggle for text view as well)
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed. It's not Route " + busRoute);
             nextBusPage.TakeScreenShotMapView();
 
