@@ -67,17 +67,8 @@ namespace TranslinkSite.Pages
 
         public void GoToContactUs()
         {
-            if (driver.FindElement(HomePageLocators.HamburgerMenuButton).Displayed)
-            {
-                driver.FindElement(HomePageLocators.HamburgerMenuButton).Click();
-                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(HomePageLocators.ContactUsCard));
-                return;
-            }
-
-            else
-            {
-                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(HomePageLocators.ContactUsCard));
-            }
+        
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(HomePageLocators.ContactUsCard));
             //IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             //jse.ExecuteScript("arguments[0].click()", driver.FindElement(ContactUsCard));
         }
