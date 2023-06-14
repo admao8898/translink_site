@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -6,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using TranslinkSite.HelperFunctions;
+using TranslinkSite.Locators;
 
 namespace TranslinkSite.Pages
 {
@@ -14,12 +17,6 @@ namespace TranslinkSite.Pages
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
 
-        private static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
-        private static readonly By PlansProjectsLink = By.XPath("(//a[contains(text(),'Plans & Projects')])[1]"); //desktop
-        private static readonly By PlansProjectsMobileTab = By.XPath("(//a[contains(text(),'Plans & Projects')])[2]"); //mobile view
-        private static readonly By DesiredProjectLink = By.LinkText("TransLink Tomorrow");
-        private static readonly By ProjectSearchField = By.Id("searchbox");
-        private static readonly By SearchButton = By.CssSelector("div.flexContainer.flexWrapper.contentItem > button[type=\"submit\"]");
         //methods
         public PlansProjectsPage(IWebDriver drv)
         {
@@ -29,38 +26,52 @@ namespace TranslinkSite.Pages
         
         public void ClickPlansProjectsLink()
         {
-            if (driver.FindElement(HamburgerMenuButton).Displayed)
+            if (driver.FindElement(PlansProjectsPageLocators.HamburgerMenuButton).Displayed)
             {
-                driver.FindElement(HamburgerMenuButton).Click();
-                driver.FindElement(PlansProjectsMobileTab).Click();
+                driver.FindElement(PlansProjectsPageLocators.HamburgerMenuButton).Click();
+                driver.FindElement(PlansProjectsPageLocators.PlansProjectsMobileTab).Click();
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-                driver.FindElement(HamburgerMenuButton).Click(); // close ham menu
+                driver.FindElement(PlansProjectsPageLocators.HamburgerMenuButton).Click(); // close ham menu
                 return;
             }
             
             else
             {
-                driver.FindElement(PlansProjectsLink).Click();
+                driver.FindElement(PlansProjectsPageLocators.PlansProjectsLink).Click();
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             }
         }
 
         public void EnterProjectName(string projectName)
         {
-            driver.FindElement(ProjectSearchField).SendKeys(projectName);
+            driver.FindElement(PlansProjectsPageLocators.ProjectSearchField).SendKeys(projectName);
         }
 
         public void ClickSearchButton()
         {
             //driver.FindElement(SearchButton).Click();
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(SearchButton));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(PlansProjectsPageLocators.SearchButton));
 
         }
 
-        public void ClickDesiredProject()
+        public void ClickDesiredProject(string projectName)
         {
             //driver.FindElement(BurnMounGondolaLink).Click();
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(DesiredProjectLink));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(By.LinkText(projectName)));
+        }
+
+        public void TakeScreenShot()
+        {
+            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            {
+                TakeScreenShot takeScreenShot = new TakeScreenShot();
+                takeScreenShot.GetRegularScreenShot(driver);
+            }
+
+            else
+            {
+            }
         }
     }
+
 }

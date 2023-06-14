@@ -22,18 +22,20 @@ namespace TranslinkSite.TestCases
                 "its livability by providing a sustainable transportation system network."));
         }
 
-        [TestCase("Translink Tomorrow")]
-        public void DesiredProjectLink(string project)
+        [TestCase("Rail Projects"), Category("Smoke")]
+        [TestCase("Bus Speed and Reliability")]
+        [TestCase("Burnaby Mountain Gondola")]
+          public void DesiredProjectLink(string project)
         {
             PlansProjectsPage plansProjectsPage = new PlansProjectsPage(driver);
             plansProjectsPage.ClickPlansProjectsLink();
             Thread.Sleep(2000);
             plansProjectsPage.EnterProjectName(project);
             plansProjectsPage.ClickSearchButton();
-            plansProjectsPage.ClickDesiredProject(); 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("Solutions for a better " +
-                "transportation future"));
-            Assert.IsTrue(driver.Url.Contains("translink-tomorrow"));
+            plansProjectsPage.ClickDesiredProject(project); 
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(project));
+            Thread.Sleep(3000);
+            plansProjectsPage.TakeScreenShot();
         }
     }
 }
