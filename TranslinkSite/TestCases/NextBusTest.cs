@@ -6,7 +6,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
-using SeleniumExtras.WaitHelpers;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using TranslinkSite.Locators;
 
 namespace TranslinkSite.TestCases

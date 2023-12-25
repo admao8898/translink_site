@@ -6,6 +6,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
 using TranslinkSite.Locators;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace TranslinkSite.TestCases
 {

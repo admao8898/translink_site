@@ -23,7 +23,7 @@ namespace TranslinkSite.HelperFunctions
             string testMethodName = TestContext.CurrentContext.Test.MethodName + "_Failed_";
             string fileName = testMethodName + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".png";
             string screenshotFile = Path.Combine(Environment.CurrentDirectory, fileName);
-            screenshot.SaveAsFile(screenshotFile, ScreenshotImageFormat.Png);
+            screenshot.SaveAsFile(screenshotFile);
             TestContext.AddTestAttachment(screenshotFile, "My Screenshot");            
         }
 
@@ -33,7 +33,7 @@ namespace TranslinkSite.HelperFunctions
             string testMethodName = TestContext.CurrentContext.Test.MethodName + "_ScreenShot_";
             string fileName = testMethodName + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".png";
             string screenshotFile = Path.Combine(Environment.CurrentDirectory, fileName);
-            screenshot.SaveAsFile(screenshotFile, ScreenshotImageFormat.Png);
+            screenshot.SaveAsFile(screenshotFile);
             TestContext.AddTestAttachment(screenshotFile, "My Screenshot");
         }
     }
