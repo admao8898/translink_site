@@ -19,8 +19,8 @@ namespace TranslinkSite.Locators
         public static readonly By ContactUs = By.LinkText("Contact");
 
 
-        public readonly string feedbackDescription = "We're here to help! Use this form to send us questions, " +
-            "lost item inquiries, comments and suggestions.";
+        public readonly string feedbackDescription = "We're here to help! Use this form to send us questions, lost item inquiries, " +
+            "input related to accessibility, feedback and comments";
         public readonly string feedbackDescriptFailMsg = "Incorrect Feedback Description";
         public readonly string dropDownTitle = "What is your feedback regarding";
         public readonly string dropDownTitleFailMsg = "Incorrect Dropdown Title Displayed";
