@@ -42,8 +42,7 @@ namespace TranslinkSite.Locators
         public static readonly By SecondStop = By.XPath("//*/article[2]");
         public static readonly By TryNewNBLink = By.LinkText("Try the new Next Bus");
 
-        public readonly string nextBusPageTitle = "Try out the new Next Bus for a quick way to look up departure, real time, " +
-            "or scheduled times for specific stops, routes, stations, and lines";
+        public readonly string nextBusPageHeader = "Next Bus";
         public readonly string nextBusPageTitleFailMsg = "Next bus Page Title Missing";
     }
 }

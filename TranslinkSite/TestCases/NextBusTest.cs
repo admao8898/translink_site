@@ -16,16 +16,16 @@ namespace TranslinkSite.TestCases
         //string busrouteST; 
         //Next Bus ~ "NB"
         //Goes directly to next bus link. Does not use next bus feature on homepage 
-        [TestCase("99"), Category("Smoke")]
-        [TestCase("19")]
-        [TestCase("319")]
+        [TestCase("r6"), Category("Smoke")]
+        [TestCase("16")]
+        [TestCase("351")]
         public void NextBusRouteInput(string busRoute)
         {
             NextBusPage nextBusPage = new NextBusPage(driver);
             NextBusPageLocators nextBusPageLocators = new NextBusPageLocators();
 
             nextBusPage.GoToNextBus();
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPageLocators.nextBusPageTitle)),
+            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPageLocators.nextBusPageHeader)),
                 nextBusPageLocators.nextBusPageTitleFailMsg);
             //string busRouteST = busRoute.ToString(); 
             nextBusPage.EnterBusRoute(busRoute);
