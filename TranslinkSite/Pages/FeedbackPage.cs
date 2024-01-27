@@ -9,7 +9,7 @@ using TranslinkSite.HelperFunctions;
 using TranslinkSite.Locators; 
 using static TranslinkSite.HelperFunctions.DateTimeGenerator;
 using static TranslinkSite.HelperFunctions.RandomCharGenerator;
-using static TranslinkSite.HelperFunctions.DropdownListVerifier; 
+using NUnit.Framework.Interfaces;
 
 namespace TranslinkSite.Pages
 {
@@ -351,6 +351,18 @@ namespace TranslinkSite.Pages
             }
         }
 
+        public void TakeScreenShotForm()
+        {
+            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            {
+                TakeScreenShot takeScreenShot = new TakeScreenShot();
+                takeScreenShot.GetRegularScreenShot(driver);
+            }
+
+            else
+            {
+            }
+        }
         public void HightlightText(string highLightColour)
         {
             TextHighLightJS HighLighter = new TextHighLightJS();

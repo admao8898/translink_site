@@ -6,6 +6,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
 using TranslinkSite.Locators;
+using TranslinkSite.HelperFunctions;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace TranslinkSite.TestCases
@@ -133,6 +134,8 @@ namespace TranslinkSite.TestCases
             feedbackPage.EnterSkytrainLine(skytrainLine);
             feedbackPage.ClickSkytrainLineDirection(sktyrainlineDirection);            
             feedbackPage.SelectSkyTrainStation(sktyrainlineDirection, station);
+            feedbackPage.TakeScreenShotForm();
+
         }
 
         //[TestCase("green"), Order(7)]

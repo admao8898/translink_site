@@ -5,6 +5,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Threading;
 using TranslinkSite.HelperFunctions;
 using TranslinkSite.Locators;
@@ -41,6 +42,14 @@ namespace TranslinkSite.Pages
             //Actions key = new Actions(driver);
             //key.SendKeys(Keys.Return);
             driver.FindElement(NextBusPageLocators.NextBusField).SendKeys(Keys.Enter);
+        }
+
+        //Using Page Scroll helper functions 
+        //Jan 27, 2024
+        public void ScrollPageDirection(string direction)
+        {
+            PageScroller scroller = new();
+            scroller.ScrollPageBy(driver,direction);
         }
 
         public void ClickCurrentLocation()
