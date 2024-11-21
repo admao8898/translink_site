@@ -18,7 +18,7 @@ namespace TranslinkSite.Locators
         public static readonly By CompassCardContainerMobile = By.XPath("(//*[@href='/transit-fares/compass-card'])[2]");
 
         // transit alerts
-        public static readonly By TransitAlertsButton = By.LinkText("Alerts Signup");
+        public static readonly By TransitAlertsLink = By.LinkText("Alerts");
         public readonly string TranslinkTitle = "Welcome to TransLink";
         public readonly string TranslinkDescript = "Bringing the people and places of Metro Vancouver together.";
         public readonly string TranslinkTitleErrorMsg = "Incorrect Page Title";

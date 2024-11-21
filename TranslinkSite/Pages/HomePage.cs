@@ -56,7 +56,7 @@ namespace TranslinkSite.Pages
         public void GoToTransitAlerts()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(HomePageLocators.TransitAlertsButton));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(HomePageLocators.TransitAlertsLink));
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
