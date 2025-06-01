@@ -1,9 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Vml;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Text;
+using System.Threading;
 using TranslinkSite.Pages;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
@@ -18,13 +23,14 @@ namespace TranslinkSite.TestCases
             plansProjectsPage.ClickPlansProjectsLink();
             Thread.Sleep(2000);
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.
-                Contains("Our vision is to create a better place to live built on transportation excellence. " +
-                "Guided by our regional transportation strategy, we work to connect the region and enhance " +
-                "its livability by providing a sustainable transportation system network."));
+                Contains(" Our vision is to create a better place to live, " +
+                "built on transportation excellence.Guided by our regional transportation strategy, " +
+                "we work to connect the region and enhance its livability by providing " +
+                "a sustainable transportation system network. "));
         }
 
-        [TestCase("Rail Projects"), Category("Smoke")]
-        [TestCase("Bus Speed and Reliability")]
+        [TestCase("Capstan Station"), Category("Smoke")]
+        [TestCase("Bus Projects")]
         [TestCase("Burnaby Mountain Gondola")]
           public void DesiredProjectLink(string project)
         {

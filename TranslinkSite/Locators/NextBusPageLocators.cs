@@ -9,7 +9,7 @@ namespace TranslinkSite.Locators
 {
     public class NextBusPageLocators
     {
-        public readonly string nextBusURL = "https://nb.translink.ca";
+        public readonly string nextBusURL = "https://www.translink.ca/next-bus";
 
         public static readonly By NextBusField = By.Name("searchQuery");
         public static readonly By FindNB_Button = By.XPath("//button[@class='flexContainer largeViewOnlyContent']" +
