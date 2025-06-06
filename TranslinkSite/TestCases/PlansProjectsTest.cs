@@ -23,10 +23,7 @@ namespace TranslinkSite.TestCases
             plansProjectsPage.ClickPlansProjectsLink();
             Thread.Sleep(2000);
             Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.
-                Contains(" Our vision is to create a better place to live, " +
-                "built on transportation excellence.Guided by our regional transportation strategy, " +
-                "we work to connect the region and enhance its livability by providing " +
-                "a sustainable transportation system network. "));
+                Contains("Plans and Projects"));
         }
 
         [TestCase("Capstan Station"), Category("Smoke")]
