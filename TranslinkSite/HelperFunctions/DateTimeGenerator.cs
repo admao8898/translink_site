@@ -9,7 +9,7 @@ namespace TranslinkSite.HelperFunctions
         public static string SystemDate(string days)
         {
             string dateFormat = "yyyy/MM/dd";
-            
+
             //Verify string is an integer
             if (int.TryParse(days, out int dayInteger))
             {
@@ -23,8 +23,8 @@ namespace TranslinkSite.HelperFunctions
 
             string date = DateTime.Today.AddDays(dayInteger).ToString(dateFormat);
             return date;
-        } 
-        
+        }
+
         public static string SystemTime(string times)
         {
             string timeFormat = "hh:mm tt";

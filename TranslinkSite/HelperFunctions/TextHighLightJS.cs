@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using System;
+using System.Collections.Generic;
 
 namespace TranslinkSite.HelperFunctions
 {
@@ -7,33 +9,26 @@ namespace TranslinkSite.HelperFunctions
 
     public class TextHighLightJS 
     {
-        public void HighlightElement(IWebDriver driver, IWebElement element, string highLightColour) // function will need input value of driver otherwise just reads null 
+        public void HighlightElement(IWebDriver driver, IWebElement element, string highlightColour)
         {
-            if (highLightColour == "orange")
+            if (driver == null) throw new ArgumentNullException(nameof(driver));
+            if (element == null) throw new ArgumentNullException(nameof(element));
+
+            var allowedColors = new HashSet<string> { "orange", "yellow", "green" };
+            if (!allowedColors.Contains(highlightColour.ToLower()))
             {
-                string highlightJavascript = @"$(arguments[0]).css({ ""border-width"" : ""2px"", ""border-style"" : ""solid"", ""border-color"" : ""blue"", ""background"" : ""orange"" });";
-                ((IJavaScriptExecutor)driver).ExecuteScript(highlightJavascript, new object[] { element });
-                return; 
+                throw new ArgumentException("Highlight colour must be orange, yellow, or green.", nameof(highlightColour));
             }
 
-            if (highLightColour == "yellow")
-            {
-                string highlightJavascript = @"$(arguments[0]).css({ ""border-width"" : ""2px"", ""border-style"" : ""solid"", ""border-color"" : ""blue"", ""background"" : ""yellow"" });";
-                ((IJavaScriptExecutor)driver).ExecuteScript(highlightJavascript, new object[] { element });
-                return;
-            }
+            string highlightJavascript = @"
+        $(arguments[0]).css({
+            'border-width': '2px',
+            'border-style': 'solid',
+            'border-color': 'blue',
+            'background': arguments[1]
+        });";
 
-            if (highLightColour == "green")
-            {
-                string highlightJavascript = @"$(arguments[0]).css({ ""border-width"" : ""2px"", ""border-style"" : ""solid"", ""border-color"" : ""blue"", ""background"" : ""green"" });";
-                ((IJavaScriptExecutor)driver).ExecuteScript(highlightJavascript, new object[] { element });
-                return;
-            }
-
-            else
-            {
-                throw new System.ArgumentException("Parameter must either be orange or yellow or green", "Highlight Colour Type");
-            }           
+            ((IJavaScriptExecutor)driver).ExecuteScript(highlightJavascript, element, highlightColour.ToLower());
         }
     }
 }

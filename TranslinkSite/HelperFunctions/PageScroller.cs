@@ -1,5 +1,6 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
+using System;
+using System.Collections.Generic;
 
 namespace TranslinkSite.HelperFunctions
 {
@@ -8,36 +9,24 @@ namespace TranslinkSite.HelperFunctions
     //Jan 27, 2024
     public class PageScroller
     {
-        public void ScrollPageBy(IWebDriver driver,string direction)
+        public void ScrollPageBy(IWebDriver driver, string direction, int pixels = 400)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            if (driver == null) throw new ArgumentNullException(nameof(driver));
+            if (string.IsNullOrWhiteSpace(direction)) throw new ArgumentNullException(nameof(direction));
 
-            switch (direction)
+            var offsets = new Dictionary<string, (int x, int y)>(StringComparer.OrdinalIgnoreCase)
             {
-                case "down":
-                    jse.ExecuteScript("window.scrollBy(0,400)", "");
-                    Console.WriteLine("Page Scrolled Down by 400 Pixels");
-                    break;
+                { "down",  (0,  pixels) },
+                { "up",    (0, -pixels) },
+                { "right", ( pixels, 0) },
+                { "left",  (-pixels, 0) }
+            };
 
-                case "up":
-                    jse.ExecuteScript("window.scrollBy(0,-400)", "");
-                    Console.WriteLine("Page Scrolled Up by 400 Pixels");
-                    break;
+            if (!offsets.TryGetValue(direction, out var offset))
+                throw new ArgumentException("Direction must be 'up', 'down', 'left', or 'right'.", nameof(direction));
 
-                case "left":
-                    jse.ExecuteScript("window.scrollBy(400,0)", "");
-                    Console.WriteLine("Page Scrolled left by 400 Pixels");
-                    break;
-
-                case "right":
-                    jse.ExecuteScript("window.scrollBy(-400,0)", "");
-                    Console.WriteLine("Page Scrolled right by 400 Pixels");
-                    break;
-
-                default:
-                    throw new System.ArgumentException("Parameter must either be up, down, left, right", "Scroll Page Direction");
-            }
-
+            ((IJavaScriptExecutor)driver).ExecuteScript($"window.scrollBy({offset.x},{offset.y})");
+            Console.WriteLine($"Page scrolled {direction} by {pixels} pixels");
         }
     }        
 }

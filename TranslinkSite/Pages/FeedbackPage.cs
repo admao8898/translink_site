@@ -356,7 +356,7 @@ namespace TranslinkSite.Pages
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
                 TakeScreenShot takeScreenShot = new TakeScreenShot();
-                takeScreenShot.GetRegularScreenShot(driver);
+                takeScreenShot.GetRegularScreenshot(driver);
             }
 
             else

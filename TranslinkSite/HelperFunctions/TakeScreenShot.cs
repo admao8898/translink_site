@@ -16,25 +16,25 @@ namespace TranslinkSite.HelperFunctions
 
     public class TakeScreenShot
     {
-        public void GetFailedTestScreenShot(IWebDriver driver) //For test cases that failed
+        public void CaptureScreenshot(IWebDriver driver, string label)
         {
             var screenshot = driver.TakeScreenshot();
-            // testcontext class https://docs.nunit.org/articles/nunit/writing-tests/TestContext.html
-            string testMethodName = TestContext.CurrentContext.Test.MethodName + "_Failed_";
-            string fileName = testMethodName + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".png";
-            string screenshotFile = Path.Combine(Environment.CurrentDirectory, fileName);
-            screenshot.SaveAsFile(screenshotFile);
-            TestContext.AddTestAttachment(screenshotFile, "My Screenshot");            
-        }
+            var testMethodName = $"{TestContext.CurrentContext.Test.MethodName}_{label}_";
+            var fileName = $"{testMethodName}{DateTime.Now:yyyy-MM-dd HH-mm-ss}.png";
+            var screenshotFile = Path.Combine(Environment.CurrentDirectory, fileName);
 
-        public void GetRegularScreenShot(IWebDriver driver) //Non Failed test cases 
-        {
-            var screenshot = driver.TakeScreenshot();
-            string testMethodName = TestContext.CurrentContext.Test.MethodName + "_ScreenShot_";
-            string fileName = testMethodName + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".png";
-            string screenshotFile = Path.Combine(Environment.CurrentDirectory, fileName);
             screenshot.SaveAsFile(screenshotFile);
             TestContext.AddTestAttachment(screenshotFile, "My Screenshot");
+        }
+
+        public void GetFailedTestScreenshot(IWebDriver driver)
+        {
+            CaptureScreenshot(driver, "Failed");
+        }
+
+        public void GetRegularScreenshot(IWebDriver driver)
+        {
+            CaptureScreenshot(driver, "ScreenShot");
         }
     }
 }

@@ -7,34 +7,34 @@ namespace TranslinkSite.HelperFunctions
     public class RandomCharGenerator
     {
         // Word Type must be either "name" or "random" 
-        public static string RandomWordGenerator(int n, string wordtype)
+        public static string RandomWordGenerator(int length, string wordType)
         {
-            var numof_chars = n;
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijklmnopqrstuvwxyz 0123456789";
-            var stringChars = new char[n];
+            if (length <= 0)
+                throw new ArgumentException("Length must be greater than zero.", nameof(length));
+
+            var allowedTypes = new HashSet<string> { "name", "random" };
+            wordType = wordType.ToLowerInvariant();
+
+            if (!allowedTypes.Contains(wordType))
+                throw new ArgumentException("Parameter must either be 'name' or 'random'.", nameof(wordType));
+
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789- ";
+            var stringChars = new char[length];
             var random = new Random();
-            for (int i = 0; i < stringChars.Length; i++)
+
+            for (int i = 0; i < length; i++)
             {
-                n = random.Next(chars.Length);
-                stringChars[i] = chars[n];
+                stringChars[i] = chars[random.Next(chars.Length)];
             }
 
-            if (wordtype == "name")
+            if (wordType == "name")
             {
-                string displayName = String.Format("Tester{0}", n);
-                return displayName;
+                // Append a random number for uniqueness
+                return $"Tester{random.Next(1000, 9999)}";
             }
 
-            if (wordtype == "random")
-            {
-                string message = new String(stringChars);
-                return message;
-            }
-
-            else
-            {
-                throw new System.ArgumentException("Parameter must either be 'name' or 'random'", "Word Type");
-            }
+            // Default: "random"
+            return new string(stringChars);
         }
     }
 }
