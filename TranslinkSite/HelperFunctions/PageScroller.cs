@@ -9,7 +9,7 @@ namespace TranslinkSite.HelperFunctions
     //Jan 27, 2024
     public class PageScroller
     {
-        public void ScrollPageBy(IWebDriver driver, string direction, int pixels = 400)
+        public void ScrollPageBy(IWebDriver driver, string direction, int pixels = 300)
         {
             if (driver == null) throw new ArgumentNullException(nameof(driver));
             if (string.IsNullOrWhiteSpace(direction)) throw new ArgumentNullException(nameof(direction));

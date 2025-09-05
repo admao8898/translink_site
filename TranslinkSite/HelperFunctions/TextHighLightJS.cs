@@ -21,12 +21,12 @@ namespace TranslinkSite.HelperFunctions
             }
 
             string highlightJavascript = @"
-        $(arguments[0]).css({
+            $(arguments[0]).css({
             'border-width': '2px',
             'border-style': 'solid',
             'border-color': 'blue',
             'background': arguments[1]
-        });";
+            });";
 
             ((IJavaScriptExecutor)driver).ExecuteScript(highlightJavascript, element, highlightColour.ToLower());
         }

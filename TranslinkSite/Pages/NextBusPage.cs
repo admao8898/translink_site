@@ -34,14 +34,7 @@ namespace TranslinkSite.Pages
 
         public void EnterBusRoute(string busRoute)
         {
-            driver.FindElement(NextBusPageLocators.NextBusField).SendKeys(busRoute);
-        }
-
-        public void PressEnterKey()
-        {
-            //Actions key = new Actions(driver);
-            //key.SendKeys(Keys.Return);
-            driver.FindElement(NextBusPageLocators.NextBusField).SendKeys(Keys.Enter);
+            driver.FindElement(NextBusPageLocators.NextBusField).SendKeys(busRoute + Keys.Enter);
         }
 
         //Using Page Scroll helper functions 

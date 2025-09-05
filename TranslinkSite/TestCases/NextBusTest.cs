@@ -29,7 +29,6 @@ namespace TranslinkSite.TestCases
                 nextBusPageLocators.nextBusPageTitleFailMsg);
             //string busRouteST = busRoute.ToString(); 
             nextBusPage.EnterBusRoute(busRoute);
-            nextBusPage.PressEnterKey();
             nextBusPage.ClickFirstSearchResult();   
             nextBusPage.ClickMapView("Route"); //observe it in Mapview (note this is toggle for text view as well)
             nextBusPage.ScrollPageDirection("down");
@@ -51,26 +50,6 @@ namespace TranslinkSite.TestCases
             Thread.Sleep(3000);
             nextBusPage.TakeScreenShotMapView(); 
         }
-
-        //[TestCase("R2")]
-        //[TestCase("8")]
-        //public void NextBusBrowseDesiredRoute(string busRoute)
-        //{
-        //    NextBusPage nextBusPage = new NextBusPage(driver);
-        //    nextBusPage.GoToNextBus();
-
-        //    nextBusPage.ClickBrowseAllRoutes();
-        //    nextBusPage.ClickBusRoute(busRoute);
-        //    nextBusPage.ClickBrowseBusDestination(busRoute);
-        //    nextBusPage.ClickBrowseBusStop(busRoute);
-        //    //nextBusPage.PressEnterKey();
-
-        //    nextBusPage.ChangeTimeDisplaySettings("ClockTime");
-        //    nextBusPage.ChangeViewPreferenceSettings("MapView");
-        //    Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed");
-        //    //Thread.Sleep(500);
-        //    nextBusPage.ClickMapViewOption();
-        //    //Thread.Sleep(500);
-        //}
+   
     }
 }
