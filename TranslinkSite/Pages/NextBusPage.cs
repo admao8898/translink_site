@@ -35,6 +35,8 @@ namespace TranslinkSite.Pages
         public void EnterBusRoute(string busRoute)
         {
             driver.FindElement(NextBusPageLocators.NextBusField).SendKeys(busRoute + Keys.Enter);
+            driver.FindElement(NextBusPageLocators.NextBusField).SendKeys(Keys.Enter);
+
         }
 
         //Using Page Scroll helper functions 
@@ -179,74 +181,11 @@ namespace TranslinkSite.Pages
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(NextBusPageLocators.RefreshPage));
         }
 
-        //public void ClickBrowseAllRoutes()
-        //{
-        //    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(BrowseRoutesContainer));
-        //}
-
-        //public void ClickBusRoute(string routeName)
-        //{
-        //    IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-
-        //    switch (routeName)
-        //    {
-        //        case "8":
-        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8));
-        //            break;
-
-        //        case "R2":
-        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2));
-        //            break;
-
-        //        default:
-        //            throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Route Choice");
-        //    }
-        //}
-
-        //public void ClickBrowseBusDestination(string routeName)
-        //{
-        //    IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-
-        //    switch (routeName)
-        //    {
-        //        case "8":
-        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8TopDirection));
-        //            break;
-
-        //        case "R2":
-        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2TopDirection));
-        //            break;
-
-        //        default:
-        //            throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Destination Choice");
-        //    }        
-        //}
-
-        //public void ClickBrowseBusStop(string routeName)
-        //{
-        //    IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
-
-        //    switch (routeName)
-        //    {
-        //        case "8":
-        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(Route8Stop));
-        //            break;
-
-        //        case "R2":
-        //            jse.ExecuteScript("arguments[0].click()", driver.FindElement(RouteR2Stop));
-        //            break;
-
-        //        default:
-        //            throw new System.ArgumentException("Parameter must either be 8 Fraser or R2", "Bus Browse Stop Choice");
-        //    }
-        //}
-        //
-
-        public void ClickFirstSearchResult()
+        public void ClickRouteDirection(string routeDirection)
         {
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(NextBusPageLocators.FirstSearchResult));
+            string finalXpath = string.Format(NextBusPageLocators.RouteDirectionOption, routeDirection);
+            driver.FindElement(By.XPath(finalXpath)).Click();
 
-            //driver.FindElement(NextBusPageLocators.FirstSearchResult).Click();
         }
     }
 

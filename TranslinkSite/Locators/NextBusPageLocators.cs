@@ -27,6 +27,8 @@ namespace TranslinkSite.Locators
 
         public static readonly By FirstSearchResult = By.XPath("(//article[@class='SearchResultItem']//a)[1]");
 
+        public static readonly string RouteDirectionOption = "//a[strong[contains(text(), '{0}')]]";
+
         public static readonly By BrowseRoutesContainer = By.XPath("(//*[text()='Browse all bus routes'])[2]");
         public static readonly By Route8 = By.XPath("//*[text()='8 Fraser / Downtown']");
         public static readonly By Route8TopDirection = By.XPath("(//*[text()='To Fraser'])[2]");
