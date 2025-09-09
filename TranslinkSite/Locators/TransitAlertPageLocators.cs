@@ -4,14 +4,14 @@ namespace TranslinkSite.Locators
 {
     public class TransitAlertPageLocators
     {
-        public static readonly By TransitAlertsButton = By.LinkText("Sign in to Transit Alerts");
+        public static readonly By TransitAlertsLink = By.LinkText("Alerts");
         public static readonly By NameField = By.Id("displayName");
         public static readonly By EmailField = By.Id("email");
         public static readonly By SubmitButton = By.Id("pagecolumnsrows_0_btnSubmit");
-        public static readonly By SignUpLink = By.LinkText("Sign up now");
+        public static readonly By SignUpLink = By.LinkText("Sign up");
 
-        public readonly string expectedSignInTransitAlertsAccountHeader = "Sign In To Your Transit Alerts Account";
-        public readonly string signTranAlertHeaderFailMsg = "Transit Alerts Missing";
+        public readonly string TransitAlertsPageHeader = "Alerts and Advisories";
+        public readonly string signTranAlertHeaderFailMsg = "Transit Alerts Header Missing";
         public readonly string expectedSignUpTransAlertHeader = "Sign Up for Transit Alerts";
         public readonly string signUpTransAlertFailMsg = "Transit Alerts Sign up heaer missing";
 

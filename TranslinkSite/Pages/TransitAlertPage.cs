@@ -25,12 +25,19 @@ namespace TranslinkSite.Pages
         //Transit Alerts Login Page 
         public void GoToTransitAlertPage()
         {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(TransitAlertPageLocators.TransitAlertsButton));
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            if (driver.FindElement(HomePageLocators.HamburgerMenuButton).Displayed)
+            {
+                driver.FindElement(HomePageLocators.HamburgerMenuButton).Click();
+                driver.FindElement(TransitAlertPageLocators.TransitAlertsLink).Click();
+                return;
+            }
 
+            else
+            {
+                driver.FindElement(TransitAlertPageLocators.TransitAlertsLink).Click();
+            }
         }
-
+    
         //Jan 27, 2024
         //Sign Up for Transit Alerts Page 
         public void GoToTransitAlertSignUpPage()

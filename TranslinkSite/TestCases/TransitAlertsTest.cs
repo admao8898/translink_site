@@ -22,7 +22,7 @@ namespace TranslinkSite.TestCases
             TransitAlertPageLocators transitAlertPageLocators = new();
             transitAlertPage.GoToTransitAlertPage();
             Thread.Sleep(2000);
-            Assert.IsTrue(driver.FindElement(By.TagName("h2")).Text.Contains(transitAlertPageLocators.expectedSignInTransitAlertsAccountHeader), 
+            Assert.IsTrue(driver.FindElement(By.TagName("h1")).Text.Contains(transitAlertPageLocators.TransitAlertsPageHeader), 
             transitAlertPageLocators.signTranAlertHeaderFailMsg);
             transitAlertPage.GoToTransitAlertSignUpPage();
             Thread.Sleep(2000);
