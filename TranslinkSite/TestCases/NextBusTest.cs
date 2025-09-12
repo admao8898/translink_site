@@ -46,9 +46,23 @@ namespace TranslinkSite.TestCases
             nextBusPage.ClickMapView("GPS"); //observe it in Mapview (note this is toggle for text view as well)
             nextBusPage.ScrollPageDirection("down");
             Thread.Sleep(3000);
-            nextBusPage.TakeScreenShotMapView(); 
+            nextBusPage.TakeScreenShotMapView();
         }
-   
+
+        [TestCase("99", "#99 - UBC B-Line"), Category("Smoke")]
+        [TestCase("19", "#19 - Stanley Park")]
+        public void BusSchedulesLookUp(string route, string RouteDestination)
+        {
+            NextBusPage nextBusPage = new NextBusPage(driver);
+            nextBusPage.ClickSchedules_MapsDropdown();
+            nextBusPage.ClickBusOption(); 
+            Assert.IsTrue(driver.Url.Contains("bus-schedules"), "Not on Bus Schedules Page");
+            nextBusPage.EnterBusRoute(route);
+            nextBusPage.ClickRouteDirection(RouteDestination);
+
+
+
+        }
     }
 }
 
