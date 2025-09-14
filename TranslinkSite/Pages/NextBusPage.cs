@@ -109,9 +109,17 @@ namespace TranslinkSite.Pages
         }
         public void ClickSchedules_MapsDropdown()
         {
-            //driver.FindElement(NextBusPageLocators.Schedules_MapsDropdown).Click();
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(NextBusPageLocators.Schedules_MapsDropdown));
+            if (driver.FindElement(HomePageLocators.HamburgerMenuButton).Displayed)
+            {
+                driver.FindElement(HomePageLocators.HamburgerMenuButton).Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(NextBusPageLocators.Schedules_MapsDropdown));
+                return;
+            }
 
+            else
+            {
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(NextBusPageLocators.Schedules_MapsDropdown));
+            }
         }
         public void ClickBusOption()
         {
