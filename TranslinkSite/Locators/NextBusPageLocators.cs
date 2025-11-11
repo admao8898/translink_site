@@ -22,13 +22,9 @@ namespace TranslinkSite.Locators
         public static readonly By UseCurrentLocationButton = By.XPath("//transit-near-me-link//a[@class='flexContainer']");
         public static readonly By SubmitNextBusButton = By.Id("MainContent_linkSearch");
         public static readonly By SettingsTab = By.LinkText("Settings");
-        public static readonly By ClockTime = By.XPath("//*[@value='clockTime']");
-        public static readonly By CountDown = By.XPath("//*[@value='countDown']");
         public static readonly By MapView = By.XPath("//a[text()='View route on map' and @class ='flexContainer']"); //Toggle for text view as well
         
         public static readonly By NearbyMapView = By.XPath("//a[text()='Go to map view' and @class ='flexContainer']");
-
-        public static readonly By RefreshPage = By.Id("refresh_tab");
 
         public static readonly string RouteDirectionOption = "//a[strong[contains(text(), '{0}')]]";
 
