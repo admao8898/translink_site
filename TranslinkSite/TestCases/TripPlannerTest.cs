@@ -73,7 +73,7 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.GoToTripPlanningTranslink();    
             tripPlannerPage.ClickRoutesWidgetTab(); 
             tripPlannerPage.SelectRouteDropdownOption(routeDescription);
-            //tripPlannerPage.TakeScreenShotMapView();
+            tripPlannerPage.TakeScreenShotMapView();
         }
     }   
 }
