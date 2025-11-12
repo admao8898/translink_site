@@ -105,8 +105,8 @@ namespace TranslinkSite.Pages
         {
             string finalXpath = string.Format(NextBusPageLocators.RouteDirectionOption, routeDirection);
             driver.FindElement(By.XPath(finalXpath)).Click();
-
         }
+
         public void ClickSchedules_MapsDropdown()
         {
             if (driver.FindElement(HomePageLocators.HamburgerMenuButton).Displayed)

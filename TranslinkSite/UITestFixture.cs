@@ -4,12 +4,12 @@ using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox; 
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-using OpenQA.Selenium.Support.Extensions;
-using System.Drawing.Imaging;
 using TranslinkSite.HelperFunctions;
 using NUnit.Framework.Interfaces;
 using System.Drawing;
 using System.Collections.Generic;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 
 // This class is configure URL for all test cases using inheritance 
 namespace TranslinkSite.TestCases
@@ -21,79 +21,67 @@ namespace TranslinkSite.TestCases
         public IWebDriver driver;
         private readonly string TranslinkTitle = "Metro Vancouver's transportation network, serving residents and visitors " +
             "with public transit, major roads, bridges and Trip Planning.";
-
-        
+                
         [SetUp]
         public void BeforeTest()
         {
-            // gives local the execution location 
             var path = System.IO.Path.GetFullPath(".");
             string browser = Environment.GetEnvironmentVariable("browser", EnvironmentVariableTarget.Process);
             string deviceType = Environment.GetEnvironmentVariable("device", EnvironmentVariableTarget.Process);
             string headlessOption = Environment.GetEnvironmentVariable("headlessValue", EnvironmentVariableTarget.Process);
 
+            // Automatically install the correct ChromeDriver for the Chrome version on the agent
+            new DriverManager().SetUpDriver(new ChromeConfig());
+
+            // === Browser setup ===
+
             var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("--window-size=1920,1200"); // default window size
 
-            // because invisible window size is only 800x600, need to set desired screen size
-            // reference to https://itnext.io/how-to-run-a-headless-chrome-browser-in-selenium-webdriver-c5521bc12bf0
-            chromeOptions.AddArguments("headless", "--window-size=1920,1200");
-
-            driver = headlessOption switch
+            // Run headless only if explicitly requested
+            if (headlessOption?.ToLower() == "true")
             {
-                "true" => new ChromeDriver(chromeOptions),
-                "false" => browser switch
-                {
-                    "chrome" => new ChromeDriver(path),
-                    "firefox" => new FirefoxDriver(path),
-                    _ => new ChromeDriver(path), //default expression 
-                },
-                //_ => new ChromeDriver(chromeOptions), //default expression headless option 
-                _ => new ChromeDriver(path),
-            };
-
-            //switch (headlessOption)
-            //{
-            //    case "true":
-            //        driver = new ChromeDriver(chromeOptions);
-            //        break;
-
-            //    case "false":
-            //        driver = browser switch
-            //        {
-            //            "chrome" => new ChromeDriver(path),
-            //            "firefox" => new FirefoxDriver(path),
-            //            _ => new ChromeDriver(path),
-            //        };
-            //        break;
-
-            //    default:
-            //        driver = new ChromeDriver(chromeOptions);
-            //        //driver = new ChromeDriver(path);
-            //        break;
-            //}
-
-            switch (deviceType)
+                chromeOptions.AddArgument("headless");
+                Console.WriteLine("Running in headless mode.");
+            }
+            else
             {
-                case "desktop":
-                    driver.Manage().Window.Maximize(); // desktop view
-                    break;
-                case "Samsung_S9+":
-                    driver.Manage().Window.Size = new Size(414, 846); // set window size to Samsung S9 size 
-                    break;
-                case "Iphone11":
-                    driver.Manage().Window.Size = new Size(414, 800); // approximated 
-                    break;
-                default:
-                    driver.Manage().Window.Maximize(); // desktop view
-                    //driver.Manage().Window.Size = new Size(1200, 1920); // approximated 
-                    //driver.Manage().Window.Size = new Size(414, 800); // approximated 
-                    break;
+                Console.WriteLine("Running in visible (non-headless) mode.");
             }
 
+            // Create WebDriver instance
+            driver = browser?.ToLower() switch
+            {
+                "firefox" => new FirefoxDriver(),
+                _ => new ChromeDriver(chromeOptions),
+            };
+
+            // === Device viewport setup ===
+            var deviceSizes = new Dictionary<string, Size>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["desktop"] = Size.Empty,              // Empty means maximize
+                ["Samsung_S9+"] = new Size(414, 846),
+                ["Iphone11"] = new Size(414, 800)
+            };
+
+            if (deviceSizes.TryGetValue(deviceType ?? "desktop", out var size) && size != Size.Empty)
+            {
+                driver.Manage().Window.Size = size;
+                Console.WriteLine($"Set window size to {deviceType} ({size.Width}x{size.Height})");
+            }
+            else
+            {
+                driver.Manage().Window.Maximize();
+                Console.WriteLine("Set window to maximized (desktop view).");
+            }
+
+            // === Navigate and validate ===
             driver.Navigate().GoToUrl(url);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(TranslinkTitle), "Translink Page Title is Incorrect");
+            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(TranslinkTitle),
+                "Translink Page Title is Incorrect");
         }
+
 
         [TearDown]
         public void TearDown()
