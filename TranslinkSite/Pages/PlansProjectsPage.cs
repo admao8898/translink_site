@@ -56,10 +56,14 @@ namespace TranslinkSite.Pages
 
         public void ClickDesiredProject(string projectName)
         {
-            //driver.FindElement(BurnMounGondolaLink).Click();
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click()", driver.FindElement(By.LinkText(projectName)));
-        }
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
+            // Wait until the desired project link is present and clickable
+            IWebElement projectLink = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                .ElementToBeClickable(By.LinkText(projectName)));
+
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", projectLink);
+        }
         public void TakeScreenShot()
         {
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)

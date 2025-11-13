@@ -40,7 +40,7 @@ namespace TranslinkSite.TestCases
                 tripPlanningPageLocators.tripPlannerPageDescriptFailMsg);
         }
 
-        [TestCase("BCIT", "UBC"), Order(3)]
+        [TestCase("SFU", "UBC"), Order(3)]
         public void TripPlannerGMapVerify(string startPoint, string endPoint)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
@@ -67,12 +67,25 @@ namespace TranslinkSite.TestCases
 
         [TestCase("FRASER/​WATERFRONT STN WEST"), Order(5)]
         [TestCase("CANADA LINE SKYTRAIN SOUTH")]          
-        public void TripPlanningTranslinkSite(string routeDescription)
+        public void TripPlanTranslinkRouteDropdownSelect(string routeDestination)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);  
             tripPlannerPage.GoToTripPlanningTranslink();    
             tripPlannerPage.ClickRoutesWidgetTab(); 
-            tripPlannerPage.SelectRouteDropdownOption(routeDescription);
+            tripPlannerPage.SelectRouteDropdownOption(routeDestination);
+            tripPlannerPage.TakeScreenShotMapView();
+        }
+
+        [TestCase("99", "COMMERCIAL-BROADWAY/​UBC (B-LINE) WEST"), Order(6)]
+        [TestCase("351", "WHITE ROCK CTR/​BRIDGEPORT STN SOUTH")]
+        [TestCase("19", "METROTOWN STN/​STANLEY PARK WEST")]
+        public void TripPlanTranslinkRouteSearch(string routeNumber, string routeDestination)
+        {
+            TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
+            tripPlannerPage.GoToTripPlanningTranslink();
+            tripPlannerPage.ClickRoutesWidgetTab();
+            tripPlannerPage.EnterRouteSearch(routeNumber);
+            tripPlannerPage.SelectRouteDropdownOption(routeDestination);
             tripPlannerPage.TakeScreenShotMapView();
         }
     }   

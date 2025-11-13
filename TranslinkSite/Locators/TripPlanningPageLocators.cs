@@ -11,7 +11,7 @@ namespace TranslinkSite.Locators
         public static readonly By RouteWidgetTab = By.XPath("//div[@class='routeswidget-tab']");
 
         public static readonly string RouteDirectionOption = "//div[contains(text(), '{0}')]";
-
+        public static readonly By RouteSearchInputField = By.XPath("//input[@placeholder='Search Routes']");
         public static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
 
         public static readonly By TripPlannerTextLink = By.XPath("//*[text()='Trip Planner']");

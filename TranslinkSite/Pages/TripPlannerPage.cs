@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -101,6 +102,14 @@ namespace TranslinkSite.Pages
             element.Click();
 
             Thread.Sleep(2000); //Allow time for route to load
+        }
+
+        public void EnterRouteSearch(string routeOption)
+        {
+            driver.FindElement(TripPlanningPageLocators.RouteSearchInputField).Click();
+            driver.FindElement(TripPlanningPageLocators.RouteSearchInputField).Clear();
+            driver.FindElement(TripPlanningPageLocators.RouteSearchInputField).SendKeys(routeOption + Keys.Enter);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
         }
 
         public void TakeScreenShotMapView()
