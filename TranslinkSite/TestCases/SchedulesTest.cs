@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace TranslinkSite.TestCases
 {
@@ -14,11 +14,14 @@ namespace TranslinkSite.TestCases
         [TestCase(), Category("Smoke")]
         public void VerifySchedulePage()
         {
-            SchedulesPage schedulesPage = new SchedulesPage(driver);
+            SchedulesPage schedulesPage = new(driver);
             schedulesPage.GoToSchedulesPage();
-            Assert.Contains(driver.FindElement(By.TagName("body")).Text.
-                Contains("Find schedules and maps for bus, SeaBus, SkyTrain, and West Coast Express."),
-                "This is not the Schedules Page" );
+
+            // Verify the page body contains the expected text
+            StringAssert.Contains(driver.FindElement(By.TagName("body")).Text,
+                                  "Find schedules and maps for bus, SeaBus, SkyTrain, and West Coast Express.",
+                                  "This is not the Schedules Page");
         }
+
     }
 }

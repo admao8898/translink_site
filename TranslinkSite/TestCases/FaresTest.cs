@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-
 
 namespace TranslinkSite.TestCases
 {
@@ -17,9 +16,12 @@ namespace TranslinkSite.TestCases
         {
             FaresPage farePage = new FaresPage(driver);
             farePage.ClickFaresLink();
-            Assert.Contains("Learn about the fare types, prices, and where to buy.",
-            driver.FindElement(By.TagName("body")).Text, "This is Not the Fares Page");
+
+            StringAssert.Contains(driver.FindElement(By.TagName("body")).Text,
+                                  "Learn about the fare types, prices, and where to buy.",
+                                  "This is Not the Fares Page");
         }
+
 
         /*[TestCase(), Order(2), Category("Smoke")]
         public void FareZoneContainersVerify()

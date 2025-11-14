@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TranslinkSite.Locators;
 using TranslinkSite.Pages;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-
 
 namespace TranslinkSite.TestCases
 {
@@ -18,32 +17,45 @@ namespace TranslinkSite.TestCases
             HomePage homePage = new HomePage(driver);
             HomePageLocators homePageLocators = new HomePageLocators();
 
-            Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(homePageLocators.TranslinkTitle),
-                homePageLocators.TranslinkTitleErrorMsg);
-            Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(homePageLocators.TranslinkDescript),
-                homePageLocators.TranslinkDescriptErrorMsg);
-     
+            // Verify page text
+            StringAssert.Contains(driver.FindElement(By.TagName("body")).Text,
+                                  homePageLocators.TranslinkTitle,
+                                  homePageLocators.TranslinkTitleErrorMsg);
+
+            StringAssert.Contains(driver.FindElement(By.TagName("body")).Text,
+                                  homePageLocators.TranslinkDescript,
+                                  homePageLocators.TranslinkDescriptErrorMsg);
+
+            // Navigation and URL checks
             homePage.ClickFaresHamMenu();
             homePage.GoBackToHomePage();
 
             homePage.GoToTransitAlerts();
-            //homePage.DriverSwitchBackToHomePage();
             homePage.GoBackToHomePage();
 
             homePage.GoToContactUs();
-            Assert.Contains("contact-information", driver.Url, "URL should contain 'contact-information'");
+            StringAssert.Contains(driver.Url,
+                                  "contact-information",
+                                  "URL should contain 'contact-information'");
             homePage.ClickTranslinkHomePageLogo();
 
             homePage.GoToFares();
-            Assert.Contains("transit-fares", driver.Url, "URL should contain 'transit-fares'");
+            StringAssert.Contains(driver.Url,
+                                  "transit-fares",
+                                  "URL should contain 'transit-fares'");
             homePage.ClickTranslinkHomePageLogo();
 
             homePage.GoToRiderInfo();
-            Assert.Contains("rider-guide", driver.Url, "URL should contain 'rider-guide'");
+            StringAssert.Contains(driver.Url,
+                                  "rider-guide",
+                                  "URL should contain 'rider-guide'");
             homePage.ClickTranslinkHomePageLogo();
 
             homePage.GoToSchedules();
-            Assert.Contains("schedules-and-maps", driver.Url, "URL should contain 'schedules-and-maps'");
+            StringAssert.Contains(driver.Url,
+                                  "schedules-and-maps",
+                                  "URL should contain 'schedules-and-maps'");
         }
+
     }
 }

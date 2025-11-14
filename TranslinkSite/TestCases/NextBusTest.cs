@@ -6,8 +6,8 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using TranslinkSite.Pages;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using TranslinkSite.Locators;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TranslinkSite.TestCases
 {
@@ -21,45 +21,62 @@ namespace TranslinkSite.TestCases
         [TestCase("351", "Bridgeport")]
         public void NextBusRouteInput(string busRoute, string routeDirection)
         {
-            NextBusPage nextBusPage = new NextBusPage(driver);
-            NextBusPageLocators nextBusPageLocators = new NextBusPageLocators();
+            NextBusPage nextBusPage = new(driver);
+            NextBusPageLocators nextBusPageLocators = new();
 
             nextBusPage.GoToNextBus();
-            Assert.Contains((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPageLocators.nextBusPageHeader)),
-                nextBusPageLocators.nextBusPageTitleFailMsg);
-            nextBusPage.EnterBusRoute(busRoute);
-            //nextBusPage.ClickRouteDirection(routeDirection);
-            //nextBusPage.ClickMapView("Route"); //observe it in Mapview (note this is toggle for text view as well)
-            //Thread.Sleep(5000);
-            //Assert.Contains(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed. It's not Route " + busRoute);
-            //nextBusPage.TakeScreenShotMapView();
 
+            // Verify page header
+            StringAssert.Contains(driver.FindElement(By.TagName("body")).Text,
+                                  nextBusPageLocators.nextBusPageHeader,
+                                  nextBusPageLocators.nextBusPageTitleFailMsg);
+
+            nextBusPage.EnterBusRoute(busRoute);
+
+            // Optional: uncomment and fix when ready
+            // nextBusPage.ClickRouteDirection(routeDirection);
+            // nextBusPage.ClickMapView("Route"); // observe in Map view
+            // Thread.Sleep(5000);
+            // StringAssert.Contains(driver.Url, busRoute, $"Incorrect Bus Route displayed. It's not Route {busRoute}");
+            // nextBusPage.TakeScreenShotMapView();
         }
 
         [TestCase(), Category("Smoke")]
         public void CurrentLocationScreenshot()
         {
-            NextBusPage nextBusPage = new NextBusPage(driver);
+            NextBusPage nextBusPage = new(driver);
+
             nextBusPage.GoToNextBus();
             nextBusPage.ClickCurrentLocation();
             Thread.Sleep(1000);
-            nextBusPage.ClickMapView("GPS"); //observe it in Mapview (note this is toggle for text view as well)
+
+            nextBusPage.ClickMapView("GPS"); // observe in Map view
             nextBusPage.ScrollPageDirection("down");
             Thread.Sleep(3000);
+
             nextBusPage.TakeScreenShotMapView();
         }
 
         [TestCase("99", "#99 - UBC B-Line"), Category("Smoke")]
         [TestCase("19", "#19 - Stanley Park")]
-        public void BusSchedulesLookUp(string route, string RouteDestination)
+        public void BusSchedulesLookUp(string route, string routeDestination)
         {
-            NextBusPage nextBusPage = new NextBusPage(driver);
+            NextBusPage nextBusPage = new(driver);
+
             nextBusPage.ClickSchedules_MapsDropdown();
-            nextBusPage.ClickBusOption(); 
-            Assert.Contains("bus-schedules", driver.Url, "Not on Bus Schedules Page");
+            nextBusPage.ClickBusOption();
+
+            // URL verification
+            StringAssert.Contains(driver.Url,
+                                  "bus-schedules",
+                                  "Not on Bus Schedules Page");
+
             nextBusPage.EnterBusRoute(route);
-            //nextBusPage.ClickRouteDirection(RouteDestination);
+
+            // Optional: uncomment and fix when ready
+            // nextBusPage.ClickRouteDirection(routeDestination);
         }
+
     }
 }
 

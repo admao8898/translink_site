@@ -47,7 +47,7 @@ namespace TranslinkSite.Pages
 
         public void GoToFeedbackSiteURL()
         {
-            FeedbackPageLocators feedBackPageLocators = new FeedbackPageLocators();
+            FeedbackPageLocators feedBackPageLocators = new();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Navigate().GoToUrl(feedBackPageLocators.feedbackURL);
         }
@@ -64,7 +64,7 @@ namespace TranslinkSite.Pages
 
         public void VerifyAllDropdownOptions(string[] dropdownList)
         {
-            DropdownListVerifier DropdownListVerify = new DropdownListVerifier();
+            DropdownListVerifier DropdownListVerify = new();
             DropdownListVerify.VerifiyDropdownValues(driver, driver.FindElement(FeedbackPageLocators.FBTypeDropdownSelector), dropdownList);
         }
 
