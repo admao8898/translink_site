@@ -25,13 +25,13 @@ namespace TranslinkSite.TestCases
             NextBusPageLocators nextBusPageLocators = new NextBusPageLocators();
 
             nextBusPage.GoToNextBus();
-            Assert.IsTrue((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPageLocators.nextBusPageHeader)),
+            Assert.Contains((driver.FindElement(By.TagName("body")).Text.Contains(nextBusPageLocators.nextBusPageHeader)),
                 nextBusPageLocators.nextBusPageTitleFailMsg);
             nextBusPage.EnterBusRoute(busRoute);
             //nextBusPage.ClickRouteDirection(routeDirection);
             //nextBusPage.ClickMapView("Route"); //observe it in Mapview (note this is toggle for text view as well)
             //Thread.Sleep(5000);
-            //Assert.IsTrue(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed. It's not Route " + busRoute);
+            //Assert.Contains(driver.Url.Contains(busRoute), "Incorrect Bus Route is Displayed. It's not Route " + busRoute);
             //nextBusPage.TakeScreenShotMapView();
 
         }
@@ -56,7 +56,7 @@ namespace TranslinkSite.TestCases
             NextBusPage nextBusPage = new NextBusPage(driver);
             nextBusPage.ClickSchedules_MapsDropdown();
             nextBusPage.ClickBusOption(); 
-            Assert.IsTrue(driver.Url.Contains("bus-schedules"), "Not on Bus Schedules Page");
+            Assert.Contains("bus-schedules", driver.Url, "Not on Bus Schedules Page");
             nextBusPage.EnterBusRoute(route);
             //nextBusPage.ClickRouteDirection(RouteDestination);
         }

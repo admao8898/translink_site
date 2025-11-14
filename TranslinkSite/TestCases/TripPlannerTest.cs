@@ -20,11 +20,11 @@ namespace TranslinkSite.TestCases
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
             TripPlanningPageLocators tripPlanningPageLocators = new TripPlanningPageLocators();
             tripPlannerPage.GoToTripPlannerLink();
-            Assert.IsTrue(driver.Url.Contains("translink.ca/trip-planner"), "This is not the Trip Planner page");
+            Assert.Contains("translink.ca/trip-planner", driver.Url, "This is not the Trip Planner page");
 
             //Verify Page Descriptions 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(tripPlanningPageLocators.tripPlannerPageDescription),
-                tripPlanningPageLocators.tripPlannerPageDescriptFailMsg);
+            Assert.Contains(tripPlanningPageLocators.tripPlannerPageDescription,
+                driver.FindElement(By.TagName("body")).Text, tripPlanningPageLocators.tripPlannerPageDescriptFailMsg);
         }
 
         [TestCase(), Order(2)]
@@ -33,11 +33,11 @@ namespace TranslinkSite.TestCases
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
             TripPlanningPageLocators tripPlanningPageLocators = new TripPlanningPageLocators(); 
             tripPlannerPage.GoToTripPlannerURL();
-            Assert.IsTrue(driver.Url.Contains("translink.ca/trip-planner"), "This is not the Trip Planner page");
+            Assert.Contains("translink.ca/trip-planner", driver.Url, "This is not the Trip Planner page");
 
             //Verify Page Descriptions 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(tripPlanningPageLocators.tripPlannerPageDescription),
-                tripPlanningPageLocators.tripPlannerPageDescriptFailMsg);
+            Assert.Contains(tripPlanningPageLocators.tripPlannerPageDescription,
+            driver.FindElement(By.TagName("body")).Text, tripPlanningPageLocators.tripPlannerPageDescriptFailMsg);
         }
 
         [TestCase("SFU", "UBC"), Order(3)]
@@ -48,9 +48,9 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.EnterFromDestinationText(startPoint);
             tripPlannerPage.EnterToDestinationText(endPoint);
             tripPlannerPage.ClickPlanMyTripButton();
-            Assert.IsTrue(driver.Url.Contains("google.com/maps"), "Not Google Maps");
-            Assert.IsTrue(driver.Url.Contains(endPoint), "Incorrect Ending Point");
-            Assert.IsTrue(driver.Url.Contains(startPoint), "Incorrect Starting Point");
+            Assert.Contains(driver.Url.Contains("google.com/maps"), "Not Google Maps");
+            Assert.Contains(driver.Url.Contains(endPoint), "Incorrect Ending Point");
+            Assert.Contains(driver.Url.Contains(startPoint), "Incorrect Starting Point");
         }
 
         [TestCase("22nd Street Station", "VCC-Clark"), Order(4), Category("Smoke")]

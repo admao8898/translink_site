@@ -22,17 +22,17 @@ namespace TranslinkSite.TestCases
             TransitAlertPageLocators transitAlertPageLocators = new();
             transitAlertPage.GoToTransitAlertPage();
             Thread.Sleep(2000);
-            Assert.IsTrue(driver.FindElement(By.TagName("h1")).Text.Contains(transitAlertPageLocators.TransitAlertsPageHeader), 
+            Assert.Contains(driver.FindElement(By.TagName("h1")).Text.Contains(transitAlertPageLocators.TransitAlertsPageHeader), 
             transitAlertPageLocators.signTranAlertHeaderFailMsg);
             transitAlertPage.GoToTransitAlertSignUpPage();
             Thread.Sleep(2000);
             transitAlertPage.EnterFirstName(NameValue, Randomize);
             
             //Verify Field Validation and correction message  
-            //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedNameFailMsg), transitAlertPageLocators.nameFailMsgMissing);
-            //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedEmailFailMsg), transitAlertPageLocators.emailFailMsgMissing);
-            //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedPasswordFailMsg), transitAlertPageLocators.passwordFailMsgMissing);
-            //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedTermsFailMsg), transitAlertPageLocators.termsFailMsgMissing);
+            //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedNameFailMsg), transitAlertPageLocators.nameFailMsgMissing);
+            //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedEmailFailMsg), transitAlertPageLocators.emailFailMsgMissing);
+            //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedPasswordFailMsg), transitAlertPageLocators.passwordFailMsgMissing);
+            //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedTermsFailMsg), transitAlertPageLocators.termsFailMsgMissing);
         }
 
         //[TestCase(null, "yes"), Order(2)]
@@ -61,9 +61,9 @@ namespace TranslinkSite.TestCases
 
         //    //Verify Field Validation and correction message
         //    Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedNameFailMsg), transitAlertPageLocators.nameFailMsgMissing);
-        //    //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedEmailFailMsg), transitAlertPageLocators.emailFailMsgMissing);
-        //    //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedPasswordFailMsg), transitAlertPage.passwordFailMsgMissing);
-        //    //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedTermsFailMsg), transitAlertPage.termsFailMsgMissing);
+        //    //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedEmailFailMsg), transitAlertPageLocators.emailFailMsgMissing);
+        //    //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedPasswordFailMsg), transitAlertPage.passwordFailMsgMissing);
+        //    //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedTermsFailMsg), transitAlertPage.termsFailMsgMissing);
         //}
 
         //[TestCase("Jake", "no"), Order(3)]
@@ -77,9 +77,9 @@ namespace TranslinkSite.TestCases
 
         //    //Verify Field Validation and correction message 
         //    Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedNameFailMsg), transitAlertPageLocators.nameFailMsgMissing);
-        //    //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedEmailFailMsg), transitAlertPageLocators.emailFailMsgMissing);
-        //    //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedPasswordFailMsg), transitAlertPage.passwordFailMsgMissing);
-        //    //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedTermsFailMsg), transitAlertPage.termsFailMsgMissing);
+        //    //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedEmailFailMsg), transitAlertPageLocators.emailFailMsgMissing);
+        //    //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedPasswordFailMsg), transitAlertPage.passwordFailMsgMissing);
+        //    //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedTermsFailMsg), transitAlertPage.termsFailMsgMissing);
         //}
 
         //[TestCase("special_character@$%!.com"), Order(4)]
@@ -94,10 +94,10 @@ namespace TranslinkSite.TestCases
         //    transitAlertPage.SubmitForm();
 
         //    //Verify Field Validation and correction message  
-        //    //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedNameFailMsg), transitAlertPage.nameFailMsgMissing);
-        //    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedEmailFailMsg), transitAlertPageLocators.emailFailMsgMissing);
-        //    //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedPasswordFailMsg), transitAlertPage.passwordFailMsgMissing);
-        //    //Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedTermsFailMsg), transitAlertPage.termsFailMsgMissing);
+        //    //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedNameFailMsg), transitAlertPage.nameFailMsgMissing);
+        //    Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedEmailFailMsg), transitAlertPageLocators.emailFailMsgMissing);
+        //    //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedPasswordFailMsg), transitAlertPage.passwordFailMsgMissing);
+        //    //Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPage.expectedTermsFailMsg), transitAlertPage.termsFailMsgMissing);
         //}
 
         //[TestCase("sample88_123@nonameemail.com", "Alex", "no"), Order(5), Category("Smoke")]
@@ -113,8 +113,8 @@ namespace TranslinkSite.TestCases
         //    //Verify Field Validation and correction message  
         //    Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedNameFailMsg), transitAlertPageLocators.nameFailMsgMissing);
         //    Assert.IsFalse(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedEmailFailMsg), transitAlertPageLocators.emailFailMsgMissing);
-        //    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedPasswordFailMsg), transitAlertPageLocators.passwordFailMsgMissing);
-        //    Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedTermsFailMsg), transitAlertPageLocators.termsFailMsgMissing);
+        //    Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedPasswordFailMsg), transitAlertPageLocators.passwordFailMsgMissing);
+        //    Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(transitAlertPageLocators.expectedTermsFailMsg), transitAlertPageLocators.termsFailMsgMissing);
         //}
     }
 }

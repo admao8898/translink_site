@@ -16,7 +16,7 @@ namespace TranslinkSite.TestCases
         {
             SchedulesPage schedulesPage = new SchedulesPage(driver);
             schedulesPage.GoToSchedulesPage();
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.
+            Assert.Contains(driver.FindElement(By.TagName("body")).Text.
                 Contains("Find schedules and maps for bus, SeaBus, SkyTrain, and West Coast Express."),
                 "This is not the Schedules Page" );
         }

@@ -18,9 +18,9 @@ namespace TranslinkSite.TestCases
             HomePage homePage = new HomePage(driver);
             HomePageLocators homePageLocators = new HomePageLocators();
 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(homePageLocators.TranslinkTitle),
+            Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(homePageLocators.TranslinkTitle),
                 homePageLocators.TranslinkTitleErrorMsg);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(homePageLocators.TranslinkDescript),
+            Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains(homePageLocators.TranslinkDescript),
                 homePageLocators.TranslinkDescriptErrorMsg);
      
             homePage.ClickFaresHamMenu();
@@ -31,19 +31,19 @@ namespace TranslinkSite.TestCases
             homePage.GoBackToHomePage();
 
             homePage.GoToContactUs();
-            Assert.IsTrue(driver.Url.Contains("contact-information"));
+            Assert.Contains("contact-information", driver.Url, "URL should contain 'contact-information'");
             homePage.ClickTranslinkHomePageLogo();
 
             homePage.GoToFares();
-            Assert.IsTrue(driver.Url.Contains("transit-fares"));
+            Assert.Contains("transit-fares", driver.Url, "URL should contain 'transit-fares'");
             homePage.ClickTranslinkHomePageLogo();
 
             homePage.GoToRiderInfo();
-            Assert.IsTrue(driver.Url.Contains("rider-guide"));
+            Assert.Contains("rider-guide", driver.Url, "URL should contain 'rider-guide'");
             homePage.ClickTranslinkHomePageLogo();
 
             homePage.GoToSchedules();
-            Assert.IsTrue(driver.Url.Contains("schedules-and-maps"));
+            Assert.Contains("schedules-and-maps", driver.Url, "URL should contain 'schedules-and-maps'");
         }
     }
 }

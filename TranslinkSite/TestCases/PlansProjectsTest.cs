@@ -1,7 +1,9 @@
 ﻿using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.InkML;
 using DocumentFormat.OpenXml.Vml;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools;
 using System;
@@ -22,8 +24,7 @@ namespace TranslinkSite.TestCases
             PlansProjectsPage plansProjectsPage = new PlansProjectsPage(driver);
             plansProjectsPage.ClickPlansProjectsLink();
             Thread.Sleep(2000);
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.
-                Contains("Plans and Projects"));
+            StringAssert.Contains("Plans and Projects", driver.FindElement(By.TagName("body")).Text);
         }
 
         [TestCase("Capstan Station"), Category("Smoke")]
@@ -37,7 +38,7 @@ namespace TranslinkSite.TestCases
             plansProjectsPage.EnterProjectName(project);
             plansProjectsPage.ClickSearchButton();
             plansProjectsPage.ClickDesiredProject(project); 
-            Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains(project));
+            StringAssert.Contains(project, driver.FindElement(By.TagName("body")).Text);
             Thread.Sleep(3000);
             plansProjectsPage.TakeScreenShot();
         }

@@ -15,13 +15,13 @@ namespace TranslinkSite.TestCases
     //    {
     //        LiveChatPage liveChatPage = new LiveChatPage(driver);
     //        liveChatPage.GoToLiveChatURL();
-    //        Assert.IsTrue(driver.Url.Contains("livechat.translink.ca/ccmwa/chat"), "This is not the Live Chat page");
+    //        Assert.Contains(driver.Url.Contains("livechat.translink.ca/ccmwa/chat"), "This is not the Live Chat page");
 
     //        //Verify Page Descriptions 
-    //        Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("To start chatting with a customer service " +
+    //        Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains("To start chatting with a customer service " +
     //            "representative, please enter your name and email address below."),
     //            "Page Description is incorrect");
-    //        Assert.IsTrue(driver.FindElement(By.TagName("body")).Text.Contains("TransLink Live Chat"),
+    //        Assert.Contains(driver.FindElement(By.TagName("body")).Text.Contains("TransLink Live Chat"),
     //            "Live Chat Page Title is incorrect"); 
     //    }
 
