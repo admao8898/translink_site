@@ -1,0 +1,50 @@
+name: .NET CI
+
+on:
+  push:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest   # Because VSTest requires Windows
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+
+      # === RESTORE ===
+      - name: Restore
+        run: dotnet restore **/*.csproj
+
+      # === BUILD ===
+      - name: Build
+        run: dotnet build **/*.csproj --configuration Release --no-restore
+
+      # === PUBLISH (same as Azure "Publish") ===
+      - name: Publish
+        run: dotnet publish **/*.csproj -c Release -o ./publish
+
+      # === RUN VSTEST (same as Azure "VsTest - Run Tests") ===
+      - name: Run VSTest
+        uses: microsoft/vstest-action@v1.0.0
+        with:
+          searchFolder: .
+          testAssembly: '**\*test*.dll'
+          platform: x64
+          runInParallel: true
+          resultLogsArtifactName: vs-results
+          ifNoFilesFound: warn
+
+      # === UPLOAD ARTIFACT (same as Azure "Publish Artifact") ===
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-app
+          path: ./publish
+          retention-days: 7
