@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using TranslinkSite.HelperFunctions;
 using TranslinkSite.Locators;
 
@@ -56,13 +57,45 @@ namespace TranslinkSite.Pages
 
         public void ClickDesiredProject(string projectName)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            var locator = By.LinkText(projectName);
 
-            // Wait until the desired project link is present and clickable
-            IWebElement projectLink = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
-                .ElementToBeClickable(By.LinkText(projectName)));
+            for (int i = 0; i < 3; i++)
+            {
+                try
+                {
+                    // Wait until present & clickable (but do NOT store the WebElement)
+                    wait.Until(SeleniumExtras.WaitHelpers
+                        .ExpectedConditions.ElementIsVisible(locator));
 
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", projectLink);
+                    // Re-locate a fresh element every retry
+                    var element = driver.FindElement(locator);
+
+                    // Scroll into view to avoid click issues when below the fold
+                    ((IJavaScriptExecutor)driver).ExecuteScript(
+                        "arguments[0].scrollIntoView({block: 'center'});",
+                        element);
+
+                    // Wait briefly for scroll animation/layout
+                    Thread.Sleep(200);
+
+                    // JS click avoids overlay & stale timing issues
+                    ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
+
+                    return; // SUCCESS
+                }
+                catch (StaleElementReferenceException)
+                {
+                    // DOM refreshed — retry
+                    Thread.Sleep(150);
+                }
+                catch (ElementClickInterceptedException)
+                {
+                    // Scroll + layout shift — retry
+                    Thread.Sleep(150);
+                }
+            }
+
+            throw new Exception($"Failed to click project '{projectName}'. It may not be visible or the DOM keeps refreshing.");
         }
         public void TakeScreenShot()
         {

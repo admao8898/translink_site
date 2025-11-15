@@ -12,7 +12,7 @@ namespace TranslinkSite.TestCases
         [TestCase(), Order(1)]
         public void TripPlannerLink()
         {
-            TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
+            TripPlannerPage tripPlannerPage = new(driver);
             TripPlanningPageLocators tripPlanningPageLocators = new TripPlanningPageLocators();
 
             tripPlannerPage.GoToTripPlannerLink();
@@ -31,7 +31,7 @@ namespace TranslinkSite.TestCases
         [TestCase(), Order(2)]
         public void TripPlannerURL()
         {
-            TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
+            TripPlannerPage tripPlannerPage = new(driver);
             TripPlanningPageLocators tripPlanningPageLocators = new TripPlanningPageLocators();
 
             tripPlannerPage.GoToTripPlannerURL();
@@ -50,7 +50,7 @@ namespace TranslinkSite.TestCases
         [TestCase("SFU", "UBC"), Order(3)]
         public void TripPlannerGMapVerify(string startPoint, string endPoint)
         {
-            TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
+            TripPlannerPage tripPlannerPage = new(driver);
 
             tripPlannerPage.GoToTripPlannerURL();
             tripPlannerPage.EnterFromDestinationText(startPoint);
@@ -73,10 +73,34 @@ namespace TranslinkSite.TestCases
         [TestCase("King Edward Station", "Surrey Central Station")]
         public void TripPlannerSampleTrip(string startPoint, string endPoint)
         {
-            TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
+            TripPlannerPage tripPlannerPage = new(driver);
 
             tripPlannerPage.GoToTripPlannerURL();
             tripPlannerPage.EnterFromDestinationText(startPoint);
+
+        }
+
+        [TestCase("FRASER/​WATERFRONT STN WEST"), Order(5)]
+        [TestCase("MILLENNIUM SKYTRAIN EAST")]
+        public void TripPlanTranslinkRouteDropdownSelect(string routeDestination)
+        {
+            TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
+            tripPlannerPage.GoToTripPlanningTranslink();
+            tripPlannerPage.ClickRoutesWidgetTab();
+            tripPlannerPage.SelectRouteDropdownOption(routeDestination);
+            tripPlannerPage.TakeScreenShotMapView();
+        }
+
+        [TestCase("99", "COMMERCIAL-BROADWAY/​UBC (B-LINE) WEST"), Order(6)]
+        [TestCase("351", "WHITE ROCK CTR/​BRIDGEPORT STN SOUTH")]
+        [TestCase("19", "METROTOWN STN/​STANLEY PARK WEST")]
+        public void TripPlanTranslinkRouteSearch(string routeNumber, string routeDestination)
+        {
+            TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
+            tripPlannerPage.GoToTripPlanningTranslink();
+            tripPlannerPage.ClickRoutesWidgetTab();
+            tripPlannerPage.EnterRouteSearch(routeNumber);
+            tripPlannerPage.SelectRouteDropdownOption(routeDestination);
 
         }
     }

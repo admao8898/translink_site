@@ -91,17 +91,27 @@ namespace TranslinkSite.Pages
         public void SelectRouteDropdownOption(string routeOption)
         {
             string finalXpath = string.Format(TripPlanningPageLocators.RouteDirectionOption, routeOption);
-            Thread.Sleep(2000); //Allow time for dropdown to load  
 
-            var element = driver.FindElement(By.XPath(finalXpath));
+            var locator = By.XPath(finalXpath);
 
-            // Use Actions to move to the element before clicking
-            Actions actions = new Actions(driver);
-            actions.MoveToElement(element).Perform();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-            element.Click();
+            // Wait for the dropdown option to exist
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator));
 
-            Thread.Sleep(2000); //Allow time for route to load
+            // Always get a *fresh* reference
+            var element = driver.FindElement(locator);
+
+            // Scroll inside container (works even inside scrollable widgets, not just full page)
+            ((IJavaScriptExecutor)driver).ExecuteScript(
+                "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});",
+                element
+            );
+
+            Thread.Sleep(150); // allow animation/layout to settle
+
+            // Click using JS to avoid intercept/overlay issues
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
         }
 
         public void EnterRouteSearch(string routeOption)
