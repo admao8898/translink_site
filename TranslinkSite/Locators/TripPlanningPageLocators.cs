@@ -9,8 +9,7 @@ namespace TranslinkSite.Locators
 
         public static readonly By CloseWelcomeModalButton = By.XPath("//button[contains(text(), 'Close')]");
         public static readonly By RouteWidgetTab = By.XPath("//div[@class='routeswidget-tab']");
-
-        public static readonly string RouteDirectionOption = "//div[contains(text(), '{0}')]";
+        public static By RouteOption(string text) => By.XPath($".//div[contains(text(), '{text}')]");
         public static readonly By RouteSearchInputField = By.XPath("//input[@placeholder='Search Routes']");
         public static readonly By HamburgerMenuButton = By.ClassName("HamburgerMenuButton");
 

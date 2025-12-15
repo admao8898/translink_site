@@ -101,7 +101,7 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.ClickRoutesWidgetTab();
             tripPlannerPage.EnterRouteSearch(routeNumber);
             tripPlannerPage.SelectRouteDropdownOption(routeDestination);
-
+            tripPlannerPage.TakeScreenShotMapView();
         }
     }
 }

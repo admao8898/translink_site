@@ -90,28 +90,17 @@ namespace TranslinkSite.Pages
 
         public void SelectRouteDropdownOption(string routeOption)
         {
-            string finalXpath = string.Format(TripPlanningPageLocators.RouteDirectionOption, routeOption);
-
-            var locator = By.XPath(finalXpath);
-
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-            // Wait for the dropdown option to exist
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator));
+            IWebElement element = wait.Until(d =>
+                d.FindElement(TripPlanningPageLocators.RouteOption(routeOption)));
 
-            // Always get a *fresh* reference
-            var element = driver.FindElement(locator);
-
-            // Scroll inside container (works even inside scrollable widgets, not just full page)
             ((IJavaScriptExecutor)driver).ExecuteScript(
-                "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});",
-                element
-            );
+                "arguments[0].scrollIntoView({block:'center'});", element);
 
-            Thread.Sleep(150); // allow animation/layout to settle
-
-            // Click using JS to avoid intercept/overlay issues
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
+            Thread.Sleep(3000);
+
         }
 
         public void EnterRouteSearch(string routeOption)
@@ -119,7 +108,7 @@ namespace TranslinkSite.Pages
             driver.FindElement(TripPlanningPageLocators.RouteSearchInputField).Click();
             driver.FindElement(TripPlanningPageLocators.RouteSearchInputField).Clear();
             driver.FindElement(TripPlanningPageLocators.RouteSearchInputField).SendKeys(routeOption + Keys.Enter);
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            Thread.Sleep(3000);
         }
 
         public void TakeScreenShotMapView()
