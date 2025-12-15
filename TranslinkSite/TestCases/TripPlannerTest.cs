@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using System.Threading;
 using TranslinkSite.Locators;
 using TranslinkSite.Pages;
 
@@ -56,6 +57,8 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.EnterFromDestinationText(startPoint);
             tripPlannerPage.EnterToDestinationText(endPoint);
             tripPlannerPage.ClickPlanMyTripButton();
+
+            Thread.Sleep(2000);
 
             // URL check: must contain Google Maps
             StringAssert.Contains(driver.Url, "google.com/maps", "Not Google Maps");
