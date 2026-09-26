@@ -17,8 +17,7 @@ namespace TranslinkSite.TestCases
         private readonly string url = "https://translink.ca/";
 
         public IWebDriver driver;
-        private readonly string TranslinkTitle = "Metro Vancouver's transportation network, serving residents and visitors " +
-            "with public transit, major roads, bridges and Trip Planning.";
+        private readonly string TranslinkTitle = "Welcome to TransLink";
 
         [SetUp]
         public void BeforeTest()
@@ -75,7 +74,7 @@ namespace TranslinkSite.TestCases
             // === Navigate and validate ===
             driver.Navigate().GoToUrl(url);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            Assert.Contains(TranslinkTitle, driver.FindElement(By.TagName("body")).Text, "Translink Page Title is Incorrect");
+            Assert.Contains(TranslinkTitle, driver.FindElement(By.XPath("//h1")).Text, "TransLink H1 is incorrect");
         }
 
         [TearDown]
