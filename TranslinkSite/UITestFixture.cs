@@ -2,14 +2,12 @@
 using OpenQA.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox; 
+using OpenQA.Selenium.Firefox;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using TranslinkSite.HelperFunctions;
 using NUnit.Framework.Interfaces;
 using System.Drawing;
 using System.Collections.Generic;
-using WebDriverManager;
-using WebDriverManager.DriverConfigs.Impl;
 
 // This class is configure URL for all test cases using inheritance 
 namespace TranslinkSite.TestCases
@@ -21,7 +19,7 @@ namespace TranslinkSite.TestCases
         public IWebDriver driver;
         private readonly string TranslinkTitle = "Metro Vancouver's transportation network, serving residents and visitors " +
             "with public transit, major roads, bridges and Trip Planning.";
-                
+
         [SetUp]
         public void BeforeTest()
         {
@@ -30,10 +28,9 @@ namespace TranslinkSite.TestCases
             string deviceType = Environment.GetEnvironmentVariable("device", EnvironmentVariableTarget.Process);
             string headlessOption = Environment.GetEnvironmentVariable("headlessValue", EnvironmentVariableTarget.Process);
 
-            // Automatically install the correct ChromeDriver for the Chrome version on the agent
-            new DriverManager().SetUpDriver(new ChromeConfig());
-
             // === Browser setup ===
+            // Selenium 4.38 uses Selenium Manager to automatically locate/manage
+            // the appropriate browser driver when no driver is explicitly supplied.
 
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArguments("--window-size=1920,1200"); // default window size
@@ -81,22 +78,41 @@ namespace TranslinkSite.TestCases
             Assert.Contains(TranslinkTitle, driver.FindElement(By.TagName("body")).Text, "Translink Page Title is Incorrect");
         }
 
-
         [TearDown]
         public void TearDown()
         {
-            //Takes screenshot of all tests that fail
-            //Reference to https://stackoverflow.com/questions/44287058/error-on-taking-screenshot-in-selenium-c-sharp
-            //Use try catch in future https://stackoverflow.com/questions/14973642/how-using-try-catch-for-exception-handling-is-best-practice
-            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            // Takes screenshot of all tests that fail.
+            // If SetUp fails before a WebDriver session is created,
+            // skip the screenshot so TearDown does not create a second failure.
+            if (driver != null &&
+                TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
-                TakeScreenShot takeScreenShot = new TakeScreenShot();
-                takeScreenShot.GetFailedTestScreenshot(driver);
+                try
+                {
+                    TakeScreenShot takeScreenShot = new TakeScreenShot();
+                    takeScreenShot.GetFailedTestScreenshot(driver);
+                }
+                catch (WebDriverException ex)
+                {
+                    Console.WriteLine($"Could not take failure screenshot: {ex.Message}");
+                }
             }
 
-            driver.Close();
-            driver.Quit();
+            if (driver != null)
+            {
+                try
+                {
+                    driver.Quit();
+                }
+                catch (WebDriverException ex)
+                {
+                    Console.WriteLine($"Could not quit WebDriver cleanly: {ex.Message}");
+                }
+                finally
+                {
+                    driver.Dispose();
+                }
+            }
         }
     }
 }
-    
