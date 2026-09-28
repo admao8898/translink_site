@@ -83,7 +83,7 @@ namespace TranslinkSite.TestCases
 
         }
 
-        [TestCase("FRASER/​WATERFRONT STN WEST"), Order(5)]
+        [TestCase("FRASER WEST"), Order(5)]
         [TestCase("MILLENNIUM SKYTRAIN EAST")]
         public void TripPlanTranslinkRouteDropdownSelect(string routeDestination)
         {
@@ -94,9 +94,9 @@ namespace TranslinkSite.TestCases
             tripPlannerPage.TakeScreenShotMapView();
         }
 
-        [TestCase("99", "COMMERCIAL-BROADWAY/​UBC (B-LINE) WEST"), Order(6)]
+        [TestCase("99", "BROADWAY B-LINE WEST"), Order(6)]
         [TestCase("351", "WHITE ROCK CTR/​BRIDGEPORT STN SOUTH")]
-        [TestCase("19", "METROTOWN STN/​STANLEY PARK WEST")]
+        [TestCase("19", "KINGSWAY WEST")]
         public void TripPlanTranslinkRouteSearch(string routeNumber, string routeDestination)
         {
             TripPlannerPage tripPlannerPage = new TripPlannerPage(driver);
