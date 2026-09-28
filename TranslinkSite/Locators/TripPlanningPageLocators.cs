@@ -25,7 +25,7 @@ namespace TranslinkSite.Locators
 
         public static readonly By FromTextBox = By.Id("prev_point_desktop");
         public static readonly By ToTextBox = By.Id("next_point_desktop");
-        public static readonly By PlanMyTripButton = By.XPath("//*[text()='Plan my trip']");
+        public static readonly By PlanMyTripButton = By.XPath("//button[contains(text(),'Plan my trip')]");
 
     }
 }

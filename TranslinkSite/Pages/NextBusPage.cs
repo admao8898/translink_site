@@ -27,7 +27,7 @@ namespace TranslinkSite.Pages
 
         public void GoToNextBus()
         {
-            NextBusPageLocators nextBusPageLocators = new NextBusPageLocators();
+            NextBusPageLocators nextBusPageLocators = new();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Navigate().GoToUrl(nextBusPageLocators.nextBusURL);
         }
@@ -65,6 +65,7 @@ namespace TranslinkSite.Pages
         public void ClickCurrentLocation()
         {
             driver.FindElement(NextBusPageLocators.UseCurrentLocationButton).Click(); 
+
         }
         public void ClickFindBusRoute()
         {
@@ -76,7 +77,7 @@ namespace TranslinkSite.Pages
         {
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
-                TakeScreenShot takeScreenShot = new TakeScreenShot();
+                TakeScreenShot takeScreenShot = new();
                 takeScreenShot.GetRegularScreenshot(driver);
             }
 
@@ -93,7 +94,7 @@ namespace TranslinkSite.Pages
                     driver.FindElement(NextBusPageLocators.NearbyMapView).Click();
                     break;
                 case "Route":
-                    driver.FindElement(NextBusPageLocators.MapView).Click();
+                    driver.FindElement(NextBusPageLocators.RouteMapView).Click();
                     break;
                 default:
                     break; 
@@ -103,6 +104,7 @@ namespace TranslinkSite.Pages
 
         public void ClickRouteDirection(string routeDirection)
         {
+            Thread.Sleep(1000);
             string finalXpath = string.Format(NextBusPageLocators.RouteDirectionOption, routeDirection);
             driver.FindElement(By.XPath(finalXpath)).Click();
         }

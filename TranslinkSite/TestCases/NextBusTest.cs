@@ -33,12 +33,12 @@ namespace TranslinkSite.TestCases
 
             nextBusPage.EnterBusRoute(busRoute);
 
-            // Optional: uncomment and fix when ready
-            // nextBusPage.ClickRouteDirection(routeDirection);
-            // nextBusPage.ClickMapView("Route"); // observe in Map view
-            // Thread.Sleep(5000);
-            // StringAssert.Contains(driver.Url, busRoute, $"Incorrect Bus Route displayed. It's not Route {busRoute}");
-            // nextBusPage.TakeScreenShotMapView();
+        //Optional: uncomment and fix when ready
+            nextBusPage.ClickRouteDirection(routeDirection);
+            nextBusPage.ClickMapView("Route"); // observe in Map view
+            Thread.Sleep(5000);
+            StringAssert.Contains(driver.Url, busRoute, $"Incorrect Bus Route displayed. It's not Route {busRoute}");
+            nextBusPage.TakeScreenShotMapView();
         }
 
         [TestCase(), Category("Smoke")]

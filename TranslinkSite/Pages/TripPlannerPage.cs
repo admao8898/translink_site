@@ -79,6 +79,8 @@ namespace TranslinkSite.Pages
         {
             TripPlanningPageLocators tripPlanningPageLocators = new TripPlanningPageLocators();
             driver.Navigate().GoToUrl(tripPlanningPageLocators.TLtripPlanningURL);
+            GeolocationPermissionGranter geolocationPermissionGranter = new GeolocationPermissionGranter();
+            geolocationPermissionGranter.GrantGeolocationPermission(driver, tripPlanningPageLocators.TLtripPlanningURL);
             driver.FindElement(TripPlanningPageLocators.CloseWelcomeModalButton).Click();
         }
 

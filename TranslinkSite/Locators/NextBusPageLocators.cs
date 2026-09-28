@@ -14,7 +14,7 @@ namespace TranslinkSite.Locators
         public static readonly By Schedules_MapsDropdown = By.XPath("//button[contains(@aria-label, 'Subpages for Schedules and Maps page')]");
         public static readonly By BusOption = By.LinkText("Bus");
         public static readonly By FindScheduleSearchBox = By.Id("find-schedule-searchbox");
-        public static readonly By FindScheduleButton = By.XPath("//span[contains(text(), 'Find Schedule')]");
+        public static readonly By FindScheduleButton = By.XPath("//button[contains(text(), 'Find Schedule')]");
 
         public static readonly By NextBusField = By.Name("searchQuery");
         public static readonly By FindNB_Button = By.XPath("//button[@class='flexContainer largeViewOnlyContent']" +
@@ -22,9 +22,9 @@ namespace TranslinkSite.Locators
         public static readonly By UseCurrentLocationButton = By.XPath("//transit-near-me-link//a[@class='flexContainer']");
         public static readonly By SubmitNextBusButton = By.Id("MainContent_linkSearch");
         public static readonly By SettingsTab = By.LinkText("Settings");
-        public static readonly By MapView = By.XPath("//a[text()='View route on map' and @class ='flexContainer']"); //Toggle for text view as well
+        public static readonly By RouteMapView = By.XPath("//article[@data-infocard-name ='Information']//a[normalize-space()='View route on map']");
         
-        public static readonly By NearbyMapView = By.XPath("//a[text()='Go to map view' and @class ='flexContainer']");
+        public static readonly By NearbyMapView = By.XPath("//a[normalize-space()='Go to map view']");
 
         public static readonly string RouteDirectionOption = "//a[strong[contains(text(), '{0}')]]";
 
